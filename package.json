@@ -1,0 +1,75 @@
+{
+  "name": "azure-maps-react",
+  "version": "0.1.0",
+  "description": "My example library description",
+  "keywords": [],
+  "main": "dist/react-azure-maps.umd.js",
+  "module": "dist/react-azure-maps.es5.js",
+  "typings": "dist/types/react-azure-maps.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Maciej Sasinowski",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/acaisoft/my-example-lib"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts*' 'test/**/*.ts*'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "start": "rollup -c rollup.config.ts -w",
+    "test": "jest --coverage --env=jsdom",
+    "test:watch": "jest --coverage --watch --env=jsdom",
+    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "semantic-release": "semantic-release",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@testing-library/react": "^9.3.0",
+    "@types/jest": "^23.3.2",
+    "@types/node": "^10.11.0",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.2",
+    "colors": "^1.3.2",
+    "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
+    "jest": "^23.6.0",
+    "jest-config": "^23.6.0",
+    "jest-dom": "^4.0.0",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^1.14.3",
+    "prompt": "^1.0.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.67.0",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.18.0",
+    "semantic-release": "^15.9.16",
+    "ts-jest": "^23.10.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-config-standard": "^8.0.1",
+    "typedoc": "^0.12.0",
+    "typescript": "^3.0.3",
+    "uuid": "^3.3.3"
+  },
+  "peerDependencies": {},
+  "dependencies": {
+    "@types/uuid": "^3.4.5",
+    "azure-maps-control": "^2.0.14"
+  }
+}
