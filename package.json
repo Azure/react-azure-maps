@@ -70,6 +70,9 @@
   "peerDependencies": {},
   "dependencies": {
     "@types/uuid": "^3.4.5",
-    "azure-maps-control": "^2.0.14"
+    "azure-maps-control": "^2.0.14",
+    "guid-typescript": "^1.0.9",
+    "mapbox-gl": "^1.4.1",
+    "rollup-plugin-postcss": "^2.0.3"
   }
 }
