@@ -39,6 +39,8 @@
     }
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-angular": "^8.2.0",
     "@testing-library/react": "^9.3.0",
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.0",
