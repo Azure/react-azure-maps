@@ -8,12 +8,10 @@ import postcss from 'rollup-plugin-postcss'
 
 const pkg = require('./package.json')
 
-const libraryName = 'azure-maps-react'
-
 export default {
-  input: `src/${libraryName}.ts`,
+  input: `src/${pkg.name}.ts`,
   output: [
-    { file: pkg.main, name: camelCase(libraryName), format: 'umd', sourcemap: true },
+    { file: pkg.main, name: camelCase(pkg.name), format: 'umd', sourcemap: true },
     { file: pkg.module, format: 'es', sourcemap: true }
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
