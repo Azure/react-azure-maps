@@ -1,24 +1,23 @@
 import { ComponentClass, StatelessComponent } from 'react'
-import {
+import atlas, {
   Map,
-  data,
   ServiceOptions,
   StyleOptions,
   UserInteractionOptions,
-  CameraBoundsOptions,
   CameraOptions,
-  AuthenticationOptions
+  CameraBoundsOptions
 } from 'azure-maps-control'
+
+export type IAzureMapOptions = ServiceOptions &
+  StyleOptions &
+  UserInteractionOptions &
+  (CameraOptions | CameraBoundsOptions)
 
 export type IAzureMap = {
   providedMapId?: string
   containerClassName?: string
-  onMapMount: (mapRef: Map) => void
-  LoaderComponent: ComponentClass<any> | StatelessComponent<any>
-  mapCenter: data.Position
-  options: AuthenticationOptions &
-    ServiceOptions &
-    StyleOptions &
-    UserInteractionOptions &
-    (CameraOptions | CameraBoundsOptions)
+  onMapMount?: (mapRef: Map) => void
+  LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
+  mapCenter?: Position
+  options?: IAzureMapOptions
 }

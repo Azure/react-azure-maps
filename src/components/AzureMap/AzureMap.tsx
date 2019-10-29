@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import atlas from 'azure-maps-control'
 import { IAzureMap } from '../../types'
-import * as uuid from 'uuid'
+import { Guid } from 'guid-typescript'
+
+// Styles section
+import 'mapbox-gl/src/css/mapbox-gl.css'
 
 const AzureMap = ({
-  LoaderComponent,
+  LoaderComponent = () => <div>Loading ...</div>,
   providedMapId,
   containerClassName,
   mapCenter,
-  options,
-  onMapMount
+  options = {},
+  onMapMount = () => {}
 }: IAzureMap) => {
   const [isMapReady, setMapReady] = useState(false)
-  const [mapId, setMapId] = useState(providedMapId || '1')
+  const [mapId] = useState(providedMapId || Guid.create().toString())
   const [mapRef, setMapRef] = useState<atlas.Map>()
 
   useEffect(() => {
@@ -31,14 +34,14 @@ const AzureMap = ({
   }, [mapRef])
 
   useEffect(() => {
-    const map = new atlas.Map(mapId, options)
-    setMapRef(map)
+    setMapRef(new atlas.Map(mapId, options))
   }, [])
 
   return (
-    <div className={containerClassName} id={mapId}>
-      {LoaderComponent ? <LoaderComponent /> : <div>Loading</div>}
-    </div>
+    <Fragment>
+      {!isMapReady && LoaderComponent && <LoaderComponent />}
+      <div className={containerClassName} id={mapId} />
+    </Fragment>
   )
 }
 
