@@ -15,7 +15,7 @@ export type IAzureMapOptions = ServiceOptions &
   (CameraOptions | CameraBoundsOptions)
 
 export type IAzureMap = {
-  childrens: ReactNode
+  childrens?: ReactNode
   providedMapId?: string
   containerClassName?: string
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
