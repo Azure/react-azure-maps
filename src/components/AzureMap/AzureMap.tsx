@@ -1,6 +1,7 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, useContext } from 'react'
 import atlas from 'azure-maps-control'
-import { IAzureMap } from '../../types'
+import { IAzureMap, AzurewMapsContextProps } from '../../types'
+import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 
 // Styles section
@@ -11,13 +12,11 @@ const AzureMap = ({
   providedMapId,
   containerClassName,
   mapCenter,
-  options = {},
-  onMapMount = () => {}
+  options = {}
 }: IAzureMap) => {
+  const { setMapRef, removeMapRef, mapRef } = useContext<AzurewMapsContextProps>(AzureMapsContext)
   const [isMapReady, setMapReady] = useState(false)
   const [mapId] = useState(providedMapId || Guid.create().toString())
-  const [mapRef, setMapRef] = useState<atlas.Map>()
-
   useEffect(() => {
     if (mapRef) {
       mapRef.setCamera(mapCenter)
@@ -28,7 +27,6 @@ const AzureMap = ({
     if (mapRef) {
       mapRef.events.add('ready', () => {
         setMapReady(true)
-        onMapMount(mapRef)
       })
     }
   }, [mapRef])

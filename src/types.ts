@@ -1,4 +1,5 @@
 import { ComponentClass, StatelessComponent } from 'react'
+import { ReactNode } from 'react'
 import atlas, {
   Map,
   ServiceOptions,
@@ -14,10 +15,21 @@ export type IAzureMapOptions = ServiceOptions &
   (CameraOptions | CameraBoundsOptions)
 
 export type IAzureMap = {
+  childrens: ReactNode
   providedMapId?: string
   containerClassName?: string
-  onMapMount?: (mapRef: Map) => void
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
   mapCenter?: Position
   options?: IAzureMapOptions
 }
+
+export type IAzureMapContextState = {
+  mapRef: Map | null
+}
+
+export type IAzureMapContextMethods = {
+  setMapRef(mapRef: Map): void
+  removeMapRef(): void
+}
+
+export type AzurewMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
