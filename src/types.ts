@@ -15,7 +15,7 @@ export type IAzureMapOptions = ServiceOptions &
   (CameraOptions | CameraBoundsOptions)
 
 export type IAzureMap = {
-  childrens?: ReactNode
+  children?: ReactNode
   providedMapId?: string
   containerClassName?: string
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
@@ -25,11 +25,13 @@ export type IAzureMap = {
 
 export type IAzureMapContextState = {
   mapRef: Map | null
+  isMapReady: boolean | false
 }
 
 export type IAzureMapContextMethods = {
   setMapRef(mapRef: Map): void
   removeMapRef(): void
+  setMapReady(isMapReady: boolean): void
 }
 
 export type AzurewMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
