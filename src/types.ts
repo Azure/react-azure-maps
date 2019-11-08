@@ -1,12 +1,13 @@
 import { ComponentClass, StatelessComponent } from 'react'
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 import atlas, {
   Map,
   ServiceOptions,
   StyleOptions,
   UserInteractionOptions,
   CameraOptions,
-  CameraBoundsOptions
+  CameraBoundsOptions,
+  HtmlMarkerOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -15,7 +16,7 @@ export type IAzureMapOptions = ServiceOptions &
   (CameraOptions | CameraBoundsOptions)
 
 export type IAzureMap = {
-  children?: ReactNode
+  children?: ReactElement<IAzureMapHtmlMarker>
   providedMapId?: string
   containerClassName?: string
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
@@ -32,6 +33,11 @@ export type IAzureMapContextMethods = {
   setMapRef(mapRef: Map): void
   removeMapRef(): void
   setMapReady(isMapReady: boolean): void
+}
+
+export type IAzureMapHtmlMarker = {
+  id?: string
+  options: HtmlMarkerOptions
 }
 
 export type AzurewMapsContextProps = IAzureMapContextState & IAzureMapContextMethods

@@ -44,7 +44,7 @@ const AzureMap = ({
     <Fragment>
       {!isMapReady && LoaderComponent && <LoaderComponent />}
       <div className={containerClassName} id={mapId}>
-        {children}
+        {isMapReady && children}
       </div>
     </Fragment>
   )
