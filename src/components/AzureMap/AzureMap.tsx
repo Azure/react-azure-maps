@@ -1,23 +1,24 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, useContext, ReactNode } from 'react'
 import atlas from 'azure-maps-control'
-import { IAzureMap } from '../../types'
+import { IAzureMap, AzureMapsContextProps } from '../../types'
+import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 
 // Styles section
 import 'mapbox-gl/src/css/mapbox-gl.css'
 
 const AzureMap = ({
+  children, // @TODO We need to cover and type all possible childrens that we can pass to this component as child for. ex. Markers etc
   LoaderComponent = () => <div>Loading ...</div>,
   providedMapId,
   containerClassName,
   mapCenter,
-  options = {},
-  onMapMount = () => {}
+  options = {}
 }: IAzureMap) => {
-  const [isMapReady, setMapReady] = useState(false)
+  const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
+    AzureMapsContextProps
+  >(AzureMapsContext)
   const [mapId] = useState(providedMapId || Guid.create().toString())
-  const [mapRef, setMapRef] = useState<atlas.Map>()
-
   useEffect(() => {
     if (mapRef) {
       mapRef.setCamera(mapCenter)
@@ -28,19 +29,23 @@ const AzureMap = ({
     if (mapRef) {
       mapRef.events.add('ready', () => {
         setMapReady(true)
-        onMapMount(mapRef)
       })
     }
   }, [mapRef])
 
   useEffect(() => {
     setMapRef(new atlas.Map(mapId, options))
+    return () => {
+      removeMapRef()
+    }
   }, [])
 
   return (
     <Fragment>
       {!isMapReady && LoaderComponent && <LoaderComponent />}
-      <div className={containerClassName} id={mapId} />
+      <div className={containerClassName} id={mapId}>
+        {isMapReady && children}
+      </div>
     </Fragment>
   )
 }
