@@ -6,7 +6,6 @@ import {
   IAzureMapContextMethods,
   IAzureMap
 } from '../types'
-import AzureMap from '../components/AzureMap/AzureMap'
 
 const AzureMapsContext = createContext<AzurewMapsContextProps>({
   mapRef: null,
