@@ -40,4 +40,4 @@ export type IAzureMapHtmlMarker = {
   options: HtmlMarkerOptions
 }
 
-export type AzurewMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type AzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods

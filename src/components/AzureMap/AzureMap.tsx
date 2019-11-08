@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useContext, ReactNode } from 'react'
 import atlas from 'azure-maps-control'
-import { IAzureMap, AzurewMapsContextProps } from '../../types'
+import { IAzureMap, AzureMapsContextProps } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 
@@ -16,7 +16,7 @@ const AzureMap = ({
   options = {}
 }: IAzureMap) => {
   const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
-    AzurewMapsContextProps
+    AzureMapsContextProps
   >(AzureMapsContext)
   const [mapId] = useState(providedMapId || Guid.create().toString())
   useEffect(() => {
