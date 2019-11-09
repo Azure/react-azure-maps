@@ -7,8 +7,8 @@ import { AzureMapsContext } from '../../../contexts/AzureMapContext'
 const AzureMapHtmlMarker = ({ id, options, events }: IAzureMapHtmlMarker) => {
   const [markerRef] = useState<atlas.HtmlMarker>(new atlas.HtmlMarker(options))
   const { mapRef } = useContext<AzureMapsContextProps>(AzureMapsContext)
-  if (mapRef) {
-    useEffect(() => {
+  useEffect(() => {
+    if (mapRef) {
       mapRef.markers.add(markerRef)
       events &&
         events.forEach(({ eventName, callback }) => {
@@ -17,8 +17,8 @@ const AzureMapHtmlMarker = ({ id, options, events }: IAzureMapHtmlMarker) => {
       return () => {
         mapRef.markers.remove(markerRef)
       }
-    }, [])
-  }
+    }
+  }, [])
 
   return null
 }
