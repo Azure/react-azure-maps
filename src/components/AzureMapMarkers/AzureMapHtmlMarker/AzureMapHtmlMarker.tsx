@@ -25,7 +25,10 @@ const AzureMapHtmlMarker = ({ id, options, events }: IAzureMapHtmlMarker) => {
   useEffect(() => {
     if (mapRef) {
       mapRef.markers.add(markerRef)
-      events && createMouseEvents(mapRef, markerRef, events)
+      events &&
+        events.map(event => {
+          createMouseEvents(mapRef, markerRef, event)
+        })
       return () => {
         mapRef.markers.remove(markerRef)
       }

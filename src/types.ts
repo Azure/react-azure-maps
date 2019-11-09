@@ -66,7 +66,7 @@ export type IAzureMapEvents = {
 export type IAzureMapHtmlMarker = {
   id?: string
   options: HtmlMarkerOptions
-  events?: HtmlMarkerMouseEvent
+  events?: Array<HtmlMarkerMouseEvent>
 }
 
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
