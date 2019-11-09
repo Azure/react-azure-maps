@@ -5,10 +5,11 @@ import {
   HtmlMarker,
   HtmlMarkerOptions,
   Map,
-  MapMouseEvent,
   ServiceOptions,
   StyleOptions,
-  UserInteractionOptions
+  UserInteractionOptions,
+  HtmlMarkerEvents,
+  TargetedEvent
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -36,27 +37,13 @@ export type IAzureMapContextMethods = {
   setMapReady(isMapReady: boolean): void
 }
 
-export type IAzureMapMouseEventCollection =
-  | 'mousedown'
-  | 'mouseup'
-  | 'mouseover'
-  | 'mousemove'
-  | 'click'
-
-export type HtmlMarkerMouseEvent = {
-  eventName: IAzureMapMouseEventCollection
-  callback: () => void
+export type IAzureMapHtmlMarkerEvent = {
+  eventName: keyof HtmlMarkerEvents
+  callback: (e: TargetedEvent) => void
 }
 
 export type IAzureMapMouseEvents = {
-  mousedown: (e: MapMouseEvent) => void
-  mouseup: (e: MapMouseEvent) => void
-  mouseover: (e: MapMouseEvent) => void
-  mousemove: (e: MapMouseEvent) => void
-  click: (e: MapMouseEvent) => void
-  mouseout: (e: MapMouseEvent) => void
-  contextmenu: (e: MapMouseEvent) => void
-  dblclick: (e: MapMouseEvent) => void
+  [T in keyof HtmlMarkerEvents]: (e: TargetedEvent) => void
 }
 
 export type IAzureMapEvents = {
@@ -66,7 +53,7 @@ export type IAzureMapEvents = {
 export type IAzureMapHtmlMarker = {
   id?: string
   options: HtmlMarkerOptions
-  events?: Array<HtmlMarkerMouseEvent>
+  events?: Array<IAzureMapHtmlMarkerEvent>
 }
 
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
