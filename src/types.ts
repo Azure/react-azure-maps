@@ -1,13 +1,14 @@
-import { ComponentClass, StatelessComponent } from 'react'
-import { ReactElement } from 'react'
-import atlas, {
+import { ComponentClass, ReactElement, StatelessComponent } from 'react'
+import {
+  CameraBoundsOptions,
+  CameraOptions,
+  HtmlMarker,
+  HtmlMarkerOptions,
   Map,
+  MapMouseEvent,
   ServiceOptions,
   StyleOptions,
-  UserInteractionOptions,
-  CameraOptions,
-  CameraBoundsOptions,
-  HtmlMarkerOptions
+  UserInteractionOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -35,9 +36,39 @@ export type IAzureMapContextMethods = {
   setMapReady(isMapReady: boolean): void
 }
 
+export type IAzureMapMouseEventCollection =
+  | 'mousedown'
+  | 'mouseup'
+  | 'mouseover'
+  | 'mousemove'
+  | 'click'
+
+export type HtmlMarkerMouseEvent = {
+  eventName: IAzureMapMouseEventCollection
+  callback: () => void
+}
+
+export type IAzureMapMouseEvents = {
+  mousedown: (e: MapMouseEvent) => void
+  mouseup: (e: MapMouseEvent) => void
+  mouseover: (e: MapMouseEvent) => void
+  mousemove: (e: MapMouseEvent) => void
+  click: (e: MapMouseEvent) => void
+  mouseout: (e: MapMouseEvent) => void
+  contextmenu: (e: MapMouseEvent) => void
+  dblclick: (e: MapMouseEvent) => void
+}
+
+export type IAzureMapEvents = {
+  mouseEvents: IAzureMapMouseEvents
+}
+
 export type IAzureMapHtmlMarker = {
   id?: string
   options: HtmlMarkerOptions
+  events?: HtmlMarkerMouseEvent
 }
+
+export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
 
 export type AzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
