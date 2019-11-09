@@ -46,10 +46,6 @@ export type IAzureMapMouseEvents = {
   [T in keyof HtmlMarkerEvents]: (e: TargetedEvent) => void
 }
 
-export type IAzureMapEvents = {
-  mouseEvents: IAzureMapMouseEvents
-}
-
 export type IAzureMapHtmlMarker = {
   id?: string
   options: HtmlMarkerOptions
