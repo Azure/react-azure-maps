@@ -8,7 +8,7 @@ import {
 } from '../types'
 
 const AzureMapsContext = createContext<AzureMapsContextProps>({
-  mapRef: {},
+  mapRef: null,
   isMapReady: false,
   setMapRef: (mapRef: Map) => {},
   removeMapRef: () => {},
@@ -26,7 +26,7 @@ class AzureMapsStatefulProvider
   constructor(props: IAzureMapsStatefulProviderProps) {
     super(props)
     this.state = {
-      mapRef: {},
+      mapRef: null,
       isMapReady: false
     }
   }
@@ -35,7 +35,7 @@ class AzureMapsStatefulProvider
     this.setState({ mapRef })
   }
   removeMapRef = () => {
-    this.setState({ mapRef: {} })
+    this.setState({ mapRef: null })
   }
 
   setMapReady = (isMapReady: boolean) => {
