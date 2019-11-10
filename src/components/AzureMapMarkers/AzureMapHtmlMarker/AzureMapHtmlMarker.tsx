@@ -23,9 +23,4 @@ const AzureMapHtmlMarker = ({ id, options, events }: IAzureMapHtmlMarker) => {
   return null
 }
 
-AzureMapHtmlMarker.defaultProps = {
-  options: {},
-  events: []
-}
-
 export default AzureMapHtmlMarker
