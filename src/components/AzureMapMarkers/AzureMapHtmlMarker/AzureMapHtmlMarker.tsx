@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import atlas, { Map } from 'azure-maps-control'
+import atlas from 'azure-maps-control'
 
 import { AzureMapsContextProps, IAzureMapHtmlMarker } from '../../../types'
 import { AzureMapsContext } from '../../../contexts/AzureMapContext'
