@@ -1,5 +1,5 @@
 import { ComponentClass, ReactElement, StatelessComponent } from 'react'
-import {
+import atlas, {
   CameraBoundsOptions,
   CameraOptions,
   HtmlMarker,
@@ -9,7 +9,10 @@ import {
   StyleOptions,
   UserInteractionOptions,
   HtmlMarkerEvents,
-  TargetedEvent
+  TargetedEvent,
+  DataSourceOptions,
+  source,
+  LayerOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -52,6 +55,33 @@ export type IAzureMapHtmlMarker = {
   events?: Array<IAzureMapHtmlMarkerEvent>
 }
 
-export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
+export type IAzureMapDataSourceContextState = {
+  dataSourceRef: atlas.source.DataSource | null
+}
 
-export type AzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type IAzureMapDataSourceMethods = {}
+
+export type IAzureMapLayerContextState = {
+  layerRef: atlas.layer.SymbolLayer | null
+}
+
+export type IAzureMapLayerMethods = {}
+
+export type IAzureDataSourceStatefulProviderProps = {
+  id: string
+  children?: ReactElement<IAzureMapFeature>
+  options: DataSourceOptions
+} & IAzureMapsContextProps
+
+export type IAzureLayerStatefulProviderProps = {
+  id: string
+  options: LayerOptions
+} & IAzureMapsContextProps &
+  IAzureMapDataSourceProps
+
+export type IAzureMapFeature = {}
+
+export type IAzureMapLayerProps = IAzureMapLayerContextState & IAzureMapLayerMethods
+export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
+export type IAzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState & IAzureMapDataSourceMethods

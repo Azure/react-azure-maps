@@ -2,12 +2,12 @@ import React, { createContext, Component, ReactElement } from 'react'
 import { Map } from 'azure-maps-control'
 import {
   IAzureMapContextState,
-  AzureMapsContextProps,
+  IAzureMapsContextProps,
   IAzureMapContextMethods,
   IAzureMap
 } from '../types'
 
-const AzureMapsContext = createContext<AzureMapsContextProps>({
+const AzureMapsContext = createContext<IAzureMapsContextProps>({
   mapRef: null,
   isMapReady: false,
   setMapRef: (mapRef: Map) => {},
