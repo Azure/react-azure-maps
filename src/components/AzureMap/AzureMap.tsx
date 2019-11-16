@@ -3,7 +3,6 @@ import atlas from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
-
 // Styles section
 import 'mapbox-gl/src/css/mapbox-gl.css'
 

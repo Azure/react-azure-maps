@@ -11,7 +11,6 @@ import atlas, {
   HtmlMarkerEvents,
   TargetedEvent,
   DataSourceOptions,
-  source,
   LayerOptions
 } from 'azure-maps-control'
 
@@ -79,7 +78,24 @@ export type IAzureLayerStatefulProviderProps = {
 } & IAzureMapsContextProps &
   IAzureMapDataSourceProps
 
-export type IAzureMapFeature = {}
+export type IAzureMapFeatureType =
+  | 'Point'
+  | 'MultiPoint'
+  | 'LineString'
+  | 'MultiLineString'
+  | 'Polygon'
+  | 'MultiPolygon'
+
+export type IAzureMapFeature = {
+  id: string
+  type: IAzureMapFeatureType
+  coordinates: atlas.data.Position &
+    Array<atlas.data.Position> &
+    Array<Array<atlas.data.Position>> &
+    Array<Array<Array<atlas.data.Position>>>
+  bbox?: atlas.data.BoundingBox
+  properties: Object //It is required by lib
+}
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState & IAzureMapLayerMethods
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
