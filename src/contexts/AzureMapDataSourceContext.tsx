@@ -1,68 +1,46 @@
-import React, { Component, createContext, ReactElement } from 'react'
-import {
-  IAzureMapDataSourceProps,
-  IAzureMapDataSourceContextState,
-  IAzureMapDataSourceMethods,
-  IAzureDataSourceStatefulProviderProps
-} from '../types'
-import { AzureMapsConsumer } from '../contexts/AzureMapContext'
-import atlas, { source } from 'azure-maps-control'
+import React, { Component, createContext, useState, useContext, useEffect } from 'react'
+import { IAzureMapDataSourceProps, IAzureDataSourceStatefulProviderProps } from '../types'
+import atlas from 'azure-maps-control'
+import { AzureMapsContext } from './AzureMapContext'
+import { IAzureMapsContextProps } from '../types'
 
 const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
   dataSourceRef: null
 })
 const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceContext
 
-class AzureMapDataSourceStatefulProvider
-  extends Component<IAzureDataSourceStatefulProviderProps, IAzureMapDataSourceContextState>
-  implements IAzureMapDataSourceMethods {
-  constructor(props: IAzureDataSourceStatefulProviderProps) {
-    super(props)
-    const { id, options } = this.props
-    this.state = {
-      dataSourceRef: new atlas.source.DataSource(id, options)
-    }
-  }
+const AzureMapDataSourceStatefulProvider = ({
+  id,
+  children,
+  options
+}: IAzureDataSourceStatefulProviderProps) => {
+  const [dataSourceRef] = useState<atlas.source.DataSource>(
+    new atlas.source.DataSource(id, options)
+  )
+  const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
 
-  componentDidMount() {
-    this.initializeDataSource()
-  }
-
-  initializeDataSource() {
-    const { mapRef } = this.props
-    const { dataSourceRef } = this.state
+  useEffect(() => {
     if (mapRef && dataSourceRef) {
       mapRef.sources.add(dataSourceRef)
+      return () => {
+        mapRef.sources.remove(dataSourceRef)
+      }
     }
-  }
-  componentWillUnmount() {
-    const { mapRef } = this.props
-    const { dataSourceRef } = this.state
-    if (mapRef && dataSourceRef) {
-      mapRef.sources.remove(dataSourceRef)
-    }
-  }
+  }, [])
 
-  render() {
-    const { children } = this.props
-    return (
-      <AzureMapsConsumer>
-        {mapRef => (
-          <Provider
-            value={{
-              ...this.state
-            }}
-          >
-            {mapRef && children}
-          </Provider>
-        )}
-      </AzureMapsConsumer>
-    )
-  }
+  return (
+    <Provider
+      value={{
+        dataSourceRef
+      }}
+    >
+      {mapRef && children}
+    </Provider>
+  )
 }
 
 export {
   AzureMapDataSourceContext,
   AzureMapDataSourceConsumer,
-  AzureMapDataSourceStatefulProvider as AzureDataSourceProvider
+  AzureMapDataSourceStatefulProvider as AzureMapDataSourceProvider
 }

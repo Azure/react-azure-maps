@@ -3,31 +3,47 @@ import { IAzureMapFeature, IAzureMapDataSourceProps } from '../../types'
 import atlas from 'azure-maps-control'
 import { AzureMapDataSourceContext } from '../../contexts/AzureMapDataSourceContext'
 
-const createFeature = ({ type, coordinates, bbox }: IAzureMapFeature): atlas.data.Geometry => {
+const createFeature = ({
+  type,
+  coordinate,
+  coordinates,
+  multipleCoordinates,
+  multipleDimensionCoordinates,
+  bbox
+}: IAzureMapFeature): atlas.data.Geometry | undefined => {
   switch (type) {
     case 'Point':
-      return new atlas.data.Point(coordinates)
+      return coordinate && new atlas.data.Point(coordinate)
     case 'MultiPoint':
-      return new atlas.data.MultiPoint(coordinates, bbox)
+      return coordinates && new atlas.data.MultiPoint(coordinates, bbox)
     case 'LineString':
-      return new atlas.data.LineString(coordinates, bbox)
+      return coordinates && new atlas.data.LineString(coordinates, bbox)
     case 'MultiLineString':
-      return new atlas.data.MultiLineString(coordinates, bbox)
+      return multipleCoordinates && new atlas.data.MultiLineString(multipleCoordinates, bbox)
     case 'Polygon':
-      return new atlas.data.Polygon(coordinates, bbox)
+      return coordinates && new atlas.data.Polygon(coordinates, bbox)
     case 'MultiPolygon':
-      return new atlas.data.MultiPolygon(coordinates, bbox)
+      return (
+        multipleDimensionCoordinates &&
+        new atlas.data.MultiPolygon(multipleDimensionCoordinates, bbox)
+      )
+    default:
+      console.warn('Check the type and passed props properties')
   }
 }
 
 const AzureMapFeature = (props: IAzureMapFeature) => {
   const { properties, id } = props
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
-  const featureSource: atlas.data.Geometry = createFeature(props)
-  const [featureRef] = useState(new atlas.data.Feature(featureSource, properties, id))
+  const [featureRef, setFeatureRef] = useState<atlas.data.Feature<
+    atlas.data.Geometry,
+    Object
+  > | null>(null)
 
   useEffect(() => {
-    if (dataSourceRef) {
+    const featureSource: atlas.data.Geometry | undefined = createFeature(props)
+    if (dataSourceRef && featureRef && featureSource) {
+      setFeatureRef(new atlas.data.Feature(featureSource, properties, id))
       dataSourceRef.add(featureRef)
       return () => {
         dataSourceRef.remove(featureRef)
