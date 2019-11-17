@@ -10,32 +10,25 @@ const createFeature = ({
   multipleCoordinates,
   multipleDimensionCoordinates,
   bbox
-}: IAzureMapFeature): atlas.data.Geometry | null => {
+}: IAzureMapFeature): atlas.data.Geometry | undefined => {
   switch (type) {
     case 'Point':
-      const point = coordinate && new atlas.data.Point(coordinate)
-      return point ? point : null
+      return coordinate && new atlas.data.Point(coordinate)
     case 'MultiPoint':
-      const multiPoint = coordinates && new atlas.data.MultiPoint(coordinates, bbox)
-      return multiPoint ? multiPoint : null
+      return coordinates && new atlas.data.MultiPoint(coordinates, bbox)
     case 'LineString':
-      const lineString = coordinates && new atlas.data.LineString(coordinates, bbox)
-      return lineString ? lineString : null
+      return coordinates && new atlas.data.LineString(coordinates, bbox)
     case 'MultiLineString':
-      const multiLineString =
-        multipleCoordinates && new atlas.data.MultiLineString(multipleCoordinates, bbox)
-      return multiLineString ? multiLineString : null
+      return multipleCoordinates && new atlas.data.MultiLineString(multipleCoordinates, bbox)
     case 'Polygon':
-      const polygon = coordinates && new atlas.data.Polygon(coordinates, bbox)
-      return polygon ? polygon : null
+      return coordinates && new atlas.data.Polygon(coordinates, bbox)
     case 'MultiPolygon':
-      const multiPolygon =
+      return (
         multipleDimensionCoordinates &&
         new atlas.data.MultiPolygon(multipleDimensionCoordinates, bbox)
-      return multiPolygon ? multiPolygon : null
+      )
     default:
       console.warn('Check the type and passed props properties')
-      return null
   }
 }
 
@@ -48,7 +41,7 @@ const AzureMapFeature = (props: IAzureMapFeature) => {
   > | null>(null)
 
   useEffect(() => {
-    const featureSource: atlas.data.Geometry | null = createFeature(props)
+    const featureSource: atlas.data.Geometry | undefined = createFeature(props)
     if (dataSourceRef && featureRef && featureSource) {
       setFeatureRef(new atlas.data.Feature(featureSource, properties, id))
       dataSourceRef.add(featureRef)
