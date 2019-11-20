@@ -1,9 +1,8 @@
 import React, { useState, useEffect, Fragment, useContext, ReactNode } from 'react'
 import atlas from 'azure-maps-control'
-import { IAzureMap, AzureMapsContextProps } from '../../types'
+import { IAzureMap, IAzureMapsContextProps } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
-
 // Styles section
 import 'mapbox-gl/src/css/mapbox-gl.css'
 
@@ -16,7 +15,7 @@ const AzureMap = ({
   options = {}
 }: IAzureMap) => {
   const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
-    AzureMapsContextProps
+    IAzureMapsContextProps
   >(AzureMapsContext)
   const [mapId] = useState(providedMapId || Guid.create().toString())
   useEffect(() => {

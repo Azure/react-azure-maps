@@ -1,5 +1,5 @@
 import { ComponentClass, ReactElement, StatelessComponent } from 'react'
-import {
+import atlas, {
   CameraBoundsOptions,
   CameraOptions,
   HtmlMarker,
@@ -9,7 +9,9 @@ import {
   StyleOptions,
   UserInteractionOptions,
   HtmlMarkerEvents,
-  TargetedEvent
+  TargetedEvent,
+  DataSourceOptions,
+  LayerOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -17,8 +19,12 @@ export type IAzureMapOptions = ServiceOptions &
   UserInteractionOptions &
   (CameraOptions | CameraBoundsOptions)
 
+export type IAzureMapChildren =
+  | ReactElement<IAzureMapHtmlMarker>
+  | ReactElement<IAzureMapDataSourceProps>
+
 export type IAzureMap = {
-  children?: ReactElement<IAzureMapHtmlMarker>
+  children?: Array<IAzureMapChildren>
   providedMapId?: string
   containerClassName?: string
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
@@ -52,6 +58,49 @@ export type IAzureMapHtmlMarker = {
   events?: Array<IAzureMapHtmlMarkerEvent>
 }
 
-export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
+export type IAzureMapDataSourceContextState = {
+  dataSourceRef: atlas.source.DataSource | null
+}
 
-export type AzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type IAzureMapLayerContextState = {
+  layerRef: atlas.layer.SymbolLayer | null
+}
+
+export type IAzureDataSourceChildren =
+  | ReactElement<IAzureMapFeature>
+  | ReactElement<IAzureLayerStatefulProviderProps>
+
+export type IAzureDataSourceStatefulProviderProps = {
+  id?: string
+  children?: Array<IAzureDataSourceChildren>
+  options?: DataSourceOptions
+}
+
+export type IAzureLayerStatefulProviderProps = {
+  id?: string
+  options?: LayerOptions
+}
+
+export type IAzureMapFeatureType =
+  | 'Point'
+  | 'MultiPoint'
+  | 'LineString'
+  | 'MultiLineString'
+  | 'Polygon'
+  | 'MultiPolygon'
+
+export type IAzureMapFeature = {
+  id?: string
+  type: IAzureMapFeatureType
+  coordinate?: atlas.data.Position
+  coordinates?: Array<atlas.data.Position>
+  multipleCoordinates?: Array<Array<atlas.data.Position>>
+  multipleDimensionCoordinates?: Array<Array<Array<atlas.data.Position>>>
+  bbox?: atlas.data.BoundingBox
+  properties?: Object //It is required by lib
+}
+
+export type IAzureMapLayerProps = IAzureMapLayerContextState
+export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
+export type IAzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState
