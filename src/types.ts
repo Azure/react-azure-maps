@@ -35,9 +35,6 @@ export type IAzureMap = {
 export type IAzureMapContextState = {
   mapRef: Map | null
   isMapReady: boolean | false
-}
-
-export type IAzureMapContextMethods = {
   setMapRef(mapRef: Map): void
   removeMapRef(): void
   setMapReady(isMapReady: boolean): void
@@ -102,5 +99,5 @@ export type IAzureMapFeature = {
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
-export type IAzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type IAzureMapsContextProps = IAzureMapContextState
 export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState
