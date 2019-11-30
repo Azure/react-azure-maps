@@ -11,7 +11,14 @@ import atlas, {
   HtmlMarkerEvents,
   TargetedEvent,
   DataSourceOptions,
-  LayerOptions
+  LayerOptions,
+  SymbolLayerOptions,
+  HeatMapLayerOptions,
+  ImageLayerOptions,
+  LineLayerOptions,
+  PolygonExtrusionLayerOptions,
+  PolygonLayerOptions,
+  TileLayerOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -75,8 +82,23 @@ export type IAzureDataSourceStatefulProviderProps = {
 
 export type IAzureLayerStatefulProviderProps = {
   id?: string
-  options?: LayerOptions
+  options: SymbolLayerOptions &
+    HeatMapLayerOptions &
+    ImageLayerOptions &
+    LineLayerOptions &
+    PolygonExtrusionLayerOptions &
+    PolygonLayerOptions &
+    TileLayerOptions
+  type: IAzureMapLayerType
 }
+export type IAzureMapLayerType =
+  | 'SymbolLayer'
+  | 'HeatLayer'
+  | 'ImageLayer'
+  | 'LineLayer'
+  | 'PolygonExtrusionLayer'
+  | 'PolygonLayer'
+  | 'TitleLayer'
 
 export type IAzureMapFeatureType =
   | 'Point'
