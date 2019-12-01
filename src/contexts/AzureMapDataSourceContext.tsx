@@ -1,8 +1,11 @@
-import React, { Component, createContext, useState, useContext, useEffect } from 'react'
-import { IAzureMapDataSourceProps, IAzureDataSourceStatefulProviderProps } from '../types'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import {
+  IAzureDataSourceStatefulProviderProps,
+  IAzureMapDataSourceProps,
+  IAzureMapsContextProps
+} from '../types'
 import atlas from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
-import { IAzureMapsContextProps } from '../types'
 
 const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
   dataSourceRef: null
