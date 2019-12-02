@@ -11,7 +11,14 @@ import atlas, {
   HtmlMarkerEvents,
   TargetedEvent,
   DataSourceOptions,
-  LayerOptions
+  LayerOptions,
+  SymbolLayerOptions,
+  HeatMapLayerOptions,
+  ImageLayerOptions,
+  LineLayerOptions,
+  PolygonExtrusionLayerOptions,
+  PolygonLayerOptions,
+  TileLayerOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -35,9 +42,6 @@ export type IAzureMap = {
 export type IAzureMapContextState = {
   mapRef: Map | null
   isMapReady: boolean | false
-}
-
-export type IAzureMapContextMethods = {
   setMapRef(mapRef: Map): void
   removeMapRef(): void
   setMapReady(isMapReady: boolean): void
@@ -63,7 +67,7 @@ export type IAzureMapDataSourceContextState = {
 }
 
 export type IAzureMapLayerContextState = {
-  layerRef: atlas.layer.SymbolLayer | null
+  layerRef: atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer | null
 }
 
 export type IAzureDataSourceChildren =
@@ -78,8 +82,23 @@ export type IAzureDataSourceStatefulProviderProps = {
 
 export type IAzureLayerStatefulProviderProps = {
   id?: string
-  options?: LayerOptions
+  options: SymbolLayerOptions &
+    HeatMapLayerOptions &
+    ImageLayerOptions &
+    LineLayerOptions &
+    PolygonExtrusionLayerOptions &
+    PolygonLayerOptions &
+    TileLayerOptions
+  type: IAzureMapLayerType
 }
+export type IAzureMapLayerType =
+  | 'SymbolLayer'
+  | 'HeatLayer'
+  | 'ImageLayer'
+  | 'LineLayer'
+  | 'PolygonExtrusionLayer'
+  | 'PolygonLayer'
+  | 'TitleLayer'
 
 export type IAzureMapFeatureType =
   | 'Point'
@@ -102,5 +121,5 @@ export type IAzureMapFeature = {
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
-export type IAzureMapsContextProps = IAzureMapContextState & IAzureMapContextMethods
+export type IAzureMapsContextProps = IAzureMapContextState
 export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState

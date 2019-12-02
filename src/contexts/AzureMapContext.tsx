@@ -1,11 +1,6 @@
 import React, { createContext, Component, ReactElement } from 'react'
 import { Map } from 'azure-maps-control'
-import {
-  IAzureMapContextState,
-  IAzureMapsContextProps,
-  IAzureMapContextMethods,
-  IAzureMap
-} from '../types'
+import { IAzureMapContextState, IAzureMapsContextProps, IAzureMap } from '../types'
 
 const AzureMapsContext = createContext<IAzureMapsContextProps>({
   mapRef: null,
@@ -20,14 +15,18 @@ type IAzureMapsStatefulProviderProps = {
   children?: ReactElement<IAzureMap>
 }
 
-class AzureMapsStatefulProvider
-  extends Component<IAzureMapsStatefulProviderProps, IAzureMapContextState>
-  implements IAzureMapContextMethods {
+class AzureMapsStatefulProvider extends Component<
+  IAzureMapsStatefulProviderProps,
+  IAzureMapContextState
+> {
   constructor(props: IAzureMapsStatefulProviderProps) {
     super(props)
     this.state = {
       mapRef: null,
-      isMapReady: false
+      isMapReady: false,
+      removeMapRef: this.removeMapRef,
+      setMapRef: this.setMapRef,
+      setMapReady: this.setMapReady
     }
   }
 
@@ -47,10 +46,7 @@ class AzureMapsStatefulProvider
     return (
       <Provider
         value={{
-          ...this.state,
-          removeMapRef: this.removeMapRef,
-          setMapRef: this.setMapRef,
-          setMapReady: this.setMapReady
+          ...this.state
         }}
       >
         {children}
