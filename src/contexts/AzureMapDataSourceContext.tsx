@@ -25,9 +25,6 @@ const AzureMapDataSourceStatefulProvider = ({
   useEffect(() => {
     if (mapRef && dataSourceRef) {
       mapRef.sources.add(dataSourceRef)
-      return () => {
-        mapRef.sources.remove(dataSourceRef)
-      }
     }
   }, [])
 

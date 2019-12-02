@@ -57,9 +57,6 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
   useEffect(() => {
     if (mapRef && layerRef) {
       mapRef.layers.add(layerRef)
-      return () => {
-        mapRef.layers.remove(layerRef)
-      }
     }
   }, [layerRef])
 

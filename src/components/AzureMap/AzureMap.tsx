@@ -30,6 +30,11 @@ const AzureMap = ({
         setMapReady(true)
       })
     }
+    return () => {
+      if (mapRef) {
+        mapRef.clear()
+      }
+    }
   }, [mapRef])
 
   useEffect(() => {
