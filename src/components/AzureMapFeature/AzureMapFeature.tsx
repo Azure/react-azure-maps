@@ -42,14 +42,19 @@ const AzureMapFeature = (props: IAzureMapFeature) => {
 
   useEffect(() => {
     const featureSource: atlas.data.Geometry | undefined = createFeature(props)
-    if (dataSourceRef && featureRef && featureSource) {
+    if (!featureRef && featureSource) {
       setFeatureRef(new atlas.data.Feature(featureSource, properties, id))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (dataSourceRef && featureRef) {
       dataSourceRef.add(featureRef)
       return () => {
         dataSourceRef.remove(featureRef)
       }
     }
-  }, [])
+  }, [featureRef])
 
   return null
 }

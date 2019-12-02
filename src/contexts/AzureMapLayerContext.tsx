@@ -1,12 +1,12 @@
-import React, { Component, createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
-  IAzureMapLayerProps,
   IAzureLayerStatefulProviderProps,
+  IAzureMapDataSourceProps,
+  IAzureMapLayerProps,
   IAzureMapsContextProps
 } from '../types'
 import atlas from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
-import { IAzureMapDataSourceProps } from '../types'
 import { AzureMapDataSourceContext } from './AzureMapDataSourceContext'
 
 const AzureMapLayerContext = createContext<IAzureMapLayerProps>({
@@ -46,15 +46,20 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
   const [layerRef, setLayerRef] = useState<atlas.layer.SymbolLayer | null>(null)
 
   useEffect(() => {
-    const layer = dataSourceRef && constructLayer({ id, options, type, dataSourceRef })
-    if (mapRef && layerRef && dataSourceRef && layer) {
+    if (dataSourceRef && !layerRef) {
+      const layer = constructLayer({ id, options, type, dataSourceRef })
       setLayerRef(layer)
+    }
+  }, [dataSourceRef])
+
+  useEffect(() => {
+    if (mapRef && layerRef) {
       mapRef.layers.add(layerRef)
       return () => {
         mapRef.layers.remove(layerRef)
       }
     }
-  }, [])
+  }, [layerRef])
 
   return {
     layerRef
