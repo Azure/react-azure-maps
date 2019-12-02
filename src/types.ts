@@ -67,7 +67,7 @@ export type IAzureMapDataSourceContextState = {
 }
 
 export type IAzureMapLayerContextState = {
-  layerRef: atlas.layer.SymbolLayer | null
+  layerRef: atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer | null
 }
 
 export type IAzureDataSourceChildren =
