@@ -48,20 +48,42 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
   >(null)
 
   useEffect(() => {
-    if (dataSourceRef && !layerRef) {
+    console.log('DATA SOURCE CHANGE IN LAYER')
+    if (dataSourceRef && !layerRef && mapRef) {
       const layer = constructLayer({ id, options, type, dataSourceRef })
       setLayerRef(layer)
+    }
+    return () => {
+      console.log('DATA SOURCE CHANGED RETURN')
     }
   }, [dataSourceRef])
 
   useEffect(() => {
+    console.log('LAYER CHAGNE')
     if (mapRef && layerRef) {
+      console.log('LAYERR ADD')
       mapRef.layers.add(layerRef)
-      return () => {
+    }
+    return () => {
+      console.log('TRY LAYER REMOVE')
+
+      if (!dataSourceRef && layerRef && mapRef) {
+        console.log('LAYER REMOVE')
         mapRef.layers.remove(layerRef)
       }
     }
   }, [layerRef])
+
+  useEffect(() => {
+    return () => {
+      console.log('TRY LAYER REMOVE')
+
+      if (layerRef && mapRef) {
+        console.log('LAYER REMOVE')
+        mapRef.layers.remove(layerRef)
+      }
+    }
+  }, [])
 
   return {
     layerRef
