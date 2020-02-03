@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { IAzureMapDataSourceProps, IAzureMapFeature } from '../../types'
+import React, { useEffect, useState, useContext } from 'react'
+import { IAzureMapFeature, IAzureMapDataSourceProps } from '../../types'
 import atlas from 'azure-maps-control'
 import { AzureMapDataSourceContext } from '../../contexts/AzureMapDataSourceContext'
 
@@ -50,9 +50,7 @@ const AzureMapFeature = (props: IAzureMapFeature) => {
   useEffect(() => {
     if (dataSourceRef && featureRef) {
       dataSourceRef.add(featureRef)
-    }
-    return () => {
-      if (dataSourceRef && featureRef) {
+      return () => {
         dataSourceRef.remove(featureRef)
       }
     }
