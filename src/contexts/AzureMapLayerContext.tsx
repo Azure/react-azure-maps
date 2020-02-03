@@ -48,7 +48,7 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
   >(null)
 
   useEffect(() => {
-    if (dataSourceRef && !layerRef && mapRef) {
+    if (dataSourceRef && !layerRef) {
       const layer = constructLayer({ id, options, type, dataSourceRef })
       setLayerRef(layer)
     }

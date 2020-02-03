@@ -50,9 +50,7 @@ const AzureMapFeature = (props: IAzureMapFeature) => {
   useEffect(() => {
     if (dataSourceRef && featureRef) {
       dataSourceRef.add(featureRef)
-    }
-    return () => {
-      if (dataSourceRef && featureRef) {
+      return () => {
         dataSourceRef.remove(featureRef)
       }
     }
