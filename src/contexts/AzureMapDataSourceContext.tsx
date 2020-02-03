@@ -24,22 +24,13 @@ const AzureMapDataSourceStatefulProvider = ({
 
   useEffect(() => {
     if (mapRef && dataSourceRef) {
-      console.log('DATA SOURCE ADD')
       mapRef.sources.add(dataSourceRef)
-    }
-    return () => {
-      console.log('TRIED REMOVE DATA SOURCE')
-
-      // if (mapRef && dataSourceRef) {
-      //   console.log('REMOVE DATA SOURCE', mapRef.sources)
-      //   mapRef.sources.remove(dataSourceRef)
+      // TODO investigation on unmount and changes of whole DataSource
+      // return () => {
+      // mapRef.sources.remove(dataSourceRef)
       // }
     }
   }, [])
-
-  useEffect(() => {
-    console.log('DATA REF CHANGED')
-  }, [dataSourceRef])
 
   return (
     <Provider

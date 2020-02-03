@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { IAzureMapFeature, IAzureMapDataSourceProps, IAzureMapsContextProps } from '../../types'
-import atlas, { data } from 'azure-maps-control'
+import { IAzureMapFeature, IAzureMapDataSourceProps } from '../../types'
+import atlas from 'azure-maps-control'
 import { AzureMapDataSourceContext } from '../../contexts/AzureMapDataSourceContext'
-import { AzureMapsContext } from '../../contexts/AzureMapContext'
 
 const createFeature = ({
   type,
@@ -36,7 +35,6 @@ const createFeature = ({
 const AzureMapFeature = (props: IAzureMapFeature) => {
   const { properties, id } = props
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
-  const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const [featureRef, setFeatureRef] = useState<atlas.data.Feature<
     atlas.data.Geometry,
     Object
@@ -51,27 +49,12 @@ const AzureMapFeature = (props: IAzureMapFeature) => {
 
   useEffect(() => {
     if (dataSourceRef && featureRef) {
-      console.log('FEATURE ADD')
       dataSourceRef.add(featureRef)
-    }
-    return () => {
-      console.log('TRY FEATURE REMOVE')
-      if (mapRef && dataSourceRef && featureRef) {
-        console.log('FEATURE REMOVE')
+      return () => {
         dataSourceRef.remove(featureRef)
       }
     }
   }, [featureRef])
-
-  useEffect(() => {
-    return () => {
-      console.log('TRY FEATURE REMOVE')
-      if (mapRef && dataSourceRef && featureRef) {
-        console.log('FEATURE REMOVE')
-        dataSourceRef.remove(featureRef)
-      }
-    }
-  }, [])
 
   return null
 }
