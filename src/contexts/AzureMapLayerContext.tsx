@@ -74,16 +74,17 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
     }
   }, [layerRef])
 
-  useEffect(() => {
-    return () => {
-      console.log('TRY LAYER REMOVE')
-
-      if (layerRef && mapRef) {
-        console.log('LAYER REMOVE')
-        mapRef.layers.remove(layerRef)
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   return () => {
+  //     console.log('TRY LAYER REMOVE')
+  //
+  //     if (layerRef && mapRef && dataSourceRef) {
+  //       console.log('LAYER REMOVE')
+  //       mapRef.layers.remove(layerRef)
+  //       setLayerRef(null)
+  //     }
+  //   }
+  // }, [])
 
   return {
     layerRef
