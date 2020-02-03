@@ -30,29 +30,12 @@ const AzureMap = ({
         setMapReady(true)
       })
     }
-    return () => {
-      console.log('TRY CLEAR MAP')
-
-      if (mapRef) {
-        console.log('CLEAR MAP')
-
-        mapRef.clear()
-      }
-    }
   }, [mapRef])
 
   useEffect(() => {
-    if (!mapRef) {
-      console.log('SET MAP REF')
-      setMapRef(new atlas.Map(mapId, options))
-    }
+    setMapRef(new atlas.Map(mapId, options))
     return () => {
-      console.log('TRY REMOVE MAP REF')
-      if (mapRef) {
-        console.log('TRY REMOVE MAP REF')
-
-        removeMapRef()
-      }
+      removeMapRef()
     }
   }, [])
 
