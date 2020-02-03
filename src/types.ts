@@ -31,7 +31,7 @@ export type IAzureMapChildren =
   | ReactElement<IAzureMapDataSourceProps>
 
 export type IAzureMap = {
-  children?: Array<IAzureMapChildren>
+  children?: Array<IAzureMapChildren> | IAzureMapChildren
   providedMapId?: string
   containerClassName?: string
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
