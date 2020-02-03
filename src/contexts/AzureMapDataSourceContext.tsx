@@ -25,10 +25,12 @@ const AzureMapDataSourceStatefulProvider = ({
   useEffect(() => {
     if (mapRef && dataSourceRef) {
       mapRef.sources.add(dataSourceRef)
-      // TODO investigation on unmount and changes of whole DataSource
-      // return () => {
-      // mapRef.sources.remove(dataSourceRef)
-      // }
+      return () => {
+        if (dataSourceRef.getShapes().length) {
+          dataSourceRef.dispose()
+          mapRef.sources.remove(dataSourceRef)
+        }
+      }
     }
   }, [])
 

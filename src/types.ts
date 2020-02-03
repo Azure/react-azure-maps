@@ -75,7 +75,7 @@ export type IAzureDataSourceChildren =
   | ReactElement<IAzureLayerStatefulProviderProps>
 
 export type IAzureDataSourceStatefulProviderProps = {
-  id?: string
+  id: string
   children?: Array<IAzureDataSourceChildren>
   options?: DataSourceOptions
 }

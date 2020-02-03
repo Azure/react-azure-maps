@@ -22,7 +22,7 @@
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts*' 'test/**/*.ts*'",
     "prebuild": "rimraf dist",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "start": "rollup -c rollup.config.ts -w",
+    "watch": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage --env=jsdom",
     "test:watch": "jest --coverage --watch --env=jsdom",
     "test:prod": "npm run lint && npm run test -- --no-cache",
@@ -59,8 +59,6 @@
     "prettier": "^1.14.3",
     "pretty-quick": "^2.0.0",
     "prompt": "^1.0.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
     "rimraf": "^2.6.2",
     "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.1.8",
@@ -79,7 +77,9 @@
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
-    "azure-maps-control": "2.0.14"
+    "azure-maps-control": "2.0.14",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   },
   "dependencies": {
     "@types/uuid": "^3.4.5",
