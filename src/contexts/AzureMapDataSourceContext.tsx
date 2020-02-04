@@ -26,7 +26,10 @@ const AzureMapDataSourceStatefulProvider = ({
     if (mapRef && dataSourceRef) {
       mapRef.sources.add(dataSourceRef)
       return () => {
-        mapRef.sources.remove(dataSourceRef)
+        if (dataSourceRef.getShapes().length) {
+          dataSourceRef.dispose()
+          mapRef.sources.remove(dataSourceRef)
+        }
       }
     }
   }, [])
