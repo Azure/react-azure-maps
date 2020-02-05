@@ -80,6 +80,10 @@ export type IAzureDataSourceStatefulProviderProps = {
   options?: DataSourceOptions
 }
 
+export type IAzureMapEvent = {
+  [property in IAzureMapEventType]: (e: any) => void
+}
+
 export type IAzureLayerStatefulProviderProps = {
   id?: string
   options: SymbolLayerOptions &
@@ -90,7 +94,25 @@ export type IAzureLayerStatefulProviderProps = {
     PolygonLayerOptions &
     TileLayerOptions
   type: IAzureMapLayerType
+  events?: IAzureMapEvent | any // Hack
 }
+
+export type IAzureMapEventType =
+  | 'touchstart'
+  | 'touchend'
+  | 'touchmove'
+  | 'touchcancel'
+  | 'mousedown'
+  | 'mouseup'
+  | 'mouseover'
+  | 'mousemove'
+  | 'click'
+  | 'dblclick'
+  | 'mouseout'
+  | 'contextmenu'
+  | 'sourceadded'
+  | 'sourceremoved'
+
 export type IAzureMapLayerType =
   | 'SymbolLayer'
   | 'HeatLayer'

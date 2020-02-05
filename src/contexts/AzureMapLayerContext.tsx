@@ -40,7 +40,7 @@ const constructLayer = ({
   }
 }
 
-const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProps) => {
+const useAzureMapLayer = ({ id, options, type, events }: IAzureLayerStatefulProviderProps) => {
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
   const [layerRef, setLayerRef] = useState<
@@ -56,14 +56,12 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
 
   useEffect(() => {
     if (mapRef && layerRef) {
-      if (options.events) {
-        mapRef.events.add('click', layerRef, options.events)
+      for (const eventType in events || {}) {
+        // Hack for eventType
+        mapRef.events.add(eventType as any, layerRef, events[eventType])
       }
       mapRef.layers.add(layerRef)
       return () => {
-        if (options.events) {
-          mapRef.events.remove('click', layerRef, options.events)
-        }
         mapRef.layers.remove(layerRef)
       }
     }
@@ -74,8 +72,13 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
   }
 }
 
-const AzureMapLayerStatefulProvider = ({ id, options, type }: IAzureLayerStatefulProviderProps) => {
-  const { layerRef } = useAzureMapLayer({ id, options, type })
+const AzureMapLayerStatefulProvider = ({
+  id,
+  options,
+  type,
+  events
+}: IAzureLayerStatefulProviderProps) => {
+  const { layerRef } = useAzureMapLayer({ id, options, type, events })
   return (
     <Provider
       value={{
