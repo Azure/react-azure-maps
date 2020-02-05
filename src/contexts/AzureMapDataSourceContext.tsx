@@ -12,10 +12,6 @@ const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
 })
 const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceContext
 
-function clusterClicked(e: any) {
-  console.log('data source clicked', e)
-}
-
 const AzureMapDataSourceStatefulProvider = ({
   id,
   children,
