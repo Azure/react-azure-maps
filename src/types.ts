@@ -11,14 +11,16 @@ import atlas, {
   HtmlMarkerEvents,
   TargetedEvent,
   DataSourceOptions,
-  LayerOptions,
   SymbolLayerOptions,
   HeatMapLayerOptions,
   ImageLayerOptions,
   LineLayerOptions,
   PolygonExtrusionLayerOptions,
   PolygonLayerOptions,
-  TileLayerOptions
+  TileLayerOptions,
+  MapTouchEvent,
+  MapMouseEvent,
+  MapMouseWheelEvent
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -80,8 +82,14 @@ export type IAzureDataSourceStatefulProviderProps = {
   options?: DataSourceOptions
 }
 
-export type IAzureMapEvent = {
-  [property in IAzureMapEventType]: (e: any) => void
+export type IAzureMapLayerEvent = {
+  [property in IAzureMapLayerEventType]: (
+    e: MapMouseEvent | MapTouchEvent | MapMouseWheelEvent
+  ) => void
+}
+
+export type IAzureMapTouchEvent = {
+  [property in IAzureMapLayerLifecycleEvents]: (e: atlas.layer.Layer) => void
 }
 
 export type IAzureLayerStatefulProviderProps = {
@@ -94,14 +102,14 @@ export type IAzureLayerStatefulProviderProps = {
     PolygonLayerOptions &
     TileLayerOptions
   type: IAzureMapLayerType
-  events?: IAzureMapEvent | any // Hack
+  events?: IAzureMapLayerEvent | any
+  lifecycleEvents?: IAzureMapTouchEvent | any
 }
 
-export type IAzureMapEventType =
-  | 'touchstart'
-  | 'touchend'
-  | 'touchmove'
-  | 'touchcancel'
+export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
+
+export type IAzureMapLayerEventType =
+  // Mouse events
   | 'mousedown'
   | 'mouseup'
   | 'mouseover'
@@ -109,9 +117,16 @@ export type IAzureMapEventType =
   | 'click'
   | 'dblclick'
   | 'mouseout'
+  | 'mouseenter'
+  | 'mouseleave'
   | 'contextmenu'
-  | 'sourceadded'
-  | 'sourceremoved'
+  // Wheel events
+  | 'wheel'
+  // Touch events
+  | 'touchstart'
+  | 'touchend'
+  | 'touchmove'
+  | 'touchcancel'
 
 export type IAzureMapLayerType =
   | 'SymbolLayer'

@@ -40,7 +40,13 @@ const constructLayer = ({
   }
 }
 
-const useAzureMapLayer = ({ id, options, type, events }: IAzureLayerStatefulProviderProps) => {
+const useAzureMapLayer = ({
+  id,
+  options,
+  type,
+  events,
+  lifecycleEvents
+}: IAzureLayerStatefulProviderProps) => {
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
   const [layerRef, setLayerRef] = useState<
@@ -60,6 +66,11 @@ const useAzureMapLayer = ({ id, options, type, events }: IAzureLayerStatefulProv
         // Hack for eventType
         mapRef.events.add(eventType as any, layerRef, events[eventType])
       }
+
+      for (const event in lifecycleEvents || {}) {
+        mapRef.events.add(event as any, layerRef, lifecycleEvents[event])
+      }
+
       mapRef.layers.add(layerRef)
       return () => {
         mapRef.layers.remove(layerRef)
@@ -76,9 +87,10 @@ const AzureMapLayerStatefulProvider = ({
   id,
   options,
   type,
-  events
+  events,
+  lifecycleEvents
 }: IAzureLayerStatefulProviderProps) => {
-  const { layerRef } = useAzureMapLayer({ id, options, type, events })
+  const { layerRef } = useAzureMapLayer({ id, options, type, events, lifecycleEvents })
   return (
     <Provider
       value={{
