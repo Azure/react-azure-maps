@@ -20,7 +20,8 @@ import atlas, {
   TileLayerOptions,
   MapTouchEvent,
   MapMouseEvent,
-  MapMouseWheelEvent
+  MapMouseWheelEvent,
+  Shape
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -76,10 +77,15 @@ export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
 
+export type IAzureMapDataSourceEvent = {
+  [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
+}
+
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
   children?: Array<IAzureDataSourceChildren>
   options?: DataSourceOptions
+  events?: IAzureMapDataSourceEvent | any
 }
 
 export type IAzureMapLayerEvent = {
@@ -88,7 +94,7 @@ export type IAzureMapLayerEvent = {
   ) => void
 }
 
-export type IAzureMapTouchEvent = {
+export type IAzureMapLifecycleEvent = {
   [property in IAzureMapLayerLifecycleEvents]: (e: atlas.layer.Layer) => void
 }
 
@@ -103,10 +109,12 @@ export type IAzureLayerStatefulProviderProps = {
     TileLayerOptions
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
-  lifecycleEvents?: IAzureMapTouchEvent | any
+  lifecycleEvents?: IAzureMapLifecycleEvent | any
 }
 
 export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
+
+export type IAzureMapDataSourceEventType = 'dataadded' | 'dataremoved'
 
 export type IAzureMapLayerEventType =
   // Mouse events
