@@ -12,6 +12,10 @@ const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
 })
 const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceContext
 
+function clusterClicked(e: any) {
+  console.log('data source clicked', e)
+}
+
 const AzureMapDataSourceStatefulProvider = ({
   id,
   children,
@@ -25,12 +29,6 @@ const AzureMapDataSourceStatefulProvider = ({
   useEffect(() => {
     if (mapRef && dataSourceRef) {
       mapRef.sources.add(dataSourceRef)
-      return () => {
-        if (dataSourceRef.getShapes().length) {
-          dataSourceRef.dispose()
-          mapRef.sources.remove(dataSourceRef)
-        }
-      }
     }
   }, [])
 

@@ -56,8 +56,14 @@ const useAzureMapLayer = ({ id, options, type }: IAzureLayerStatefulProviderProp
 
   useEffect(() => {
     if (mapRef && layerRef) {
+      if (options.events) {
+        mapRef.events.add('click', layerRef, options.events)
+      }
       mapRef.layers.add(layerRef)
       return () => {
+        if (options.events) {
+          mapRef.events.remove('click', layerRef, options.events)
+        }
         mapRef.layers.remove(layerRef)
       }
     }
