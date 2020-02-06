@@ -1,11 +1,10 @@
 import React, { useState, useEffect, Fragment, useContext, ReactNode } from 'react'
-import './AzureMap.styles.css'
 import atlas from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 // Styles section
-import 'mapbox-gl/src/css/mapbox-gl.css'
+import 'azure-maps-control/dist/atlas.min.css'
 
 const AzureMap = ({
   children, // @TODO We need to cover and type all possible childrens that we can pass to this component as child for. ex. Markers etc
