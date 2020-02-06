@@ -1,0 +1,7 @@
+.hidden-accessible-element {
+  display: none;
+}
+
+.atlas-map {
+  overflow: unset !important;
+}

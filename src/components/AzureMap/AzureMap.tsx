@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment, useContext, ReactNode } from 'react'
+import './AzureMap.styles.css'
 import atlas from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
