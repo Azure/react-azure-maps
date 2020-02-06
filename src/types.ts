@@ -11,14 +11,17 @@ import atlas, {
   HtmlMarkerEvents,
   TargetedEvent,
   DataSourceOptions,
-  LayerOptions,
   SymbolLayerOptions,
   HeatMapLayerOptions,
   ImageLayerOptions,
   LineLayerOptions,
   PolygonExtrusionLayerOptions,
   PolygonLayerOptions,
-  TileLayerOptions
+  TileLayerOptions,
+  MapTouchEvent,
+  MapMouseEvent,
+  MapMouseWheelEvent,
+  Shape
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -74,10 +77,25 @@ export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
 
+export type IAzureMapDataSourceEvent = {
+  [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
+}
+
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
   children?: Array<IAzureDataSourceChildren>
   options?: DataSourceOptions
+  events?: IAzureMapDataSourceEvent | any
+}
+
+export type IAzureMapLayerEvent = {
+  [property in IAzureMapLayerEventType]: (
+    e: MapMouseEvent | MapTouchEvent | MapMouseWheelEvent
+  ) => void
+}
+
+export type IAzureMapLifecycleEvent = {
+  [property in IAzureMapLayerLifecycleEvents]: (e: atlas.layer.Layer) => void
 }
 
 export type IAzureLayerStatefulProviderProps = {
@@ -90,7 +108,34 @@ export type IAzureLayerStatefulProviderProps = {
     PolygonLayerOptions &
     TileLayerOptions
   type: IAzureMapLayerType
+  events?: IAzureMapLayerEvent | any
+  lifecycleEvents?: IAzureMapLifecycleEvent | any
 }
+
+export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
+
+export type IAzureMapDataSourceEventType = 'dataadded' | 'dataremoved'
+
+export type IAzureMapLayerEventType =
+  // Mouse events
+  | 'mousedown'
+  | 'mouseup'
+  | 'mouseover'
+  | 'mousemove'
+  | 'click'
+  | 'dblclick'
+  | 'mouseout'
+  | 'mouseenter'
+  | 'mouseleave'
+  | 'contextmenu'
+  // Wheel events
+  | 'wheel'
+  // Touch events
+  | 'touchstart'
+  | 'touchend'
+  | 'touchmove'
+  | 'touchcancel'
+
 export type IAzureMapLayerType =
   | 'SymbolLayer'
   | 'HeatLayer'

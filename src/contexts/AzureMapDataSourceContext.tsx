@@ -15,7 +15,8 @@ const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceCon
 const AzureMapDataSourceStatefulProvider = ({
   id,
   children,
-  options
+  options,
+  events
 }: IAzureDataSourceStatefulProviderProps) => {
   const [dataSourceRef] = useState<atlas.source.DataSource>(
     new atlas.source.DataSource(id, options)
@@ -24,13 +25,10 @@ const AzureMapDataSourceStatefulProvider = ({
 
   useEffect(() => {
     if (mapRef && dataSourceRef) {
-      mapRef.sources.add(dataSourceRef)
-      return () => {
-        if (dataSourceRef.getShapes().length) {
-          dataSourceRef.dispose()
-          mapRef.sources.remove(dataSourceRef)
-        }
+      for (const eventType in events || {}) {
+        mapRef.events.add(eventType as any, dataSourceRef, events[eventType])
       }
+      mapRef.sources.add(dataSourceRef)
     }
   }, [])
 
