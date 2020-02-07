@@ -3,23 +3,25 @@ import {
   IAzureLayerStatefulProviderProps,
   IAzureMapDataSourceProps,
   IAzureMapLayerProps,
-  IAzureMapsContextProps
+  IAzureMapsContextProps,
+  LayerType,
+  DataSourceType
 } from '../types'
 import atlas from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
 import { AzureMapDataSourceContext } from './AzureMapDataSourceContext'
+import { useCheckRef } from '../hooks/useCheckRef'
+import { MapType } from '../types'
 
 const AzureMapLayerContext = createContext<IAzureMapLayerProps>({
   layerRef: null
 })
 const { Provider, Consumer: AzureMapLayerConsumer } = AzureMapLayerContext
 
-const constructLayer = ({
-  id,
-  options,
-  type,
-  dataSourceRef
-}: IAzureLayerStatefulProviderProps & { dataSourceRef: atlas.source.DataSource }) => {
+const constructLayer = (
+  { id, options, type }: IAzureLayerStatefulProviderProps,
+  dataSourceRef: atlas.source.DataSource
+) => {
   switch (type) {
     case 'SymbolLayer':
       return new atlas.layer.SymbolLayer(dataSourceRef, id, options)
@@ -49,35 +51,25 @@ const useAzureMapLayer = ({
 }: IAzureLayerStatefulProviderProps) => {
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
-  const [layerRef, setLayerRef] = useState<
-    atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer | null
-  >(null)
+  const [layerRef, setLayerRef] = useState<LayerType | null>(null)
 
-  useEffect(() => {
-    if (dataSourceRef && !layerRef) {
-      const layer = constructLayer({ id, options, type, dataSourceRef })
-      setLayerRef(layer)
+  useCheckRef<boolean, DataSourceType>(!layerRef, dataSourceRef, (...[, ref]) => {
+    const layer = constructLayer({ id, options, type }, ref)
+    setLayerRef(layer)
+  })
+
+  useCheckRef<MapType, LayerType>(mapRef, layerRef, (mref, lref) => {
+    for (const eventType in events) {
+      mref.events.add(eventType as any, lref, events[eventType])
     }
-  }, [dataSourceRef])
-
-  useEffect(() => {
-    if (mapRef && layerRef) {
-      for (const eventType in events || {}) {
-        // Hack for eventType
-        mapRef.events.add(eventType as any, layerRef, events[eventType])
-      }
-
-      for (const event in lifecycleEvents || {}) {
-        mapRef.events.add(event as any, layerRef, lifecycleEvents[event])
-      }
-
-      mapRef.layers.add(layerRef)
-      return () => {
-        mapRef.layers.remove(layerRef)
-      }
+    for (const event in lifecycleEvents) {
+      mref.events.add(event as any, lref, lifecycleEvents[event])
     }
-  }, [layerRef])
-
+    mref.layers.add(lref)
+    return () => {
+      mref.layers.remove(lref)
+    }
+  })
   return {
     layerRef
   }

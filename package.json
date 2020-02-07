@@ -72,20 +72,18 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-config-standard": "^8.0.1",
-    "typedoc": "^0.12.0",
-    "typescript": "^3.6.4",
+    "typedoc": "^0.16.9",
+    "typescript": "^3.7.5",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
-    "azure-maps-control": "2.0.14",
+    "azure-maps-control": "2.0.21",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
   "dependencies": {
     "@types/uuid": "^3.4.5",
-    "azure-maps-control": "2.0.14",
     "guid-typescript": "^1.0.9",
-    "mapbox-gl": "^1.4.1",
     "rollup-plugin-postcss": "^2.0.3"
   }
 }
