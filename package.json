@@ -78,7 +78,8 @@
   },
   "peerDependencies": {
     "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react-dom": "^16.10.2",
+    "azure-maps-control": "file:azure-maps-control-2.0.21.tgz"
   },
   "dependencies": {
     "@types/uuid": "^3.4.5",
