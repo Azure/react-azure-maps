@@ -61,7 +61,7 @@ export type IAzureMapMouseEvents = {
 
 export type IAzureMapHtmlMarker = {
   id?: string
-  options: HtmlMarkerOptions
+  options?: HtmlMarkerOptions
   events?: Array<IAzureMapHtmlMarkerEvent>
 }
 
@@ -168,3 +168,8 @@ export type IAzureMapLayerProps = IAzureMapLayerContextState
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
 export type IAzureMapsContextProps = IAzureMapContextState
 export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState
+export type DataSourceType = atlas.source.DataSource
+export type LayerType = atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer
+export type MapType = atlas.Map
+export type GeometryType = atlas.data.Geometry
+export type FeatureType = atlas.data.Feature<atlas.data.Geometry, Object>

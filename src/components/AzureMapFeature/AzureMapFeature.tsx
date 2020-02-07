@@ -1,7 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { IAzureMapFeature, IAzureMapDataSourceProps } from '../../types'
+import React, { useEffect, useState, useContext, memo } from 'react'
+import {
+  IAzureMapFeature,
+  IAzureMapDataSourceProps,
+  GeometryType,
+  FeatureType,
+  DataSourceType
+} from '../../types'
 import atlas from 'azure-maps-control'
 import { AzureMapDataSourceContext } from '../../contexts/AzureMapDataSourceContext'
+import { useCheckRef } from '../../hooks/useCheckRef'
 
 const createFeature = ({
   type,
@@ -32,13 +39,10 @@ const createFeature = ({
   }
 }
 
-const AzureMapFeature = (props: IAzureMapFeature) => {
+const AzureMapFeature = memo((props: IAzureMapFeature) => {
   const { properties, id } = props
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
-  const [featureRef, setFeatureRef] = useState<atlas.data.Feature<
-    atlas.data.Geometry,
-    Object
-  > | null>(null)
+  const [featureRef, setFeatureRef] = useState<FeatureType | null>(null)
 
   useEffect(() => {
     const featureSource: atlas.data.Geometry | undefined = createFeature(props)
@@ -47,16 +51,14 @@ const AzureMapFeature = (props: IAzureMapFeature) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (dataSourceRef && featureRef) {
-      dataSourceRef.add(featureRef)
-      return () => {
-        dataSourceRef.remove(featureRef)
-      }
+  useCheckRef<DataSourceType, FeatureType>(dataSourceRef, featureRef, (dref, fref) => {
+    dref.add(fref)
+    return () => {
+      dref.remove(fref)
     }
-  }, [featureRef])
+  })
 
   return null
-}
+})
 
 export default AzureMapFeature
