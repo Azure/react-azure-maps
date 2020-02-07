@@ -892,13 +892,6 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
 
-azure-maps-control@2.0.21:
-  version "2.0.21"
-  resolved "https://registry.yarnpkg.com/azure-maps-control/-/azure-maps-control-2.0.21.tgz#9f7c0fc647bc0c0d4bf186d4e70a1f9d6db00899"
-  integrity sha512-lgmX/527qlN+yeKKsNvZA8tj88dUTsiU4lk+pPyRA6HUq/T1M9V+u8UFAvjazPs764mYfIcS3Em4t3m3TVwe1Q==
-  dependencies:
-    "@types/adal-angular" "^1.0.1"
-
 "azure-maps-control@file:azure-maps-control-2.0.21.tgz":
   version "2.0.21"
   resolved "file:azure-maps-control-2.0.21.tgz#400459add0632e4b5a827316f231aa8b074fa625"
