@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "target": "es5",
     "module": "es2015",
@@ -15,6 +16,6 @@
     "typeRoots": ["node_modules/@types"],
     "jsx": "react"
   },
-  "exclude": ["node_modules"],
+  "exclude": [],
   "include": ["src"]
 }

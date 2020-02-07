@@ -79,11 +79,11 @@
   "peerDependencies": {
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "azure-maps-control": "file:azure-maps-control-2.0.21.tgz"
+    "azure-maps-control": "2.0.21"
   },
   "dependencies": {
     "@types/uuid": "^3.4.5",
-    "azure-maps-control": "file:azure-maps-control-2.0.21.tgz",
+    "azure-maps-control": "2.0.21",
     "guid-typescript": "^1.0.9",
     "rollup-plugin-postcss": "^2.0.3",
     "typescript": "^3.7.5"
