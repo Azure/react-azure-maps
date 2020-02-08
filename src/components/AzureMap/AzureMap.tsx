@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useContext, memo } from 'react'
+import React, { useState, useEffect, useContext, memo } from 'react'
 import atlas from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
@@ -41,12 +41,12 @@ const AzureMap = memo(
     }, [])
 
     return (
-      <Fragment>
+      <>
         {!isMapReady && LoaderComponent && <LoaderComponent />}
         <div className={containerClassName} id={mapId}>
           {isMapReady && children}
         </div>
-      </Fragment>
+      </>
     )
   }
 )

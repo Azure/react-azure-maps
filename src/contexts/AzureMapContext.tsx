@@ -1,4 +1,4 @@
-import React, { createContext, Component, ReactElement } from 'react'
+import React, { createContext, ReactElement, PureComponent } from 'react'
 import { Map } from 'azure-maps-control'
 import { IAzureMapContextState, IAzureMapsContextProps, IAzureMap } from '../types'
 
@@ -15,7 +15,7 @@ type IAzureMapsStatefulProviderProps = {
   children?: ReactElement<IAzureMap>
 }
 
-class AzureMapsStatefulProvider extends Component<
+class AzureMapsStatefulProvider extends PureComponent<
   IAzureMapsStatefulProviderProps,
   IAzureMapContextState
 > {

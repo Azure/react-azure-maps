@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import atlas from 'azure-maps-control'
 
 import { IAzureMapsContextProps, IAzureMapHtmlMarker, MapType } from '../../../types'
 import { AzureMapsContext } from '../../../contexts/AzureMapContext'
-import { useCheckRef, useCheckRefMount } from '../../../hooks/useCheckRef'
+import { useCheckRefMount } from '../../../hooks/useCheckRef'
 
 const AzureMapHtmlMarker = ({ id, options, events }: IAzureMapHtmlMarker) => {
   const [markerRef] = useState<atlas.HtmlMarker>(new atlas.HtmlMarker(options))
