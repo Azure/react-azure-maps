@@ -5,6 +5,7 @@ import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 // Styles section
 import 'azure-maps-control/dist/atlas.min.css'
+import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
 
 const AzureMap = memo(
@@ -13,6 +14,7 @@ const AzureMap = memo(
     LoaderComponent = () => <div>Loading ...</div>,
     providedMapId,
     containerClassName,
+    styles,
     mapCenter,
     options = {}
   }: IAzureMap) => {
@@ -43,7 +45,7 @@ const AzureMap = memo(
     return (
       <>
         {!isMapReady && LoaderComponent && <LoaderComponent />}
-        <div className={containerClassName} id={mapId}>
+        <div className={containerClassName} id={mapId} style={{ ...styles, height: '100%' }}>
           {isMapReady && children}
         </div>
       </>
