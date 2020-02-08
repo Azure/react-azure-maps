@@ -1,15 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
-import ReactDOMServer from 'react-dom/server'
-import atlas from 'azure-maps-control'
+import React, { useContext, useEffect } from 'react'
 
 import { IAzureMapsContextProps, MapType, IAzureMapPopup } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { useCheckRefMount } from '../../hooks/useCheckRef'
+import { useCreatePopup } from './useCreateAzureMapPopup'
 
 const AzureMapPopup = ({ isVisible, popupContent, options, events }: IAzureMapPopup) => {
-  const [popupRef] = useState<atlas.Popup>(
-    new atlas.Popup({ ...options, content: ReactDOMServer.renderToStaticMarkup(popupContent) })
-  )
+  const popupRef = useCreatePopup({ options, popupContent })
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
 
   useCheckRefMount<MapType, boolean>(mapRef, true, mref => {
