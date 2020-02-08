@@ -1,7 +1,5 @@
 export { default as AzureMap } from './components/AzureMap/AzureMap'
-export {
-  default as AzureMapHtmlMarker
-} from './components/AzureMapMarkers/AzureMapHtmlMarker/AzureMapHtmlMarker'
+export { default as AzureMapHtmlMarker } from './components/AzureMapMarkers/AzureMapHtmlMarker/AzureMapHtmlMarker'
 export { default as AzureMapFeature } from './components/AzureMapFeature/AzureMapFeature'
 export { AzureMapsContext, AzureMapsConsumer, AzureMapsProvider } from './contexts/AzureMapContext'
 export {
@@ -14,4 +12,5 @@ export {
   AzureMapLayerConsumer,
   AzureMapLayerProvider
 } from './contexts/AzureMapLayerContext'
+export { default as AzureMapPopup } from './components/AzureMapPopup/AzureMapPopup'
 export * from './types'
