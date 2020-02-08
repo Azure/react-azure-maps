@@ -1,4 +1,4 @@
-import { ComponentClass, ReactElement, StatelessComponent } from 'react'
+import { ComponentClass, CSSProperties, ReactElement, StatelessComponent } from 'react'
 import atlas, {
   CameraBoundsOptions,
   CameraOptions,
@@ -40,6 +40,7 @@ export type IAzureMap = {
   children?: Array<IAzureMapChildren> | IAzureMapChildren
   providedMapId?: string
   containerClassName?: string
+  styles?: CSSProperties
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
   mapCenter?: Position
   options?: IAzureMapOptions
