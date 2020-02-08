@@ -33,7 +33,15 @@ const AzureMapHtmlMarker = ({
 
   useEffect(() => {
     if (markerRef && markerRef.getOptions().popup && mapRef) {
-      markerRef.togglePopup()
+      if (markerRef.getOptions().popup?.isOpen()) {
+        markerRef.getOptions().popup?.close()
+      } else if (markerRef.getOptions().popup?.isOpen() !== undefined) {
+        markerRef.getOptions().popup?.open()
+      } else if (isPopupVisible && markerRef.getOptions().popup?.isOpen()) {
+        markerRef.togglePopup()
+      } else if (isPopupVisible) {
+        markerRef.togglePopup()
+      }
     }
   }, [isPopupVisible, options, mapRef])
 
