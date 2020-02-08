@@ -21,7 +21,9 @@ import atlas, {
   MapTouchEvent,
   MapMouseEvent,
   MapMouseWheelEvent,
-  Shape
+  Shape,
+  PopupOptions,
+  PopupEvents
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -31,6 +33,7 @@ export type IAzureMapOptions = ServiceOptions &
 
 export type IAzureMapChildren =
   | ReactElement<IAzureMapHtmlMarker>
+  | ReactElement<IAzureMapPopup>
   | ReactElement<IAzureMapDataSourceProps>
 
 export type IAzureMap = {
@@ -55,14 +58,28 @@ export type IAzureMapHtmlMarkerEvent = {
   callback: (e: TargetedEvent) => void
 }
 
+export type IAzureMapPopupEvent = {
+  eventName: keyof PopupEvents
+  callback: (e: TargetedEvent) => void
+}
+
 export type IAzureMapMouseEvents = {
   [T in keyof HtmlMarkerEvents]: (e: TargetedEvent) => void
 }
 
 export type IAzureMapHtmlMarker = {
   id?: string
+  isPopupVisible?: boolean
+  markerContent: ReactElement
   options?: HtmlMarkerOptions
   events?: Array<IAzureMapHtmlMarkerEvent>
+}
+
+export type IAzureMapPopup = {
+  isVisible?: boolean
+  options?: PopupOptions
+  events?: Array<IAzureMapPopupEvent>
+  popupContent: ReactElement
 }
 
 export type IAzureMapDataSourceContextState = {
