@@ -8,19 +8,13 @@ import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
 
 const createImageSprites = async (mapRef: MapType, spriteArray: [IAzureMapImageSprite]) => {
-  const promiseArray: Array<Promise<any>> = []
   if (mapRef) {
-    spriteArray.forEach((value: IAzureMapImageSprite) => {
-      const spritePromise = mapRef.imageSprite.createFromTemplate(
-        value.id,
-        value.templateName,
-        value.color,
-        value.secondaryColor,
-        value.scale
-      )
-      promiseArray.push(spritePromise)
-    })
-    await Promise.all(promiseArray)
+    await Promise.all(
+      spriteArray.map((value: IAzureMapImageSprite) => {
+        const { id, templateName, color, secondaryColor, scale } = value
+        return mapRef.imageSprite.createFromTemplate(id, templateName, color, secondaryColor, scale)
+      })
+    )
   }
 }
 
