@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import ReactDOMServer from 'react-dom/server'
+import { renderToStaticMarkup } from 'react-dom/server'
 import atlas from 'azure-maps-control'
 
 import { IAzureMapsContextProps, IAzureMapHtmlMarker, MapType } from '../../../types'
@@ -15,7 +15,7 @@ const AzureMapHtmlMarker = ({
   const [markerRef] = useState<atlas.HtmlMarker>(
     new atlas.HtmlMarker({
       ...options,
-      htmlContent: ReactDOMServer.renderToStaticMarkup(markerContent)
+      htmlContent: renderToStaticMarkup(markerContent)
     })
   )
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
@@ -33,13 +33,12 @@ const AzureMapHtmlMarker = ({
 
   useEffect(() => {
     if (markerRef && markerRef.getOptions().popup && mapRef) {
-      if (markerRef.getOptions().popup?.isOpen()) {
+      const isMarkerPopupOpen = markerRef.getOptions().popup?.isOpen()
+      if (isMarkerPopupOpen && isPopupVisible) {
         markerRef.getOptions().popup?.close()
-      } else if (markerRef.getOptions().popup?.isOpen() !== undefined) {
+      } else if (isMarkerPopupOpen !== undefined) {
         markerRef.getOptions().popup?.open()
-      } else if (isPopupVisible && markerRef.getOptions().popup?.isOpen()) {
-        markerRef.togglePopup()
-      } else if (isPopupVisible) {
+      } else if ((isPopupVisible && isMarkerPopupOpen) || isPopupVisible) {
         markerRef.togglePopup()
       }
     }

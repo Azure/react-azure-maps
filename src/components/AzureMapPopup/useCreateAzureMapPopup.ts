@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ReactDOMServer from 'react-dom/server'
+import { renderToStaticMarkup } from 'react-dom/server'
 import atlas from 'azure-maps-control'
 
 import { IAzureMapPopup } from '../../types'
@@ -8,7 +8,7 @@ export const useCreatePopup = ({
   popupContent
 }: Pick<IAzureMapPopup, 'popupContent' | 'options'>) => {
   const [popupRef] = useState<atlas.Popup>(
-    new atlas.Popup({ ...options, content: ReactDOMServer.renderToStaticMarkup(popupContent) })
+    new atlas.Popup({ ...options, content: renderToStaticMarkup(popupContent) })
   )
   return popupRef
 }
