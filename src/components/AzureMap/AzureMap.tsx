@@ -1,22 +1,12 @@
 import React, { memo, useContext, useEffect, useState } from 'react'
 import atlas from 'azure-maps-control'
-import { IAzureMap, IAzureMapImageSprite, IAzureMapsContextProps, MapType } from '../../types'
+import { IAzureMap, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 import 'azure-maps-control/dist/atlas.min.css'
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
-
-const createImageSprites = async (mapRef: MapType, spriteArray: [IAzureMapImageSprite]) => {
-  if (mapRef) {
-    await Promise.all(
-      spriteArray.map((value: IAzureMapImageSprite) => {
-        const { id, templateName, color, secondaryColor, scale } = value
-        return mapRef.imageSprite.createFromTemplate(id, templateName, color, secondaryColor, scale)
-      })
-    )
-  }
-}
+import { useCreateImageSprites } from './useCreateSprites'
 
 const AzureMap = memo(
   ({
@@ -43,7 +33,7 @@ const AzureMap = memo(
     useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
       mref.events.add('ready', () => {
         if (imageSprites) {
-          createImageSprites(mref, imageSprites)
+          useCreateImageSprites(mref, imageSprites)
         }
         setMapReady(true)
       })
