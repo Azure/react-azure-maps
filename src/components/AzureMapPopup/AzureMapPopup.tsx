@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, memo } from 'react'
 
 import { IAzureMapsContextProps, MapType, IAzureMapPopup } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { useCheckRefMount } from '../../hooks/useCheckRef'
 import { useCreatePopup } from './useCreateAzureMapPopup'
 
-const AzureMapPopup = ({ isVisible, popupContent, options, events }: IAzureMapPopup) => {
+const AzureMapPopup = memo(({ isVisible, popupContent, options, events }: IAzureMapPopup) => {
   const popupRef = useCreatePopup({ options, popupContent })
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
 
@@ -30,6 +30,6 @@ const AzureMapPopup = ({ isVisible, popupContent, options, events }: IAzureMapPo
   }, [isVisible])
 
   return null
-}
+})
 
 export default AzureMapPopup
