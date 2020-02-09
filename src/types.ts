@@ -2,28 +2,29 @@ import { ComponentClass, CSSProperties, ReactElement, StatelessComponent } from 
 import atlas, {
   CameraBoundsOptions,
   CameraOptions,
-  HtmlMarker,
-  HtmlMarkerOptions,
-  Map,
-  ServiceOptions,
-  StyleOptions,
-  UserInteractionOptions,
-  HtmlMarkerEvents,
-  TargetedEvent,
   DataSourceOptions,
-  SymbolLayerOptions,
   HeatMapLayerOptions,
+  HtmlMarker,
+  HtmlMarkerEvents,
+  HtmlMarkerOptions,
   ImageLayerOptions,
   LineLayerOptions,
-  PolygonExtrusionLayerOptions,
-  PolygonLayerOptions,
-  TileLayerOptions,
-  MapTouchEvent,
+  Map,
   MapMouseEvent,
   MapMouseWheelEvent,
-  Shape,
+  MapTouchEvent,
+  Options,
+  PolygonExtrusionLayerOptions,
+  PolygonLayerOptions,
+  PopupEvents,
   PopupOptions,
-  PopupEvents
+  ServiceOptions,
+  Shape,
+  StyleOptions,
+  SymbolLayerOptions,
+  TargetedEvent,
+  TileLayerOptions,
+  UserInteractionOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -45,6 +46,13 @@ export type IAzureMap = {
   mapCenter?: Position
   options?: IAzureMapOptions
   imageSprites?: [IAzureMapImageSprite]
+  controls?: [IAzureMapControls]
+}
+
+export type IAzureMapControls = {
+  controlName: string
+  controlOptions?: Options
+  options?: ControlOptions | undefined
 }
 
 export type IAzureMapImageSprite = {
@@ -204,3 +212,4 @@ export type FeatureType = atlas.data.Feature<atlas.data.Geometry, Object>
 // Azure types
 export type AzureDataLineString = atlas.data.LineString
 export type AzureDataPosition = atlas.data.Position
+export type ControlOptions = atlas.ControlOptions

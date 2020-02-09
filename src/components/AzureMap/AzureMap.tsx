@@ -7,6 +7,7 @@ import 'azure-maps-control/dist/atlas.min.css'
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
 import { useCreateImageSprites } from './useCreateSprites'
+import { useCreateMapControls } from './useCreateMapControls'
 
 const AzureMap = memo(
   ({
@@ -17,7 +18,8 @@ const AzureMap = memo(
     styles,
     mapCenter,
     options = {},
-    imageSprites
+    imageSprites,
+    controls
   }: IAzureMap) => {
     const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
       IAzureMapsContextProps
@@ -34,6 +36,9 @@ const AzureMap = memo(
       mref.events.add('ready', () => {
         if (imageSprites) {
           useCreateImageSprites(mref, imageSprites)
+        }
+        if (controls) {
+          useCreateMapControls(mref, controls)
         }
         setMapReady(true)
       })
