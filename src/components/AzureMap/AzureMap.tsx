@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext, memo } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import atlas from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
-// Styles section
 import 'azure-maps-control/dist/atlas.min.css'
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
+import { useCreateImageSprites } from './useCreateSprites'
 
 const AzureMap = memo(
   ({
@@ -16,7 +16,8 @@ const AzureMap = memo(
     containerClassName,
     styles,
     mapCenter,
-    options = {}
+    options = {},
+    imageSprites
   }: IAzureMap) => {
     const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
       IAzureMapsContextProps
@@ -31,6 +32,9 @@ const AzureMap = memo(
 
     useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
       mref.events.add('ready', () => {
+        if (imageSprites) {
+          useCreateImageSprites(mref, imageSprites)
+        }
         setMapReady(true)
       })
     })

@@ -44,6 +44,15 @@ export type IAzureMap = {
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
   mapCenter?: Position
   options?: IAzureMapOptions
+  imageSprites?: [IAzureMapImageSprite]
+}
+
+export type IAzureMapImageSprite = {
+  id: string
+  templateName: string
+  color?: string
+  secondaryColor?: string
+  scale?: number
 }
 
 export type IAzureMapContextState = {
@@ -191,3 +200,7 @@ export type LayerType = atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas
 export type MapType = atlas.Map
 export type GeometryType = atlas.data.Geometry
 export type FeatureType = atlas.data.Feature<atlas.data.Geometry, Object>
+
+// Azure types
+export type AzureDataLineString = atlas.data.LineString
+export type AzureDataPosition = atlas.data.Position

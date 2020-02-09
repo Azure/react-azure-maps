@@ -15,4 +15,9 @@ export {
 export { default as AzureMapPopup } from './components/AzureMapPopup/AzureMapPopup'
 export { default as useCreatePopup } from './components/AzureMapPopup/useCreateAzureMapPopup'
 
+export {
+  generateLinesFromArrayOfPosition,
+  generatePixelHeading
+} from './components/helpers/mapHelper'
+
 export * from './types'
