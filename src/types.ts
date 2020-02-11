@@ -1,5 +1,6 @@
 import { ComponentClass, CSSProperties, ReactElement, StatelessComponent } from 'react'
 import atlas, {
+  AnimationOptions,
   CameraBoundsOptions,
   CameraOptions,
   DataSourceOptions,
@@ -46,11 +47,13 @@ export type IAzureMap = {
   containerClassName?: string
   styles?: CSSProperties
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
-  mapCenter?: Position
+  mapCenter?: atlas.data.Position
   options?: IAzureMapOptions
   imageSprites?: [IAzureMapImageSprite]
   controls?: [IAzureMapControls]
   events?: IAzureMapEvent | any
+  zoom?: number
+  cameraOptions?: AzureSetCameraOptions
 }
 
 export type IAzureMapControls = {
@@ -274,3 +277,5 @@ export type FeatureType = atlas.data.Feature<atlas.data.Geometry, Object>
 export type AzureDataLineString = atlas.data.LineString
 export type AzureDataPosition = atlas.data.Position
 export type ControlOptions = atlas.ControlOptions
+
+export type AzureSetCameraOptions = ((CameraOptions | CameraBoundsOptions) & AnimationOptions) | any
