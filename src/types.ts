@@ -10,6 +10,9 @@ import atlas, {
   ImageLayerOptions,
   LineLayerOptions,
   Map,
+  MapDataEvent,
+  MapErrorEvent,
+  MapEvent,
   MapMouseEvent,
   MapMouseWheelEvent,
   MapTouchEvent,
@@ -47,6 +50,7 @@ export type IAzureMap = {
   options?: IAzureMapOptions
   imageSprites?: [IAzureMapImageSprite]
   controls?: [IAzureMapControls]
+  events?: IAzureMapEvent | any
 }
 
 export type IAzureMapControls = {
@@ -116,6 +120,21 @@ export type IAzureMapDataSourceEvent = {
   [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
 }
 
+export type IAzureMapEvent = {
+  [property in IAzureMapEventsType]: (
+    e:
+      | MapDataEvent
+      | MapErrorEvent
+      | MapTouchEvent
+      | MapMouseEvent
+      | string
+      | MapMouseWheelEvent
+      | MapEvent
+      | atlas.layer.Layer
+      | atlas.source.Source
+  ) => void
+}
+
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
   children?: Array<IAzureDataSourceChildren>
@@ -149,7 +168,49 @@ export type IAzureLayerStatefulProviderProps = {
 
 export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
 
+export type IAzureMapEventsType =
+  | IAzureMapLayerEventType
+  | IAzureMapLayerLifecycleEvents
+  | IAzureMapDataSourceEventType
+  | IAzureMapAddEventsType
+  | IAzureMapSourceEventType
+  // Adds a data event to the map.
+  | 'data'
+  | 'sourcedata'
+  | 'styledata'
+  // Adds an event to the map.
+  | 'error'
+  // Adds a style image missing event to the map.
+  | 'styleimagemissing'
+
+export type IAzureMapAddEventsType =
+  | 'boxzoomstart'
+  | 'boxzoomend'
+  | 'dragstart'
+  | 'drag'
+  | 'dragend'
+  | 'idle'
+  | 'load'
+  | 'movestart'
+  | 'move'
+  | 'moveend'
+  | 'pitchstart'
+  | 'pitch'
+  | 'pitchend'
+  | 'ready'
+  | 'render'
+  | 'resize'
+  | 'rotatestart'
+  | 'rotate'
+  | 'rotateend'
+  | 'tokenacquired'
+  | 'zoomstart'
+  | 'zoom'
+  | 'zoomend'
+
 export type IAzureMapDataSourceEventType = 'dataadded' | 'dataremoved'
+
+export type IAzureMapSourceEventType = 'sourceadded' | 'sourceremoved'
 
 export type IAzureMapLayerEventType =
   // Mouse events
@@ -196,7 +257,7 @@ export type IAzureMapFeature = {
   multipleCoordinates?: Array<Array<atlas.data.Position>>
   multipleDimensionCoordinates?: Array<Array<Array<atlas.data.Position>>>
   bbox?: atlas.data.BoundingBox
-  properties?: Object //It is required by lib
+  properties?: Object // It is required by lib
 }
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
