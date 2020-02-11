@@ -19,7 +19,8 @@ const AzureMap = memo(
     mapCenter,
     options = {},
     imageSprites,
-    controls
+    controls,
+    events
   }: IAzureMap) => {
     const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
       IAzureMapsContextProps
@@ -42,6 +43,9 @@ const AzureMap = memo(
         }
         setMapReady(true)
       })
+      for (const eventType in events) {
+        mref.events.add(eventType as any, events[eventType])
+      }
     })
 
     useEffect(() => {
