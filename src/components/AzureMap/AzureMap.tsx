@@ -16,11 +16,13 @@ const AzureMap = memo(
     providedMapId,
     containerClassName,
     styles,
-    mapCenter,
     options = {},
     imageSprites,
     controls,
-    events
+    events,
+    cameraOptions,
+    trafficOptions,
+    userInteraction
   }: IAzureMap) => {
     const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
       IAzureMapsContextProps
@@ -29,9 +31,21 @@ const AzureMap = memo(
 
     useEffect(() => {
       if (mapRef) {
-        mapRef.setCamera(mapCenter)
+        mapRef.setTraffic(trafficOptions)
       }
-    }, [mapCenter])
+    }, [trafficOptions])
+
+    useEffect(() => {
+      if (mapRef) {
+        mapRef.setUserInteraction(userInteraction)
+      }
+    }, [userInteraction])
+
+    useEffect(() => {
+      if (mapRef) {
+        mapRef.setCamera(cameraOptions)
+      }
+    }, [cameraOptions])
 
     useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
       mref.events.add('ready', () => {
