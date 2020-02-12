@@ -1,22 +1,32 @@
 {
   "name": "react-azure-maps",
   "version": "0.1.0",
-  "description": "My example library description",
-  "keywords": [],
+  "description": "React Wrapper for azure-maps-control",
+  "keywords": [
+    "react",
+    "reactjs",
+    "typescript",
+    "azure",
+    "azure-maps",
+    "azure-maps-controll",
+    "map",
+    "maps",
+    "react-azure-maps"
+  ],
   "main": "dist/react-azure-maps.umd.js",
   "module": "dist/react-azure-maps.es5.js",
   "typings": "dist/types/react-azure-maps.d.ts",
   "files": [
     "dist"
   ],
-  "author": "Maciej Sasinowski",
+  "author": "WiredSolutions",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/acaisoft/my-example-lib"
+    "url": "https://github.com/WiredSolutions/react-azure-maps"
   },
   "license": "MIT",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts*' 'test/**/*.ts*'",
