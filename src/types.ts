@@ -28,6 +28,7 @@ import atlas, {
   SymbolLayerOptions,
   TargetedEvent,
   TileLayerOptions,
+  TrafficOptions,
   UserInteractionOptions
 } from 'azure-maps-control'
 
@@ -47,13 +48,13 @@ export type IAzureMap = {
   containerClassName?: string
   styles?: CSSProperties
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
-  mapCenter?: atlas.data.Position
   options?: IAzureMapOptions
   imageSprites?: [IAzureMapImageSprite]
   controls?: [IAzureMapControls]
   events?: IAzureMapEvent | any
-  zoom?: number
   cameraOptions?: AzureSetCameraOptions
+  trafficOptions?: TrafficOptions
+  userInteraction?: UserInteractionOptions
 }
 
 export type IAzureMapControls = {
