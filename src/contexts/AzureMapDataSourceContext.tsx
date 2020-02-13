@@ -19,7 +19,7 @@ const AzureMapDataSourceStatefulProvider = ({
   children,
   options,
   events,
-  dataFromurl
+  dataFromUrl
 }: IAzureDataSourceStatefulProviderProps) => {
   const [dataSourceRef] = useState<atlas.source.DataSource>(
     new atlas.source.DataSource(id, options)
@@ -30,8 +30,8 @@ const AzureMapDataSourceStatefulProvider = ({
       mref.events.add(eventType as any, dref, events[eventType])
     }
     mref.sources.add(dref)
-    if (dataFromurl) {
-      dref.importDataFromUrl(dataFromurl)
+    if (dataFromUrl) {
+      dref.importDataFromUrl(dataFromUrl)
     }
   })
 
