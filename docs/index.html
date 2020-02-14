@@ -3567,6 +3567,20 @@
           <pre><code class="language-bash">npm install react-azure-maps</code></pre>
           <p>or</p>
           <pre><code class="language-bash">yarn add react-azure-maps</code></pre>
+          <a
+            href="#documentation"
+            id="documentation"
+            style="color: inherit; text-decoration: none;"
+          >
+            <h2>Documentation</h2>
+          </a>
+          <p>
+            Documentation is available <a href="https://react-azure-maps.now.sh">Documentation</a>
+          </p>
+          <p>
+            Generated documentation from typedoc is available
+            <a href="https://wiredsolutions.github.io/react-azure-maps/docs/">Documentation</a>
+          </p>
           <a href="#playground" id="playground" style="color: inherit; text-decoration: none;">
             <h2>Playground</h2>
           </a>
@@ -3609,60 +3623,25 @@
             <h2>Basic Usage</h2>
           </a>
           <pre><code class="language-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
-<span class="hljs-keyword">import</span> {
-  AzureMap,
-  AzureMapDataSourceProvider,
-  AzureMapFeature,
-  AzureMapHtmlMarker,
-  AzureMapLayerProvider,
-  AzureMapsProvider,
-  IAzureMapHtmlMarkerEvent,
-  IAzureMapOptions
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-azure-maps'</span>
-<span class="hljs-keyword">import</span> { AuthenticationType, data } <span class="hljs-keyword">from</span> <span class="hljs-string">'azure-maps-control'</span>
-<span class="hljs-keyword">import</span> { key } <span class="hljs-keyword">from</span> <span class="hljs-string">'../key'</span>
+<span class="hljs-keyword">import</span> {AzureMap, AzureMapsProvider, IAzureMapOptions} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-azure-maps'</span>
+<span class="hljs-keyword">import</span> {AuthenticationType} <span class="hljs-keyword">from</span> <span class="hljs-string">'azure-maps-control'</span>
 
-<span class="hljs-keyword">const</span> DefaultMap = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-keyword">const</span> position = <span class="hljs-keyword">new</span> data.Position(<span class="hljs-number">-100.01</span>, <span class="hljs-number">45.01</span>)
-  <span class="hljs-keyword">const</span> option: IAzureMapOptions = useMemo(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">authOptions</span>: {
+<span class="hljs-keyword">const</span> option: IAzureMapOptions = {
+    <span class="hljs-attr">authOptions</span>: {
         <span class="hljs-attr">authType</span>: AuthenticationType.subscriptionKey,
-        <span class="hljs-attr">subscriptionKey</span>: key
-      },
-      <span class="hljs-attr">center</span>: [<span class="hljs-number">-100.01</span>, <span class="hljs-number">45.01</span>],
-      <span class="hljs-attr">zoom</span>: <span class="hljs-number">12</span>,
-      <span class="hljs-attr">view</span>: <span class="hljs-string">'Auto'</span>
-    }
-  }, [])
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
-      <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">height:</span> '<span class="hljs-attr">300px</span>'
-      }}
-    &gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">AzureMapsProvider</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">AzureMap</span> <span class="hljs-attr">options</span>=<span class="hljs-string">{option}</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">AzureMapDataSourceProvider</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{</span>'<span class="hljs-attr">default</span> <span class="hljs-attr">DataSourceProvider</span>'}&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">AzureMapLayerProvider</span> <span class="hljs-attr">options</span>=<span class="hljs-string">{{}}</span> <span class="hljs-attr">type</span>=<span class="hljs-string">{</span>'<span class="hljs-attr">SymbolLayer</span>'}&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">AzureMapLayerProvider</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">AzureMapFeature</span>
-              <span class="hljs-attr">type</span>=<span class="hljs-string">"Point"</span>
-              <span class="hljs-attr">coordinate</span>=<span class="hljs-string">{position}</span>
-              <span class="hljs-attr">properties</span>=<span class="hljs-string">{{</span>
-                <span class="hljs-attr">title:</span> '<span class="hljs-attr">Microsoft</span>',
-                <span class="hljs-attr">icon:</span> '<span class="hljs-attr">pin-round-blue</span>'
-              }}
-            &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">AzureMapFeature</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">AzureMapDataSourceProvider</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">AzureMapHtmlMarker</span>
-            <span class="hljs-attr">markerContent</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"pulseIcon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
-            options={{ position: [-110, 45] }}
-          /&gt;
-        <span class="hljs-tag">&lt;/<span class="hljs-name">AzureMap</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">AzureMapsProvider</span>&gt;</span>
+        <span class="hljs-attr">subscriptionKey</span>: <span class="hljs-comment">// Your subscription key</span>
+    },
+}
+
+<span class="hljs-keyword">const</span> DefaultMap: React.FC = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{height:</span> '<span class="hljs-attr">300px</span>'}}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">AzureMapsProvider</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">AzureMap</span> <span class="hljs-attr">options</span>=<span class="hljs-string">{option}</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">AzureMap</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">AzureMapsProvider</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-  )
-}</code></pre>
+)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> DefaultMap</code></pre>
           <a
             href="#local-development-with-a-hrefhttpsgithubcomwiredsolutionsreact-azure-maps-playgroundplayground-packagea"
             id="local-development-with-a-hrefhttpsgithubcomwiredsolutionsreact-azure-maps-playgroundplayground-packagea"
@@ -4078,7 +4057,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L279"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L279"
                     >src/types.ts:279</a
                   >
                 </li>
@@ -4097,7 +4076,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L280"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L280"
                     >src/types.ts:280</a
                   >
                 </li>
@@ -4128,7 +4107,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L283"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L283"
                     >src/types.ts:283</a
                   >
                 </li>
@@ -4147,7 +4126,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L281"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L281"
                     >src/types.ts:281</a
                   >
                 </li>
@@ -4166,7 +4145,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L272"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L272"
                     >src/types.ts:272</a
                   >
                 </li>
@@ -4190,7 +4169,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L276"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L276"
                     >src/types.ts:276</a
                   >
                 </li>
@@ -4209,7 +4188,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L275"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L275"
                     >src/types.ts:275</a
                   >
                 </li>
@@ -4240,7 +4219,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L119"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L119"
                     >src/types.ts:119</a
                   >
                 </li>
@@ -4290,7 +4269,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L142"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L142"
                     >src/types.ts:142</a
                   >
                 </li>
@@ -4404,7 +4383,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L160"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L160"
                     >src/types.ts:160</a
                   >
                 </li>
@@ -4559,7 +4538,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L45"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L45"
                     >src/types.ts:45</a
                   >
                 </li>
@@ -4753,7 +4732,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L191"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L191"
                     >src/types.ts:191</a
                   >
                 </li>
@@ -4787,7 +4766,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L40"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L40"
                     >src/types.ts:40</a
                   >
                 </li>
@@ -4829,7 +4808,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L74"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L74"
                     >src/types.ts:74</a
                   >
                 </li>
@@ -4873,7 +4852,7 @@
                           <li>
                             Defined in
                             <a
-                              href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L78"
+                              href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L78"
                               >src/types.ts:78</a
                             >
                           </li>
@@ -4906,7 +4885,7 @@
                           <li>
                             Defined in
                             <a
-                              href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L79"
+                              href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L79"
                               >src/types.ts:79</a
                             >
                           </li>
@@ -4946,7 +4925,7 @@
                           <li>
                             Defined in
                             <a
-                              href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L77"
+                              href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L77"
                               >src/types.ts:77</a
                             >
                           </li>
@@ -4992,7 +4971,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L60"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L60"
                     >src/types.ts:60</a
                   >
                 </li>
@@ -5048,7 +5027,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L111"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L111"
                     >src/types.ts:111</a
                   >
                 </li>
@@ -5082,7 +5061,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L123"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L123"
                     >src/types.ts:123</a
                   >
                 </li>
@@ -5110,7 +5089,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L216"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L216"
                     >src/types.ts:216</a
                   >
                 </li>
@@ -5133,7 +5112,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L271"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L271"
                     >src/types.ts:271</a
                   >
                 </li>
@@ -5152,7 +5131,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L127"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L127"
                     >src/types.ts:127</a
                   >
                 </li>
@@ -5198,7 +5177,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L176"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L176"
                     >src/types.ts:176</a
                   >
                 </li>
@@ -5267,7 +5246,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L257"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L257"
                     >src/types.ts:257</a
                   >
                 </li>
@@ -5384,7 +5363,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L249"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L249"
                     >src/types.ts:249</a
                   >
                 </li>
@@ -5430,7 +5409,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L96"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L96"
                     >src/types.ts:96</a
                   >
                 </li>
@@ -5516,7 +5495,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L82"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L82"
                     >src/types.ts:82</a
                   >
                 </li>
@@ -5609,7 +5588,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L66"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L66"
                     >src/types.ts:66</a
                   >
                 </li>
@@ -5686,7 +5665,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L115"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L115"
                     >src/types.ts:115</a
                   >
                 </li>
@@ -5722,7 +5701,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L150"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L150"
                     >src/types.ts:150</a
                   >
                 </li>
@@ -5775,7 +5754,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L220"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L220"
                     >src/types.ts:220</a
                   >
                 </li>
@@ -5799,7 +5778,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L174"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L174"
                     >src/types.ts:174</a
                   >
                 </li>
@@ -5820,7 +5799,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L268"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L268"
                     >src/types.ts:268</a
                   >
                 </li>
@@ -5851,7 +5830,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L240"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L240"
                     >src/types.ts:240</a
                   >
                 </li>
@@ -5872,7 +5851,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L156"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L156"
                     >src/types.ts:156</a
                   >
                 </li>
@@ -5897,7 +5876,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L269"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L269"
                     >src/types.ts:269</a
                   >
                 </li>
@@ -5916,7 +5895,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L92"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L92"
                     >src/types.ts:92</a
                   >
                 </li>
@@ -5947,7 +5926,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L35"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L35"
                     >src/types.ts:35</a
                   >
                 </li>
@@ -5988,7 +5967,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L104"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L104"
                     >src/types.ts:104</a
                   >
                 </li>
@@ -6063,7 +6042,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L87"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L87"
                     >src/types.ts:87</a
                   >
                 </li>
@@ -6137,7 +6116,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L218"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L218"
                     >src/types.ts:218</a
                   >
                 </li>
@@ -6158,7 +6137,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L270"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L270"
                     >src/types.ts:270</a
                   >
                 </li>
@@ -6186,7 +6165,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapContext.tsx#L14"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapContext.tsx#L14"
                     >src/contexts/AzureMapContext.tsx:14</a
                   >
                 </li>
@@ -6225,7 +6204,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L273"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L273"
                     >src/types.ts:273</a
                   >
                 </li>
@@ -6244,7 +6223,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/types.ts#L274"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/types.ts#L274"
                     >src/types.ts:274</a
                   >
                 </li>
@@ -6371,7 +6350,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMap/AzureMap.tsx#L12"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMap/AzureMap.tsx#L12"
                     >src/components/AzureMap/AzureMap.tsx:12</a
                   >
                 </li>
@@ -6405,7 +6384,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapDataSourceContext.tsx#L15"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapDataSourceContext.tsx#L15"
                     >src/contexts/AzureMapDataSourceContext.tsx:15</a
                   >
                 </li>
@@ -6442,7 +6421,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapDataSourceContext.tsx#L12"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapDataSourceContext.tsx#L12"
                     >src/contexts/AzureMapDataSourceContext.tsx:12</a
                   >
                 </li>
@@ -6530,7 +6509,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMapFeature/AzureMapFeature.tsx#L13"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMapFeature/AzureMapFeature.tsx#L13"
                     >src/components/AzureMapFeature/AzureMapFeature.tsx:13</a
                   >
                 </li>
@@ -6603,7 +6582,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMapMarkers/AzureMapHtmlMarker/AzureMapHtmlMarker.tsx#L9"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMapMarkers/AzureMapHtmlMarker/AzureMapHtmlMarker.tsx#L9"
                     >src/components/AzureMapMarkers/AzureMapHtmlMarker/AzureMapHtmlMarker.tsx:9</a
                   >
                 </li>
@@ -6638,7 +6617,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapLayerContext.tsx#L8"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapLayerContext.tsx#L8"
                     >src/contexts/AzureMapLayerContext.tsx:8</a
                   >
                 </li>
@@ -6676,7 +6655,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapLayerContext.tsx#L5"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapLayerContext.tsx#L5"
                     >src/contexts/AzureMapLayerContext.tsx:5</a
                   >
                 </li>
@@ -6736,7 +6715,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMapPopup/AzureMapPopup.tsx#L8"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMapPopup/AzureMapPopup.tsx#L8"
                     >src/components/AzureMapPopup/AzureMapPopup.tsx:8</a
                   >
                 </li>
@@ -6784,7 +6763,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapContext.tsx#L12"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapContext.tsx#L12"
                     >src/contexts/AzureMapContext.tsx:12</a
                   >
                 </li>
@@ -6834,7 +6813,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapContext.tsx#L5"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapContext.tsx#L5"
                     >src/contexts/AzureMapContext.tsx:5</a
                   >
                 </li>
@@ -6853,7 +6832,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/helpers/mapHelper.ts#L3"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/helpers/mapHelper.ts#L3"
                     >src/components/helpers/mapHelper.ts:3</a
                   >
                 </li>
@@ -6872,7 +6851,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/helpers/mapHelper.ts#L4"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/helpers/mapHelper.ts#L4"
                     >src/components/helpers/mapHelper.ts:4</a
                   >
                 </li>
@@ -6891,7 +6870,7 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/helpers/mapHelper.ts#L2"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/helpers/mapHelper.ts#L2"
                     >src/components/helpers/mapHelper.ts:2</a
                   >
                 </li>
@@ -6926,21 +6905,21 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapContext.tsx#L12"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapContext.tsx#L12"
                     >src/contexts/AzureMapContext.tsx:12</a
                   >
                 </li>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapDataSourceContext.tsx#L15"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapDataSourceContext.tsx#L15"
                     >src/contexts/AzureMapDataSourceContext.tsx:15</a
                   >
                 </li>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapLayerContext.tsx#L8"
+                    href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapLayerContext.tsx#L8"
                     >src/contexts/AzureMapLayerContext.tsx:8</a
                   >
                 </li>
@@ -7255,7 +7234,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapDataSourceContext.tsx#L17"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapDataSourceContext.tsx#L17"
                         >src/contexts/AzureMapDataSourceContext.tsx:17</a
                       >
                     </li>
@@ -7952,7 +7931,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/contexts/AzureMapLayerContext.tsx#L10"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/contexts/AzureMapLayerContext.tsx#L10"
                         >src/contexts/AzureMapLayerContext.tsx:10</a
                       >
                     </li>
@@ -8149,7 +8128,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/hooks/useAzureMapLayer.ts#L15"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/hooks/useAzureMapLayer.ts#L15"
                         >src/hooks/useAzureMapLayer.ts:15</a
                       >
                     </li>
@@ -8296,7 +8275,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMap/useCreateMapControls.tsx#L20"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMap/useCreateMapControls.tsx#L20"
                         >src/components/AzureMap/useCreateMapControls.tsx:20</a
                       >
                     </li>
@@ -8350,7 +8329,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/helpers/mapHelper.ts#L6"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/helpers/mapHelper.ts#L6"
                         >src/components/helpers/mapHelper.ts:6</a
                       >
                     </li>
@@ -8396,7 +8375,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/helpers/mapHelper.ts#L11"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/helpers/mapHelper.ts#L11"
                         >src/components/helpers/mapHelper.ts:11</a
                       >
                     </li>
@@ -8493,7 +8472,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/hooks/useAzureMapLayer.ts#L39"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/hooks/useAzureMapLayer.ts#L39"
                         >src/hooks/useAzureMapLayer.ts:39</a
                       >
                     </li>
@@ -8677,7 +8656,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/hooks/useCheckRef.tsx#L3"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/hooks/useCheckRef.tsx#L3"
                         >src/hooks/useCheckRef.tsx:3</a
                       >
                     </li>
@@ -8800,7 +8779,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/hooks/useCheckRef.tsx#L15"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/hooks/useCheckRef.tsx#L15"
                         >src/hooks/useCheckRef.tsx:15</a
                       >
                     </li>
@@ -8961,7 +8940,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMapFeature/useCreateAzureMapFeature.ts#L4"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMapFeature/useCreateAzureMapFeature.ts#L4"
                         >src/components/AzureMapFeature/useCreateAzureMapFeature.ts:4</a
                       >
                     </li>
@@ -9130,7 +9109,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMap/useCreateSprites.tsx#L3"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMap/useCreateSprites.tsx#L3"
                         >src/components/AzureMap/useCreateSprites.tsx:3</a
                       >
                     </li>
@@ -9192,7 +9171,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMap/useCreateMapControls.tsx#L10"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMap/useCreateMapControls.tsx#L10"
                         >src/components/AzureMap/useCreateMapControls.tsx:10</a
                       >
                     </li>
@@ -9270,7 +9249,7 @@
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/MelinaTeam/azure-maps-react/blob/840f3df/src/components/AzureMapPopup/useCreateAzureMapPopup.ts#L6"
+                        href="https://github.com/MelinaTeam/azure-maps-react/blob/9ac39ab/src/components/AzureMapPopup/useCreateAzureMapPopup.ts#L6"
                         >src/components/AzureMapPopup/useCreateAzureMapPopup.ts:6</a
                       >
                     </li>
