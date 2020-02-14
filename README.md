@@ -16,6 +16,12 @@ or
 yarn add react-azure-maps
 ```
 
+## Documentation
+
+Documentation is available [Documentation](https://react-azure-maps.now.sh)
+
+Generated documentation from typedoc is available [Documentation](https://wiredsolutions.github.io/react-azure-maps/docs/)
+
 ## Playground
 
 `React Azure Maps` have a fully documented [Playground Package](https://github.com/WiredSolutions/react-azure-maps-playground) that implements a lot of features from [Azure Maps Code Samples](https://azuremapscodesamples.azurewebsites.net/). If you implement new usage of the map and want to be contributor just create a PR.
