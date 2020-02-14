@@ -20,7 +20,7 @@ yarn add react-azure-maps
 
 Documentation is available [Documentation](https://react-azure-maps.now.sh)
 
-Generated documentation from typedoc is available [Documentation](https://wiredsolutions.github.io/react-azure-maps/docs/)
+Generated documentation from typedoc is available [Documentation](https://wiredsolutions.github.io/react-azure-maps/)
 
 ## Playground
 
