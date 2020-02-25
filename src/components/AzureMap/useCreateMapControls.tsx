@@ -28,6 +28,12 @@ const createControl = (type: string, options?: ControlOptions): atlas.ControlBas
     case 'ZoomControl':
       return new atlas.control.ZoomControl(options as ZoomControlOptions)
     default:
-      console.warn('Check the type and passed props properties')
+      console.warn('Check the type and passed props properties or try CustomControl')
   }
+}
+
+export const useCreateMapCustomControls = async (mapRef: MapType, customControls: [any]) => {
+  customControls.forEach((item: any) => {
+    mapRef.controls.add(item.control, item.controlOptions)
+  })
 }
