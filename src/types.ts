@@ -97,7 +97,7 @@ export type IAzureMapMouseEvents = {
 export type IAzureMapHtmlMarker = {
   id?: string
   isPopupVisible?: boolean
-  markerContent: ReactElement
+  markerContent?: ReactElement
   options?: HtmlMarkerOptions
   events?: Array<IAzureMapHtmlMarkerEvent>
 }
