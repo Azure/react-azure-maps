@@ -29,7 +29,8 @@ import atlas, {
   TargetedEvent,
   TileLayerOptions,
   TrafficOptions,
-  UserInteractionOptions
+  UserInteractionOptions,
+  Control
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -57,10 +58,9 @@ export type IAzureMap = {
   trafficOptions?: TrafficOptions
   userInteraction?: UserInteractionOptions
 }
-
 export type IAzureCustomControls = {
-  control: any
-  controlOptions?: Options
+  control: Control
+  controlOptions?: ControlOptions
 }
 
 export type IAzureMapControls = {
@@ -285,5 +285,4 @@ export type FeatureType = atlas.data.Feature<atlas.data.Geometry, Object>
 export type AzureDataLineString = atlas.data.LineString
 export type AzureDataPosition = atlas.data.Position
 export type ControlOptions = atlas.ControlOptions
-
 export type AzureSetCameraOptions = ((CameraOptions | CameraBoundsOptions) & AnimationOptions) | any

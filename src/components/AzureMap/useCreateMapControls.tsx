@@ -1,10 +1,11 @@
-import { IAzureMapControls, MapType } from '../../types'
+import { IAzureMapControls, MapType, IAzureCustomControls } from '../../types'
 import atlas, {
   CompassControlOptions,
   ControlOptions,
   PitchControlOptions,
   StyleControlOptions,
-  ZoomControlOptions
+  ZoomControlOptions,
+  Control
 } from 'azure-maps-control'
 
 export const useCreateMapControls = async (mapRef: MapType, controls: [IAzureMapControls]) => {
@@ -32,8 +33,11 @@ const createControl = (type: string, options?: ControlOptions): atlas.ControlBas
   }
 }
 
-export const useCreateMapCustomControls = async (mapRef: MapType, customControls: [any]) => {
-  customControls.forEach((item: any) => {
-    mapRef.controls.add(item.control, item.controlOptions)
+export const useCreateMapCustomControls = async (
+  mapRef: MapType,
+  customControls: IAzureCustomControls[]
+) => {
+  customControls.forEach(({ control, controlOptions }: IAzureCustomControls) => {
+    mapRef.controls.add(control, controlOptions)
   })
 }
