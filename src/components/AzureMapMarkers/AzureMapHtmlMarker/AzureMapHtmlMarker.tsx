@@ -11,7 +11,7 @@ const AzureMapHtmlMarker = memo(
     const [markerRef] = useState<atlas.HtmlMarker>(
       new atlas.HtmlMarker({
         ...options,
-        htmlContent: renderToStaticMarkup(markerContent)
+        htmlContent: markerContent && renderToStaticMarkup(markerContent)
       })
     )
     const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)

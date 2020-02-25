@@ -7,7 +7,7 @@ import 'azure-maps-control/dist/atlas.min.css'
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
 import { useCreateImageSprites } from './useCreateSprites'
-import { useCreateMapControls } from './useCreateMapControls'
+import { useCreateMapControls, useCreateMapCustomControls } from './useCreateMapControls'
 
 const AzureMap = memo(
   ({
@@ -19,6 +19,7 @@ const AzureMap = memo(
     options = {},
     imageSprites,
     controls,
+    customControls,
     events,
     cameraOptions,
     trafficOptions,
@@ -54,6 +55,9 @@ const AzureMap = memo(
         }
         if (controls) {
           useCreateMapControls(mref, controls)
+        }
+        if (customControls) {
+          useCreateMapCustomControls(mref, customControls)
         }
         setMapReady(true)
       })

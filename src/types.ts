@@ -51,10 +51,16 @@ export type IAzureMap = {
   options?: IAzureMapOptions
   imageSprites?: [IAzureMapImageSprite]
   controls?: [IAzureMapControls]
+  customControls?: [IAzureCustomControls]
   events?: IAzureMapEvent | any
   cameraOptions?: AzureSetCameraOptions
   trafficOptions?: TrafficOptions
   userInteraction?: UserInteractionOptions
+}
+
+export type IAzureCustomControls = {
+  control: any
+  controlOptions?: Options
 }
 
 export type IAzureMapControls = {
@@ -96,7 +102,7 @@ export type IAzureMapMouseEvents = {
 export type IAzureMapHtmlMarker = {
   id?: string
   isPopupVisible?: boolean
-  markerContent: ReactElement
+  markerContent?: ReactElement
   options?: HtmlMarkerOptions
   events?: Array<IAzureMapHtmlMarkerEvent>
 }
