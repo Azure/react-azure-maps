@@ -30,7 +30,9 @@ import atlas, {
   TileLayerOptions,
   TrafficOptions,
   UserInteractionOptions,
-  Control
+  Control,
+  BubbleLayerOptions,
+  LayerOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -165,13 +167,17 @@ export type IAzureMapLifecycleEvent = {
 
 export type IAzureLayerStatefulProviderProps = {
   id?: string
-  options: SymbolLayerOptions &
-    HeatMapLayerOptions &
-    ImageLayerOptions &
-    LineLayerOptions &
-    PolygonExtrusionLayerOptions &
-    PolygonLayerOptions &
-    TileLayerOptions
+  options:
+    | (SymbolLayerOptions &
+        HeatMapLayerOptions &
+        ImageLayerOptions &
+        LineLayerOptions &
+        PolygonExtrusionLayerOptions &
+        PolygonLayerOptions &
+        TileLayerOptions &
+        BubbleLayerOptions &
+        LayerOptions)
+    | Options
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
   lifecycleEvents?: IAzureMapLifecycleEvent | any
@@ -251,6 +257,7 @@ export type IAzureMapLayerType =
   | 'PolygonExtrusionLayer'
   | 'PolygonLayer'
   | 'TitleLayer'
+  | 'BubbleLayer'
 
 export type IAzureMapFeatureType =
   | 'Point'

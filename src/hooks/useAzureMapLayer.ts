@@ -31,6 +31,8 @@ export const constructLayer = (
       return new atlas.layer.PolygonLayer(dataSourceRef, id, options)
     case 'TitleLayer':
       return new atlas.layer.TileLayer(options, id)
+    case 'BubbleLayer':
+      return new atlas.layer.BubbleLayer(dataSourceRef, id, options)
     default:
       return null
   }
