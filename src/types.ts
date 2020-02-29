@@ -124,9 +124,20 @@ export type IAzureMapLayerContextState = {
   layerRef: atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer | null
 }
 
+export type IAzureMapShapeContextState = {
+  shapeRef: atlas.Shape | null
+  createShape?: any
+  setShapeRef?: any
+  setCoordinates?: Function
+  setProperties?: Function
+}
+
 export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
+  | ReactElement<IAzureShapeStatefulProviderProps>
+
+export type IAzureShapeChildren = ReactElement<IAzureMapFeature>
 
 export type IAzureMapDataSourceEvent = {
   [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
@@ -181,6 +192,11 @@ export type IAzureLayerStatefulProviderProps = {
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
   lifecycleEvents?: IAzureMapLifecycleEvent | any
+}
+export type IAzureShapeStatefulProviderProps = {
+  id: string
+  properties: any
+  children?: Array<IAzureShapeChildren> | IAzureShapeChildren
 }
 
 export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
@@ -276,9 +292,18 @@ export type IAzureMapFeature = {
   multipleDimensionCoordinates?: Array<Array<Array<atlas.data.Position>>>
   bbox?: atlas.data.BoundingBox
   properties?: Object // It is required by lib
+
+  // Shape functions:
+  setCoords?:
+    | atlas.data.Position
+    | atlas.data.Position[]
+    | atlas.data.Position[][]
+    | atlas.data.Position[][][]
+  setProperties?: any
 }
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
+export type IAzureMapShapeProps = IAzureMapShapeContextState
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
 export type IAzureMapsContextProps = IAzureMapContextState
 export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState
