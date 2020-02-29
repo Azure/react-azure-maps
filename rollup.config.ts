@@ -1,7 +1,5 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
-import sourceMaps from 'rollup-plugin-sourcemaps'
-import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 import postcss from 'rollup-plugin-postcss'
@@ -16,13 +14,6 @@ const outputGlobals = {
 export default {
   input: `src/${pkg.name}.ts`,
   output: [
-    {
-      file: pkg.main,
-      name: camelCase(pkg.name),
-      format: 'umd',
-      sourcemap: true,
-      globals: outputGlobals
-    },
     {
       file: pkg.module,
       format: 'es',
@@ -41,7 +32,6 @@ export default {
     }),
     typescript({ useTsconfigDeclarationDir: true }),
     commonjs(),
-    resolve(),
-    sourceMaps()
+    resolve()
   ]
 }
