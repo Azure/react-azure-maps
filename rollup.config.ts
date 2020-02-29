@@ -8,33 +8,40 @@ import postcss from 'rollup-plugin-postcss'
 
 const pkg = require('./package.json')
 
+const outputGlobals = {
+  react: 'React',
+  'react-dom/server': 'server'
+}
+
 export default {
   input: `src/${pkg.name}.ts`,
   output: [
-    { file: pkg.main, name: camelCase(pkg.name), format: 'umd', sourcemap: true },
-    { file: pkg.module, format: 'es', sourcemap: true }
+    {
+      file: pkg.main,
+      name: camelCase(pkg.name),
+      format: 'umd',
+      sourcemap: true,
+      globals: outputGlobals
+    },
+    {
+      file: pkg.module,
+      format: 'es',
+      sourcemap: true,
+      globals: outputGlobals
+    }
   ],
-  // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: ['react', 'react-dom'],
   watch: {
     include: 'src/**'
   },
+  external: ['react', 'react-dom', 'react-dom/server'],
   plugins: [
-    // Allow json resolution
     json(),
     postcss({
       extensions: ['.css']
     }),
-    // Compile TypeScript files
     typescript({ useTsconfigDeclarationDir: true }),
-    // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),
-    // Allow node_modules resolution, so you can use 'external' to control
-    // which external modules to include in the bundle
-    // https://github.com/rollup/rollup-plugin-node-resolve#usage
     resolve(),
-
-    // Resolve source maps to the original source
     sourceMaps()
   ]
 }
