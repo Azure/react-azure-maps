@@ -275,7 +275,15 @@ export type IAzureMapFeature = {
   multipleCoordinates?: Array<Array<atlas.data.Position>>
   multipleDimensionCoordinates?: Array<Array<Array<atlas.data.Position>>>
   bbox?: atlas.data.BoundingBox
-  properties?: Object // It is required by lib
+  variant?: IAzureMapFeatureVariant
+  properties?: Options
+  // Shape functions:
+  setCoords?:
+    | atlas.data.Position
+    | atlas.data.Position[]
+    | atlas.data.Position[][]
+    | atlas.data.Position[][][]
+  setProperties?: Options
 }
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
@@ -286,7 +294,9 @@ export type DataSourceType = atlas.source.DataSource
 export type LayerType = atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer
 export type MapType = atlas.Map
 export type GeometryType = atlas.data.Geometry
-export type FeatureType = atlas.data.Feature<atlas.data.Geometry, Object>
+export type FeatureType = atlas.data.Feature<atlas.data.Geometry, any>
+export type ShapeType = atlas.Shape
+export type IAzureMapFeatureVariant = 'shape' | 'feature'
 
 // Azure types
 export type AzureDataLineString = atlas.data.LineString
