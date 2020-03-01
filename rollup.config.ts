@@ -17,7 +17,6 @@ export default {
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: true,
       globals: outputGlobals
     }
   ],
