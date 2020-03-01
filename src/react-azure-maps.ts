@@ -12,11 +12,6 @@ export {
   AzureMapLayerConsumer,
   AzureMapLayerProvider
 } from './contexts/AzureMapLayerContext'
-export {
-  AzureMapShapeContext,
-  AzureMapShapeConsumer,
-  AzureMapShapeProvider
-} from './contexts/AzureMapShapeContext'
 export { default as AzureMapPopup } from './components/AzureMapPopup/AzureMapPopup'
 export { default as useCreatePopup } from './components/AzureMapPopup/useCreateAzureMapPopup'
 
