@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useContext, memo } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import {
-  IAzureMapFeature,
-  IAzureMapDataSourceProps,
-  FeatureType,
   DataSourceType,
+  FeatureType,
+  IAzureMapDataSourceProps,
+  IAzureMapFeature,
   IAzureMapShapeProps
 } from '../../types'
 import atlas from 'azure-maps-control'
 import { AzureMapDataSourceContext } from '../../contexts/AzureMapDataSourceContext'
+import { AzureMapShapeContext } from '../../contexts/AzureMapShapeContext'
 import { useCheckRef } from '../../hooks/useCheckRef'
 import { useCreateAzureMapFeatureFeature } from './useCreateAzureMapFeature'
-import { AzureMapShapeContext } from '../../react-azure-maps'
 
 const AzureMapFeature = memo((props: IAzureMapFeature) => {
-  const { properties, id, setCoords } = props
+  const { properties, id, setCoords, setProperties } = props
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
   const { shapeRef, createShape } = useContext<IAzureMapShapeProps>(AzureMapShapeContext)
   const [featureRef, setFeatureRef] = useState<FeatureType | null>(null)
@@ -32,16 +32,28 @@ const AzureMapFeature = memo((props: IAzureMapFeature) => {
     }
   }, [featureRef])
 
+  // Shape's methods
   useEffect(() => {
     if (shapeRef && setCoords) {
       shapeRef.setCoordinates(setCoords)
     }
   }, [setCoords])
 
+  useEffect(() => {
+    if (shapeRef && setProperties) {
+      shapeRef.setProperties(setProperties)
+    }
+  }, [setProperties])
+
   useCheckRef<DataSourceType, FeatureType>(dataSourceRef, featureRef, (dref, fref) => {
-    dref.add(fref)
+    // Exclude Features that are wrapped by Shape
+    if (!createShape) {
+      dref.add(fref)
+    }
     return () => {
-      dref.remove(fref)
+      if (!createShape) {
+        dref.remove(fref)
+      }
     }
   })
   return null

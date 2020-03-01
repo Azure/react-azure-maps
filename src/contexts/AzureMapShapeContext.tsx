@@ -1,15 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import {
   DataSourceType,
-  IAzureLayerStatefulProviderProps,
   IAzureMapDataSourceProps,
-  IAzureMapLayerProps,
   IAzureMapsContextProps,
   IAzureMapShapeProps,
-  IAzureShapeStatefulProviderProps,
-  MapType
+  IAzureShapeStatefulProviderProps
 } from '../types'
-import { useAzureMapLayer } from '../hooks/useAzureMapLayer'
 import atlas, { Shape } from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
 import { useCheckRef } from '../hooks/useCheckRef'
@@ -21,6 +17,13 @@ const AzureMapShapeContext = createContext<IAzureMapShapeProps>({
 
 const { Provider, Consumer: AzureMapShapeConsumer } = AzureMapShapeContext
 
+/**
+ * Use ShapeContext to wrap a Geometry or Feature and makes it easy to update and maintain.
+ * Trigger the shape method in children -> <AzureMapFeature setCoords={} & serProperties={} ...>/
+ * @param id: unique id.
+ * @param properties: User defined initial properties for the shape.
+ * @param children: Feature which contains a Geometry object and properties.
+ */
 const AzureMapShapeStatefulProvider = ({
   id,
   properties,
@@ -34,20 +37,21 @@ const AzureMapShapeStatefulProvider = ({
     data: atlas.data.Feature<atlas.data.Geometry, any> | atlas.data.Geometry | any
   ) => {
     if (data) {
-      const shape = new atlas.Shape(data, id, properties)
-      setShapeRef(shape)
+      setShapeRef(new atlas.Shape(data, id, properties))
     }
   }
 
   useCheckRef<DataSourceType, Shape>(dataSourceRef, shapeRef, (dsref, sref) => {
     dsref.add(sref)
+    return () => {
+      dsref.remove(sref)
+    }
   })
 
   return (
     <Provider
       value={{
         shapeRef,
-        setShapeRef,
         createShape
       }}
     >
@@ -61,5 +65,3 @@ export {
   AzureMapShapeConsumer,
   AzureMapShapeStatefulProvider as AzureMapShapeProvider
 }
-
-// new atlas.Shape(data: atlas.data.Geometry, id, options)

@@ -127,9 +127,6 @@ export type IAzureMapLayerContextState = {
 export type IAzureMapShapeContextState = {
   shapeRef: atlas.Shape | null
   createShape?: any
-  setShapeRef?: any
-  setCoordinates?: Function
-  setProperties?: Function
 }
 
 export type IAzureDataSourceChildren =
@@ -194,9 +191,9 @@ export type IAzureLayerStatefulProviderProps = {
   lifecycleEvents?: IAzureMapLifecycleEvent | any
 }
 export type IAzureShapeStatefulProviderProps = {
-  id: string
-  properties: any
-  children?: Array<IAzureShapeChildren> | IAzureShapeChildren
+  id?: string
+  properties?: any
+  children: Array<IAzureShapeChildren> | IAzureShapeChildren
 }
 
 export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
