@@ -28,6 +28,15 @@ const AzureMapHtmlMarker = memo(
     })
 
     useEffect(() => {
+      if (markerRef && mapRef) {
+        markerRef.setOptions({
+          ...options,
+          htmlContent: markerContent && renderToStaticMarkup(markerContent)
+        })
+      }
+    }, [markerContent, options])
+
+    useEffect(() => {
       if (markerRef && markerRef.getOptions().popup && mapRef) {
         const isMarkerPopupOpen = markerRef.getOptions().popup?.isOpen()
         if (isMarkerPopupOpen && isPopupVisible) {
