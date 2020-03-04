@@ -6,8 +6,8 @@ import { useCheckRefMount } from '../../hooks/useCheckRef'
 import { useCreatePopup } from './useCreateAzureMapPopup'
 
 const AzureMapPopup = memo(({ isVisible, popupContent, options, events }: IAzureMapPopup) => {
-  const popupRef = useCreatePopup({ options, popupContent })
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
+  const popupRef = useCreatePopup({ options, popupContent, isVisible })
 
   useCheckRefMount<MapType, boolean>(mapRef, true, mref => {
     events &&
@@ -21,9 +21,9 @@ const AzureMapPopup = memo(({ isVisible, popupContent, options, events }: IAzure
 
   useEffect(() => {
     if (mapRef) {
-      if (isVisible) {
+      if (isVisible && !popupRef.isOpen()) {
         popupRef.open(mapRef)
-      } else if (mapRef.popups.getPopups().length && !isVisible) {
+      } else if (mapRef.popups.getPopups().length && !isVisible && popupRef.isOpen()) {
         popupRef.close()
       }
     }
