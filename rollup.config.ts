@@ -15,6 +15,11 @@ export default {
   input: `src/${pkg.name}.ts`,
   output: [
     {
+      file: pkg.main,
+      name: 'azure-maps-react',
+      format: 'umd'
+    },
+    {
       file: pkg.module,
       format: 'es',
       globals: outputGlobals
