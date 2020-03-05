@@ -73,10 +73,11 @@ export type IAzureMapControls = {
 
 export type IAzureMapImageSprite = {
   id: string
-  templateName: string
+  templateName?: string
   color?: string
   secondaryColor?: string
   scale?: number
+  icon?: string | HTMLImageElement | ImageData
 }
 
 export type IAzureMapContextState = {
@@ -127,6 +128,7 @@ export type IAzureMapLayerContextState = {
 export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
+  | null // todo need to remove this ugly null
 
 export type IAzureMapDataSourceEvent = {
   [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void

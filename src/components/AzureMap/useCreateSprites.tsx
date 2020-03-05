@@ -5,8 +5,21 @@ export const useCreateImageSprites = async (
   spriteArray: [IAzureMapImageSprite]
 ) => {
   await Promise.all(
-    spriteArray.map(({ id, templateName, color, secondaryColor, scale }: IAzureMapImageSprite) => {
-      return mapRef.imageSprite.createFromTemplate(id, templateName, color, secondaryColor, scale)
-    })
+    spriteArray.map(
+      async ({ id, templateName, color, secondaryColor, scale, icon }: IAzureMapImageSprite) => {
+        if (icon) {
+          // Add an icon image to the map's image sprite for use with symbols and patterns.
+          await mapRef.imageSprite.add(id, icon)
+        }
+        // Creates and adds an image to the maps image sprite. Reference this in the Polygon or Symbol layer.
+        return mapRef.imageSprite.createFromTemplate(
+          id,
+          templateName || 'marker',
+          color,
+          secondaryColor,
+          scale
+        )
+      }
+    )
   )
 }
