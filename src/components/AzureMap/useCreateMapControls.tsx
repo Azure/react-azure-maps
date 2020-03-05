@@ -4,21 +4,23 @@ import atlas, {
   ControlOptions,
   PitchControlOptions,
   StyleControlOptions,
-  ZoomControlOptions,
-  Control
+  ZoomControlOptions
 } from 'azure-maps-control'
 
-export const useCreateMapControls = async (mapRef: MapType, controls: [IAzureMapControls]) => {
+export const useCreateMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
     const { controlName, options, controlOptions } = control
     mapRef.controls.add(
-      createControl(controlName, controlOptions) as atlas.ControlBase,
+      exported.createControl(controlName, controlOptions) as atlas.ControlBase,
       options as ControlOptions
     )
   })
 }
 
-const createControl = (type: string, options?: ControlOptions): atlas.ControlBase | undefined => {
+export const createControl = (
+  type: string,
+  options?: ControlOptions
+): atlas.ControlBase | undefined => {
   switch (type) {
     case 'CompassControl':
       return new atlas.control.CompassControl(options as CompassControlOptions)
@@ -33,7 +35,7 @@ const createControl = (type: string, options?: ControlOptions): atlas.ControlBas
   }
 }
 
-export const useCreateMapCustomControls = async (
+export const useCreateMapCustomControls = (
   mapRef: MapType,
   customControls: IAzureCustomControls[]
 ) => {
@@ -41,3 +43,10 @@ export const useCreateMapCustomControls = async (
     mapRef.controls.add(control, controlOptions)
   })
 }
+
+const exported = {
+  useCreateMapCustomControls,
+  createControl,
+  useCreateMapControls
+}
+export default exported

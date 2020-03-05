@@ -69,6 +69,8 @@
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.0",
     "prompt": "^1.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "rimraf": "^3.0.2",
     "rollup": "^1.32.0",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -91,10 +93,12 @@
     "react-dom": "^16.10.2"
   },
   "dependencies": {
+    "@testing-library/react-hooks": "^3.2.1",
     "@types/uuid": "^7.0.0",
     "azure-maps-control": "2.0.23",
     "guid-typescript": "^1.0.9",
     "mapbox-gl": "^1.8.1",
+    "react-test-renderer": "^16.13.0",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-postcss": "^2.1.1"
   }

@@ -2,8 +2,11 @@ module.exports = {
   transform: {
     '.(ts|tsx)': 'ts-jest'
   },
+  globals: {
+    window: {}
+  },
   testEnvironment: 'node',
-  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$',
+  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(tsx?|ts?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coveragePathIgnorePatterns: ['/node_modules/', '/test/', `/src/my-example-lib.ts`],
   coverageThreshold: {
