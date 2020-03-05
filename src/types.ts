@@ -73,10 +73,11 @@ export type IAzureMapControls = {
 
 export type IAzureMapImageSprite = {
   id: string
-  templateName: string
+  templateName?: string
   color?: string
   secondaryColor?: string
   scale?: number
+  icon?: string | HTMLImageElement | ImageData
 }
 
 export type IAzureMapContextState = {
@@ -149,7 +150,7 @@ export type IAzureMapEvent = {
 
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
-  children?: Array<IAzureDataSourceChildren> | IAzureDataSourceChildren
+  children?: Array<IAzureDataSourceChildren | null> | IAzureDataSourceChildren | null
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string
