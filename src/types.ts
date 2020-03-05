@@ -128,7 +128,6 @@ export type IAzureMapLayerContextState = {
 export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
-  | null // todo need to remove this ugly null
 
 export type IAzureMapDataSourceEvent = {
   [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
@@ -151,7 +150,7 @@ export type IAzureMapEvent = {
 
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
-  children?: Array<IAzureDataSourceChildren> | IAzureDataSourceChildren
+  children?: Array<IAzureDataSourceChildren | null> | IAzureDataSourceChildren | null
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string
