@@ -56,6 +56,12 @@ const AzureMapDataSourceStatefulProvider = ({
     }
   }, [collection])
 
+  useEffect(() => {
+    if (dataSourceRef && options) {
+      dataSourceRef.setOptions(options)
+    }
+  }, [options])
+
   return (
     <Provider
       value={{

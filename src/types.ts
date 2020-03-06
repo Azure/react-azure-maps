@@ -154,7 +154,14 @@ export type IAzureDataSourceStatefulProviderProps = {
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string
-  collection?: any
+  collection?:
+    | atlas.data.FeatureCollection
+    | atlas.data.Feature<atlas.data.Geometry, any>
+    | atlas.data.Geometry
+    | atlas.data.GeometryCollection
+    | Shape
+    | Array<atlas.data.Feature<atlas.data.Geometry, any> | atlas.data.Geometry | Shape>
+  index?: number
 }
 
 export type IAzureMapLayerEvent = {
