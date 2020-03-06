@@ -86,13 +86,13 @@
     "uuid": "^7.0.1"
   },
   "peerDependencies": {
-    "azure-maps-control": "2.0.23",
+    "azure-maps-control": "2.0.21",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
   "dependencies": {
     "@types/uuid": "^7.0.0",
-    "azure-maps-control": "2.0.23",
+    "azure-maps-control": "2.0.21",
     "guid-typescript": "^1.0.9",
     "mapbox-gl": "^1.8.1",
     "rollup-plugin-peer-deps-external": "^2.2.2",

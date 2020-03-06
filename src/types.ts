@@ -154,6 +154,7 @@ export type IAzureDataSourceStatefulProviderProps = {
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string
+  collection?: any
 }
 
 export type IAzureMapLayerEvent = {
