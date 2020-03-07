@@ -4,7 +4,9 @@ module.exports = {
       add: jest.fn()
     },
     events: {
-      add: jest.fn()
+      add: jest.fn((eventName, callback = () => {}) => {
+        callback()
+      })
     },
     setTraffic: jest.fn(),
     setUserInteraction: jest.fn(),

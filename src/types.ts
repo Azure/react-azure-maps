@@ -52,9 +52,9 @@ export type IAzureMap = {
   styles?: CSSProperties
   LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
   options?: IAzureMapOptions
-  imageSprites?: [IAzureMapImageSprite]
-  controls?: [IAzureMapControls]
-  customControls?: [IAzureCustomControls]
+  imageSprites?: IAzureMapImageSprite[]
+  controls?: IAzureMapControls[]
+  customControls?: IAzureCustomControls[]
   events?: IAzureMapEvent | any
   cameraOptions?: AzureSetCameraOptions
   trafficOptions?: TrafficOptions

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AzureMap Component should create map with div and automatically generated id when if isMapReady is true and LoaderComponent exists 1`] = `
+<div>
+  <div
+    id="fake_generated_id"
+    style="height: 100%;"
+  />
+</div>
+`;
+
+exports[`AzureMap Component should render LoaderComponent if isMapReady is false and LoaderComponent exists 1`] = `
+<div>
+  Loader
+</div>
+`;
+
+exports[`AzureMap Component should render map with div and provvided id when if isMapReady is true and LoaderComponent exists 1`] = `
+<div>
+  <div
+    id="some_fake_map_id"
+    style="height: 100%;"
+  />
+</div>
+`;
