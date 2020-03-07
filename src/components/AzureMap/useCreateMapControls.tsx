@@ -1,11 +1,10 @@
-import { IAzureMapControls, MapType, IAzureCustomControls } from '../../types'
+import { IAzureCustomControls, IAzureMapControls, MapType } from '../../types'
 import atlas, {
   CompassControlOptions,
   ControlOptions,
   PitchControlOptions,
   StyleControlOptions,
-  ZoomControlOptions,
-  Control
+  ZoomControlOptions
 } from 'azure-maps-control'
 
 export const useCreateMapControls = async (mapRef: MapType, controls: [IAzureMapControls]) => {
