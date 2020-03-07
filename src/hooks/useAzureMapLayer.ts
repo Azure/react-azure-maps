@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   IAzureLayerStatefulProviderProps,
   IAzureMapDataSourceProps,
@@ -66,6 +66,13 @@ export const useAzureMapLayer = ({
       mref.layers.remove(lref)
     }
   })
+
+  useEffect(() => {
+    if (layerRef) {
+      layerRef.setOptions(options)
+    }
+  }, [options])
+
   return {
     layerRef
   }
