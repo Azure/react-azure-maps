@@ -1,5 +1,5 @@
 import React, { createContext, ReactElement, useState } from 'react'
-import atlas, { Map } from 'azure-maps-control'
+import { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../types'
 
 const AzureMapsContext = createContext<IAzureMapsContextProps>({
@@ -16,7 +16,7 @@ type IAzureMapsStatefulProviderProps = {
 }
 
 const AzureMapsStatefulProvider = ({ children }: IAzureMapsStatefulProviderProps) => {
-  const [mapRef, setMapRef] = useState<atlas.Map | null>(null)
+  const [mapRef, setMapRef] = useState<Map | null>(null)
   const [isMapReady, setIsMapReady] = useState(false)
 
   return (
