@@ -4,15 +4,16 @@ import atlas, {
   ControlOptions,
   PitchControlOptions,
   StyleControlOptions,
-  ZoomControlOptions,
-  control
+  ZoomControlOptions
 } from 'azure-maps-control'
+
+const control = atlas.control
 
 export const useCreateMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
     const { controlName, options, controlOptions } = control
     mapRef.controls.add(
-      exported.createControl(controlName, controlOptions) as atlas.ControlBase,
+      createControl(controlName, controlOptions) as atlas.ControlBase,
       options as ControlOptions
     )
   })
@@ -44,10 +45,3 @@ export const useCreateMapCustomControls = (
     mapRef.controls.add(control, controlOptions)
   })
 }
-
-const exported = {
-  useCreateMapCustomControls,
-  createControl,
-  useCreateMapControls
-}
-export default exported
