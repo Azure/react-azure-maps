@@ -14,7 +14,7 @@ const mapContextProps = {
 }
 
 const wrapWithAzureMapContext = (mapContextProps: IAzureMapsContextProps, mapProps: IAzureMap) => {
-  return render(
+  return (
     <AzureMapsContext.Provider
       value={{
         ...mapContextProps
@@ -34,7 +34,7 @@ describe('AzureMap Component', () => {
 
   it('should setMapRef on mount', () => {
     act(() => {
-      wrapWithAzureMapContext(mapContextProps, {})
+      render(wrapWithAzureMapContext(mapContextProps, {}))
     })
     expect(mapContextProps.setMapRef).toHaveBeenCalled()
   })
@@ -42,8 +42,14 @@ describe('AzureMap Component', () => {
   it('should change trafficOptions call setTraffic from mapRef', () => {
     const mapRef = new Map('fake', {})
     act(() => {
-      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { trafficOptions: { some: 'some' } })
+      const { rerender } = render(wrapWithAzureMapContext({ ...mapContextProps, mapRef }, {}))
+      rerender(
+        wrapWithAzureMapContext(
+          { ...mapContextProps, mapRef },
+          { trafficOptions: { some: 'some2' } }
+        )
+      )
     })
-    expect(mapRef.setTraffic).toHaveBeenCalledWith({ some: 'some' })
+    expect(mapRef.setTraffic).toHaveBeenCalledWith({ some: 'some2' })
   })
 })
