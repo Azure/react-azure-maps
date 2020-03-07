@@ -1,4 +1,4 @@
-import { IAzureMapControls, MapType, IAzureCustomControls } from '../../types'
+import { IAzureCustomControls, IAzureMapControls, MapType } from '../../types'
 import atlas, {
   CompassControlOptions,
   ControlOptions,

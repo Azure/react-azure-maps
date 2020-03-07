@@ -1,6 +1,6 @@
-import React, { createContext, ReactElement, PureComponent } from 'react'
+import React, { createContext, ReactElement, useState } from 'react'
 import { Map } from 'azure-maps-control'
-import { IAzureMapContextState, IAzureMapsContextProps, IAzureMap } from '../types'
+import { IAzureMap, IAzureMapsContextProps } from '../types'
 
 export const AzureMapsContext = createContext<IAzureMapsContextProps>({
   mapRef: null,
@@ -15,44 +15,23 @@ type IAzureMapsStatefulProviderProps = {
   children?: ReactElement<IAzureMap>
 }
 
-class AzureMapsStatefulProvider extends PureComponent<
-  IAzureMapsStatefulProviderProps,
-  IAzureMapContextState
-> {
-  constructor(props: IAzureMapsStatefulProviderProps) {
-    super(props)
-    this.state = {
-      mapRef: null,
-      isMapReady: false,
-      removeMapRef: this.removeMapRef,
-      setMapRef: this.setMapRef,
-      setMapReady: this.setMapReady
-    }
-  }
+const AzureMapsStatefulProvider = ({ children }: IAzureMapsStatefulProviderProps) => {
+  const [mapRef, setMapRef] = useState<Map | null>(null)
+  const [isMapReady, setIsMapReady] = useState(false)
 
-  setMapRef = (mapRef: Map) => {
-    this.setState({ mapRef })
-  }
-  removeMapRef = () => {
-    this.setState({ mapRef: null })
-  }
-
-  setMapReady = (isMapReady: boolean) => {
-    this.setState({ isMapReady })
-  }
-
-  render() {
-    const { children } = this.props
-    return (
-      <Provider
-        value={{
-          ...this.state
-        }}
-      >
-        {children}
-      </Provider>
-    )
-  }
+  return (
+    <Provider
+      value={{
+        mapRef,
+        setMapRef,
+        isMapReady,
+        setMapReady: setIsMapReady,
+        removeMapRef: () => setMapRef(null)
+      }}
+    >
+      {children}
+    </Provider>
+  )
 }
 
 export { AzureMapsConsumer, AzureMapsStatefulProvider as AzureMapsProvider }
