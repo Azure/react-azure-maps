@@ -2,7 +2,7 @@ import { IAzureMapImageSprite, MapType } from '../../types'
 
 export const useCreateImageSprites = async (
   mapRef: MapType,
-  spriteArray: [IAzureMapImageSprite]
+  spriteArray: IAzureMapImageSprite[]
 ) => {
   await Promise.all(
     spriteArray.map(

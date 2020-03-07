@@ -2,7 +2,7 @@ import React, { createContext, ReactElement, useState } from 'react'
 import { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../types'
 
-const AzureMapsContext = createContext<IAzureMapsContextProps>({
+export const AzureMapsContext = createContext<IAzureMapsContextProps>({
   mapRef: null,
   isMapReady: false,
   setMapRef: (mapRef: Map) => {},
@@ -34,4 +34,4 @@ const AzureMapsStatefulProvider = ({ children }: IAzureMapsStatefulProviderProps
   )
 }
 
-export { AzureMapsContext, AzureMapsConsumer, AzureMapsStatefulProvider as AzureMapsProvider }
+export { AzureMapsConsumer, AzureMapsStatefulProvider as AzureMapsProvider }
