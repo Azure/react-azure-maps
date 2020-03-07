@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
+  DataSourceType,
   IAzureDataSourceStatefulProviderProps,
   IAzureMapDataSourceProps,
-  IAzureMapsContextProps
+  IAzureMapsContextProps,
+  MapType
 } from '../types'
 import atlas from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
-import { DataSourceType, MapType } from '../types'
 import { useCheckRef } from '../hooks/useCheckRef'
 
 const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
@@ -14,12 +15,21 @@ const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
 })
 const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceContext
 
+/**
+ * @param id
+ * @param children
+ * @param options
+ * @param events
+ * @param dataFromUrl Async Data from URL
+ * @param collection Use for contain Feature Collection !All Feature child will be ignored when collection value will change
+ */
 const AzureMapDataSourceStatefulProvider = ({
   id,
   children,
   options,
   events,
-  dataFromUrl
+  dataFromUrl,
+  collection
 }: IAzureDataSourceStatefulProviderProps) => {
   const [dataSourceRef] = useState<atlas.source.DataSource>(
     new atlas.source.DataSource(id, options)
@@ -33,7 +43,24 @@ const AzureMapDataSourceStatefulProvider = ({
     if (dataFromUrl) {
       dref.importDataFromUrl(dataFromUrl)
     }
+    if (collection) {
+      dref.add(collection)
+    }
   })
+
+  useEffect(() => {
+    if (dataSourceRef && collection) {
+      // Cleared old values prevent duplication
+      dataSourceRef.clear()
+      dataSourceRef.add(collection)
+    }
+  }, [collection])
+
+  useEffect(() => {
+    if (dataSourceRef && options) {
+      dataSourceRef.setOptions(options)
+    }
+  }, [options])
 
   return (
     <Provider
