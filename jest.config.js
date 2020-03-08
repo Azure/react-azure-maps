@@ -12,13 +12,13 @@ module.exports = {
     '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js'
   },
   coveragePathIgnorePatterns: ['/node_modules/', '/test/', `/src/my-example-lib.ts`],
-  coverageThreshold: {
-    global: {
-      branches: 90,
-      functions: 95,
-      lines: 95,
-      statements: 95
-    }
-  },
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 90,
+  //     functions: 95,
+  //     lines: 95,
+  //     statements: 95
+  //   }
+  // },
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}']
 }
