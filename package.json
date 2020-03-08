@@ -1,14 +1,14 @@
 {
   "name": "react-azure-maps",
-  "version": "0.0.5",
-  "description": "React Wrapper for azure-maps-control",
+  "version": "0.0.6",
+  "description": "React Wrapper for Azure Maps",
   "keywords": [
     "react",
     "reactjs",
     "typescript",
     "azure",
     "azure-maps",
-    "azure-maps-controll",
+    "azure-maps-control",
     "map",
     "maps",
     "react-azure-maps"
