@@ -265,7 +265,7 @@ export type IAzureMapLayerType =
   | 'LineLayer'
   | 'PolygonExtrusionLayer'
   | 'PolygonLayer'
-  | 'TitleLayer'
+  | 'TileLayer'
   | 'BubbleLayer'
 
 export type IAzureMapFeatureType =
