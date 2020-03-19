@@ -15,7 +15,7 @@ import { MapType } from '../types'
 const layer = atlas.layer
 
 export const constructLayer = (
-  { id, options, type }: IAzureLayerStatefulProviderProps,
+  { id, options, type, CustomkLayer }: IAzureLayerStatefulProviderProps,
   dataSourceRef: atlas.source.DataSource
 ) => {
   switch (type) {
@@ -35,6 +35,8 @@ export const constructLayer = (
       return new layer.TileLayer(options, id)
     case 'BubbleLayer':
       return new layer.BubbleLayer(dataSourceRef, id, options)
+    case 'custom':
+      return CustomkLayer ? new CustomkLayer(dataSourceRef, id, options) : null
     default:
       return null
   }
@@ -53,7 +55,7 @@ export const useAzureMapLayer = ({
 
   useCheckRef<boolean, DataSourceType>(!layerRef, dataSourceRef, (...[, ref]) => {
     const layer = constructLayer({ id, options, type }, ref)
-    setLayerRef(layer)
+    setLayerRef(layer as LayerType)
   })
 
   useCheckRef<MapType, LayerType>(mapRef, layerRef, (mref, lref) => {

@@ -187,6 +187,7 @@ export type IAzureLayerStatefulProviderProps = {
         BubbleLayerOptions &
         LayerOptions)
     | Options
+  CustomkLayer?: new (...args: any[]) => atlas.layer.Layer
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
   lifecycleEvents?: IAzureMapLifecycleEvent | any
@@ -267,6 +268,8 @@ export type IAzureMapLayerType =
   | 'PolygonLayer'
   | 'TileLayer'
   | 'BubbleLayer'
+  | 'HtmlMarkerLayer'
+  | 'custom'
 
 export type IAzureMapFeatureType =
   | 'Point'
