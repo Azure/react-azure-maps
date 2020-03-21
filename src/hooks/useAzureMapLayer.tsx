@@ -47,14 +47,15 @@ export const useAzureMapLayer = ({
   options,
   type,
   events,
-  lifecycleEvents
+  lifecycleEvents,
+  CustomkLayer
 }: IAzureLayerStatefulProviderProps) => {
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
   const [layerRef, setLayerRef] = useState<LayerType | null>(null)
 
   useCheckRef<boolean, DataSourceType>(!layerRef, dataSourceRef, (...[, ref]) => {
-    const layer = constructLayer({ id, options, type }, ref)
+    const layer = constructLayer({ id, options, type, CustomkLayer }, ref)
     setLayerRef(layer as LayerType)
   })
 
