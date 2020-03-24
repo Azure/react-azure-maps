@@ -13,7 +13,7 @@ const AzureMapLayerStatefulProvider = ({
   type,
   events,
   lifecycleEvents,
-  CustomkLayer
+  onCreateCustomLayer
 }: IAzureLayerStatefulProviderProps) => {
   const { layerRef } = useAzureMapLayer({
     id,
@@ -21,7 +21,7 @@ const AzureMapLayerStatefulProvider = ({
     type,
     events,
     lifecycleEvents,
-    CustomkLayer
+    onCreateCustomLayer
   })
   return (
     <Provider

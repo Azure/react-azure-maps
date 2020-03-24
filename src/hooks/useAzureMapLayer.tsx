@@ -15,7 +15,7 @@ import { MapType } from '../types'
 const layer = atlas.layer
 
 export const constructLayer = (
-  { id, options, type, CustomkLayer }: IAzureLayerStatefulProviderProps,
+  { id, options = {}, type }: Omit<IAzureLayerStatefulProviderProps, 'onCreateCustomLayer'>,
   dataSourceRef: atlas.source.DataSource
 ) => {
   switch (type) {
@@ -35,8 +35,6 @@ export const constructLayer = (
       return new layer.TileLayer(options, id)
     case 'BubbleLayer':
       return new layer.BubbleLayer(dataSourceRef, id, options)
-    case 'custom':
-      return CustomkLayer ? new CustomkLayer(dataSourceRef, id, options) : null
     default:
       return null
   }
@@ -48,14 +46,19 @@ export const useAzureMapLayer = ({
   type,
   events,
   lifecycleEvents,
-  CustomkLayer
+  onCreateCustomLayer
 }: IAzureLayerStatefulProviderProps) => {
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
   const [layerRef, setLayerRef] = useState<LayerType | null>(null)
 
   useCheckRef<boolean, DataSourceType>(!layerRef, dataSourceRef, (...[, ref]) => {
-    const layer = constructLayer({ id, options, type, CustomkLayer }, ref)
+    let layer = null
+    if (type === 'custom') {
+      layer = onCreateCustomLayer && onCreateCustomLayer(ref, mapRef)
+    } else {
+      layer = constructLayer({ id, options, type }, ref)
+    }
     setLayerRef(layer as LayerType)
   })
 
@@ -66,6 +69,7 @@ export const useAzureMapLayer = ({
     for (const event in lifecycleEvents) {
       mref.events.add(event as any, lref, lifecycleEvents[event])
     }
+    console.log(lref)
     mref.layers.add(lref)
     return () => {
       mref.layers.remove(lref)
@@ -73,7 +77,7 @@ export const useAzureMapLayer = ({
   })
 
   useEffect(() => {
-    if (layerRef) {
+    if (layerRef && options) {
       layerRef.setOptions(options)
     }
   }, [options])
