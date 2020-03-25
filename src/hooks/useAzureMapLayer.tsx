@@ -69,10 +69,19 @@ export const useAzureMapLayer = ({
     for (const event in lifecycleEvents) {
       mref.events.add(event as any, lref, lifecycleEvents[event])
     }
-    console.log(lref)
     mref.layers.add(lref)
     return () => {
-      mref.layers.remove(lref)
+      try {
+        // @ts-ignore
+        if (type === 'custom' && lref.id) {
+          // @ts-ignore
+          mref.layers.remove(lref.id)
+        } else {
+          mref.layers.remove(lref)
+        }
+      } catch (e) {
+        console.log('NOOOO', e)
+      }
     }
   })
 
