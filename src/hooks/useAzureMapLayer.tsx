@@ -72,15 +72,9 @@ export const useAzureMapLayer = ({
     mref.layers.add(lref)
     return () => {
       try {
-        // @ts-ignore
-        if (type === 'custom' && lref.id) {
-          // @ts-ignore
-          mref.layers.remove(lref.id)
-        } else {
-          mref.layers.remove(lref)
-        }
+        mref.layers.remove(lref.getId() ? lref.getId() : lref)
       } catch (e) {
-        console.log('NOOOO', e)
+        console.error('Error on remove layer', e)
       }
     }
   })
