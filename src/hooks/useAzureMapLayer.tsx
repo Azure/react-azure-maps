@@ -15,7 +15,7 @@ import { MapType } from '../types'
 const layer = atlas.layer
 
 export const constructLayer = (
-  { id, options, type }: IAzureLayerStatefulProviderProps,
+  { id, options = {}, type }: Omit<IAzureLayerStatefulProviderProps, 'onCreateCustomLayer'>,
   dataSourceRef: atlas.source.DataSource
 ) => {
   switch (type) {
@@ -45,15 +45,21 @@ export const useAzureMapLayer = ({
   options,
   type,
   events,
-  lifecycleEvents
+  lifecycleEvents,
+  onCreateCustomLayer
 }: IAzureLayerStatefulProviderProps) => {
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const { dataSourceRef } = useContext<IAzureMapDataSourceProps>(AzureMapDataSourceContext)
   const [layerRef, setLayerRef] = useState<LayerType | null>(null)
 
   useCheckRef<boolean, DataSourceType>(!layerRef, dataSourceRef, (...[, ref]) => {
-    const layer = constructLayer({ id, options, type }, ref)
-    setLayerRef(layer)
+    let layer = null
+    if (type === 'custom') {
+      layer = onCreateCustomLayer && onCreateCustomLayer(ref, mapRef)
+    } else {
+      layer = constructLayer({ id, options, type }, ref)
+    }
+    setLayerRef(layer as LayerType)
   })
 
   useCheckRef<MapType, LayerType>(mapRef, layerRef, (mref, lref) => {
@@ -65,12 +71,16 @@ export const useAzureMapLayer = ({
     }
     mref.layers.add(lref)
     return () => {
-      mref.layers.remove(lref)
+      try {
+        mref.layers.remove(lref.getId() ? lref.getId() : lref)
+      } catch (e) {
+        console.error('Error on remove layer', e)
+      }
     }
   })
 
   useEffect(() => {
-    if (layerRef) {
+    if (layerRef && options) {
       layerRef.setOptions(options)
     }
   }, [options])

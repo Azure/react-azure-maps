@@ -176,7 +176,7 @@ export type IAzureMapLifecycleEvent = {
 
 export type IAzureLayerStatefulProviderProps = {
   id?: string
-  options:
+  options?:
     | (SymbolLayerOptions &
         HeatMapLayerOptions &
         ImageLayerOptions &
@@ -189,6 +189,7 @@ export type IAzureLayerStatefulProviderProps = {
     | Options
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
+  onCreateCustomLayer?: (dataSourceRef: DataSourceType, mapRef: MapType | null) => atlas.layer.Layer
   lifecycleEvents?: IAzureMapLifecycleEvent | any
 }
 
@@ -267,6 +268,8 @@ export type IAzureMapLayerType =
   | 'PolygonLayer'
   | 'TileLayer'
   | 'BubbleLayer'
+  | 'HtmlMarkerLayer'
+  | 'custom'
 
 export type IAzureMapFeatureType =
   | 'Point'
