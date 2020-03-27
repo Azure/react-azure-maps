@@ -5,12 +5,18 @@ import AzureMap from './AzureMap'
 import { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../../types'
 import { useCreateImageSprites } from './useCreateSprites'
-import { useCreateMapControls, useCreateMapCustomControls } from './useCreateMapControls'
+import { useCreateMapCustomControls, useCreateMapControls } from './useCreateMapControls'
 
 const LoaderComponent = () => <div>Loader</div>
 
+jest.mock('./useCreateMapControls', () => {
+  return {
+    useCreateMapCustomControls: jest.fn(),
+    useCreateMapControls: jest.fn()
+  }
+})
+
 jest.mock('./useCreateSprites')
-jest.mock('./useCreateMapControls')
 jest.mock('guid-typescript', () => {
   return {
     Guid: {

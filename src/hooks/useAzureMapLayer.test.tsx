@@ -1,155 +1,143 @@
-import { render } from '@testing-library/react'
-
-import atlas, { source } from 'azure-maps-control'
-import { constructLayer } from './useAzureMapLayer'
+import atlas, { source, layer } from 'azure-maps-control'
+import { ReactNode } from 'react'
+import { renderHook } from '@testing-library/react-hooks'
+import { useAzureMapLayer } from './useAzureMapLayer'
+import { Map } from 'azure-maps-control'
 import React from 'react'
-import { AzureMapLayerContext } from '../contexts/AzureMapLayerContext'
+import { AzureMapsContext } from '../contexts/AzureMapContext'
 import { AzureMapDataSourceContext } from '../contexts/AzureMapDataSourceContext'
-import { IAzureMapDataSourceContextState, IAzureMapLayerContextState } from '../types'
+import { IAzureLayerStatefulProviderProps, LayerType } from '../types'
 
-const datasourceRef = {} as source.DataSource
+const mapContextProps = {
+  mapRef: null,
+  isMapReady: false,
+  setMapReady: jest.fn(),
+  removeMapRef: jest.fn(),
+  setMapRef: jest.fn()
+}
+const mapRef = new Map('fake', {})
 
-const renderWithDataSourceContext = (node: React.ReactNode) => {
-  return render(
-    <AzureMapDataSourceContext.Provider
+const wrapWithAzureMapContext = ({ children }: { children?: ReactNode | null }) => {
+  const datasourceRef = {} as source.DataSource
+  return (
+    <AzureMapsContext.Provider
       value={{
-        dataSourceRef: datasourceRef
+        ...mapContextProps,
+        mapRef
       }}
     >
-      {node}
-    </AzureMapDataSourceContext.Provider>
+      <AzureMapDataSourceContext.Provider
+        value={{
+          dataSourceRef: datasourceRef
+        }}
+      >
+        {children}
+      </AzureMapDataSourceContext.Provider>
+    </AzureMapsContext.Provider>
   )
 }
 
-const wrapLayerContextProviderWithDataSourceContext = (
-  dataSourceContextProps: IAzureMapDataSourceContextState,
-  layerContextProps: IAzureMapLayerContextState
-) => {
-  return (
-    <AzureMapDataSourceContext.Provider value={dataSourceContextProps}>
-      <AzureMapLayerContext.Provider value={layerContextProps} />
-    </AzureMapDataSourceContext.Provider>
-  )
-}
+describe('useAzureMapLayer tests', () => {
+  it('should create custom layer on callback', () => {
+    const customLayerRef = { getId: jest.fn() }
+    const useAzureMapLayerProps: IAzureLayerStatefulProviderProps = {
+      type: 'custom',
+      // We need to pas as any because of LayerEvents
+      onCreateCustomLayer: jest.fn((dref, mref) => customLayerRef as any)
+    }
+    const { result } = renderHook(() => useAzureMapLayer(useAzureMapLayerProps), {
+      wrapper: wrapWithAzureMapContext
+    })
+    expect(useAzureMapLayerProps.onCreateCustomLayer).toHaveBeenCalled()
+    expect(result.current.layerRef).toEqual(customLayerRef)
+  })
 
-describe('constructLayer', () => {
-  const datasourceRef = {} as atlas.source.DataSource
-  it('should return SymbolLayer props if type equal to SymbolLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'SymbolLayerId',
-        options: {},
-        type: 'SymbolLayer'
-      },
-      datasourceRef
+  it('should create standard layer and set ref', () => {
+    const { result } = renderHook(
+      () =>
+        useAzureMapLayer({
+          type: 'SymbolLayer',
+          id: 'id',
+          options: { option1: 'option1' }
+        }),
+      { wrapper: wrapWithAzureMapContext }
     )
-    expect(createLayer).toEqual({
+    expect(result.current.layerRef).toEqual({
+      datasourceRef: {
+        option1: 'option1'
+      },
+      getId: expect.any(Function),
+      id: 'id',
       layer: 'SymbolLayer',
       options: {},
-      id: 'SymbolLayerId',
-      datasourceRef
+      setOptions: expect.any(Function)
     })
   })
-  it('should return HeatLayer props if type equal to HeatLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'HeatLayerId',
-        options: {},
-        type: 'HeatLayer'
-      },
-      datasourceRef
+
+  it('should handle add events to layerRef', () => {
+    mapRef.events.add = jest.fn()
+    const events = { click: () => {} }
+    renderHook(
+      () =>
+        useAzureMapLayer({
+          type: 'SymbolLayer',
+          id: 'id',
+          events
+        }),
+      { wrapper: wrapWithAzureMapContext }
     )
-    expect(createLayer).toEqual({
-      layer: 'HeatLayer',
-      options: {},
-      id: 'HeatLayerId',
-      datasourceRef
+    expect(mapRef.events.add).toHaveBeenCalledWith('click', expect.any(Object), events.click)
+  })
+
+  it('should handle add lifeCycleEvents to layerRef', () => {
+    mapRef.events.add = jest.fn()
+    const lifecycleEvents = { onCreate: () => {} }
+    renderHook(
+      () =>
+        useAzureMapLayer({
+          type: 'SymbolLayer',
+          id: 'id',
+          lifecycleEvents
+        }),
+      { wrapper: wrapWithAzureMapContext }
+    )
+    expect(mapRef.events.add).toHaveBeenCalledWith(
+      'onCreate',
+      expect.any(Object),
+      lifecycleEvents.onCreate
+    )
+  })
+
+  it('shouldRemove layer from map on unmoun', () => {
+    mapRef.layers.remove = jest.fn()
+    const { unmount } = renderHook(
+      () =>
+        useAzureMapLayer({
+          type: 'SymbolLayer'
+        }),
+      { wrapper: wrapWithAzureMapContext }
+    )
+    unmount()
+    expect(mapRef.layers.remove).toHaveBeenCalledWith(expect.any(Object))
+  })
+
+  it('should update options on change and call setOptions on layerRef', () => {
+    const { result, rerender } = renderHook(
+      () =>
+        useAzureMapLayer({
+          type: 'SymbolLayer',
+          options: {
+            option: 'option'
+          }
+        }),
+      { wrapper: wrapWithAzureMapContext }
+    )
+
+    rerender({
+      options: {
+        newOption: 'new'
+      }
     })
-  })
-  it('should return ImageLayer props if type equal to ImageLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'imageLayerId',
-        options: {},
-        type: 'ImageLayer'
-      },
-      datasourceRef
-    )
-    expect(createLayer).toEqual({ layer: 'ImageLayer', options: {}, id: 'imageLayerId' })
-  })
-  it('should return LineLayer props if type equal to LineLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'LineLayerId',
-        options: {},
-        type: 'LineLayer'
-      },
-      datasourceRef
-    )
-    expect(createLayer).toEqual({
-      layer: 'LineLayer',
-      options: {},
-      id: 'LineLayerId',
-      datasourceRef
-    })
-  })
-  it('should return PolygonExtrusionLayer props if type equal to PolygonExtrusionLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'PolygonExtrusionLayerId',
-        options: {},
-        type: 'PolygonExtrusionLayer'
-      },
-      datasourceRef
-    )
-    expect(createLayer).toEqual({
-      layer: 'PolygonExtrusionLayer',
-      options: {},
-      id: 'PolygonExtrusionLayerId',
-      datasourceRef
-    })
-  })
-  it('should return PolygonLayer props if type equal to PolygonLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'PolygonLayerId',
-        options: {},
-        type: 'PolygonLayer'
-      },
-      datasourceRef
-    )
-    expect(createLayer).toEqual({
-      layer: 'PolygonLayer',
-      options: {},
-      id: 'PolygonLayerId',
-      datasourceRef
-    })
-  })
-  it('should return TileLayer props if type equal to TileLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'TileLayerId',
-        options: {},
-        type: 'TileLayer'
-      },
-      datasourceRef
-    )
-    expect(createLayer).toEqual({ layer: 'TileLayer', options: {}, id: 'TileLayerId' })
-  })
-  it('should return TileLayer props if type equal to TileLayer', () => {
-    const createLayer = constructLayer(
-      {
-        id: 'BubbleLayerId',
-        options: {},
-        type: 'BubbleLayer'
-      },
-      datasourceRef
-    )
-    expect(createLayer).toEqual({
-      layer: 'BubbleLayer',
-      options: {},
-      id: 'BubbleLayerId',
-      datasourceRef
-    })
+    expect(result.current.layerRef?.setOptions).toHaveBeenCalledTimes(2)
   })
 })
