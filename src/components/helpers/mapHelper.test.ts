@@ -6,7 +6,11 @@ atlas.Pixel.getHeading = jest.fn(() => 0)
 describe('generateLinesFromArrayOfPosition', () => {
   it('should call generateLinesFromArrayOfPosition without error', () => {
     const result = generateLinesFromArrayOfPosition([new atlas.data.Position(0, 1)])
-    expect(result).toEqual({})
+    expect(result).toEqual({
+      bbox: undefined,
+      coords: [[0, 1]],
+      type: 'LineString'
+    })
   })
 })
 
