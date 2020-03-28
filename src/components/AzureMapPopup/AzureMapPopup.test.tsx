@@ -58,16 +58,6 @@ describe('AzureMapPopup tests', () => {
     expect(mapRef.popups.remove).toHaveBeenCalled()
   })
 
-  // useEffect(() => {
-  //     if (mapRef) {
-  //       if (isVisible && !popupRef.isOpen()) {
-  //         popupRef.open(mapRef)
-  //       } else if (mapRef.popups.getPopups().length && !isVisible && popupRef.isOpen()) {
-  //         popupRef.close()
-  //       }
-  //     }
-  //   }, [isVisible])
-
   it('should ropen popup when isVisible is true and isOpen returns false', () => {
     popupRef.isOpen = jest.fn(() => false)
     render(
