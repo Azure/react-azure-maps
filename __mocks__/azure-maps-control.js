@@ -8,6 +8,18 @@ module.exports = {
         callback()
       })
     },
+    imageSprite: {
+      add: jest.fn(),
+      createFromTemplate: jest.fn()
+    },
+    sources: {
+      add: jest.fn(),
+      remove: jest.fn()
+    },
+    layers: {
+      add: jest.fn(),
+      remove: jest.fn()
+    },
     setTraffic: jest.fn(),
     setUserInteraction: jest.fn(),
     setCamera: jest.fn()
@@ -25,7 +37,9 @@ module.exports = {
       layer: 'SymbolLayer',
       options,
       id,
-      datasourceRef
+      datasourceRef,
+      setOptions: jest.fn(),
+      getId: jest.fn(() => id)
     })),
     HeatMapLayer: jest.fn((options, id, datasourceRef) => ({
       layer: 'HeatLayer',
@@ -59,6 +73,11 @@ module.exports = {
     }))
   },
   source: {
-    DataSource: jest.fn(() => {})
+    DataSource: jest.fn(() => ({
+      add: jest.fn(),
+      clear: jest.fn(),
+      importDataFromUrl: jest.fn(),
+      setOptions: jest.fn()
+    }))
   }
 }
