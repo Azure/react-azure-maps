@@ -20,9 +20,26 @@ module.exports = {
       add: jest.fn(),
       remove: jest.fn()
     },
+    popups: {
+      getPopups: jest.fn(() => []),
+      remove: jest.fn()
+    },
     setTraffic: jest.fn(),
     setUserInteraction: jest.fn(),
     setCamera: jest.fn()
+  })),
+  data: {
+    LineString: jest.fn(() => ({})),
+    Position: jest.fn(() => ({}))
+  },
+  Pixel: jest.fn(() => ({
+    getHeading: jest.fn(() => 'Heading')
+  })),
+  Popup: jest.fn(() => ({
+    setOptions: jest.fn(),
+    isOpen: jest.fn(() => false),
+    open: jest.fn(),
+    close: jest.fn()
   })),
   control: {
     CompassControl: jest.fn(() => ({ compassOption: 'option' })),
