@@ -76,10 +76,15 @@ module.exports = {
     DataSource: jest.fn(() => ({
       add: jest.fn(),
       clear: jest.fn(),
+      remove: jest.fn(),
       importDataFromUrl: jest.fn(),
       setOptions: jest.fn()
     }))
   },
+  Shape: jest.fn(() => ({
+    setCoordinates: jest.fn(),
+    setProperties: jest.fn()
+  })),
   data: {
     Position: jest.fn((...args) => args),
     BoundingBox: jest.fn((...args) => args),
@@ -96,6 +101,7 @@ module.exports = {
       multipleDimensionCoordinates,
       bbox,
       type: 'MultiPolygon'
-    }))
+    })),
+    Feature: jest.fn()
   }
 }
