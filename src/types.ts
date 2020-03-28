@@ -117,6 +117,11 @@ export type IAzureMapPopup = {
   popupContent: ReactElement
 }
 
+export type IAzureMapCustomClass = {
+  onCreateCustomClass: (...args: any[]) => any
+  // onCreateCustomClass: (mapRef?: MapType | null, dataSourceRef?: DataSourceType | null, layerRef?: LayerType) => any
+}
+
 export type IAzureMapDataSourceContextState = {
   dataSourceRef: atlas.source.DataSource | null
 }
@@ -128,6 +133,7 @@ export type IAzureMapLayerContextState = {
 export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
+  | ReactElement<IAzureMapCustomClass>
 
 export type IAzureMapDataSourceEvent = {
   [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
