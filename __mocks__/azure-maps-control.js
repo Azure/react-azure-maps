@@ -79,5 +79,23 @@ module.exports = {
       importDataFromUrl: jest.fn(),
       setOptions: jest.fn()
     }))
+  },
+  data: {
+    Position: jest.fn((...args) => args),
+    BoundingBox: jest.fn((...args) => args),
+    Point: jest.fn(coords => ({ coords, type: 'Point' })),
+    MultiPoint: jest.fn((coords, bbox) => ({ coords, bbox, type: 'MultiPoint' })),
+    LineString: jest.fn((coords, bbox) => ({ coords, bbox, type: 'LineString' })),
+    MultiLineString: jest.fn((multipleCoordinates, bbox) => ({
+      multipleCoordinates,
+      bbox,
+      type: 'MultiLineString'
+    })),
+    Polygon: jest.fn((coords, bbox) => ({ coords, bbox, type: 'Polygon' })),
+    MultiPolygon: jest.fn((multipleDimensionCoordinates, bbox) => ({
+      multipleDimensionCoordinates,
+      bbox,
+      type: 'MultiPolygon'
+    }))
   }
 }
