@@ -1,5 +1,7 @@
 # WiredSolutions React-Azure-Maps
 
+[![npm](https://img.shields.io/npm/v/react-azure-maps.svg) ![npm](https://img.shields.io/npm/dm/react-azure-maps.svg)](https://www.npmjs.com/package/react-azure-maps) [![license](https://img.shields.io/npm/l/react-azure-maps.svg)](https://github.com/WiredSolutions/react-azure-maps/blob/master/LICENSE)
+
 `React Azure Maps` is a react wrapper for [Azure Maps](https://azure.microsoft.com/pl-pl/services/azure-maps/). The whole library is written in typescript and uses React 16.8+
 
 ## Installation
@@ -86,6 +88,10 @@ If you want to do some local development using [Playground Package](https://gith
 - run yarn link in `react-azure-maps` package
 - go to the `azure-maps-playground` or any other folder or repository and run `yarn link "react-azure-maps"`
 ```
+
+## Code coverage
+
+![Alt text](assets/coverage.png?raw=true 'Coverage')
 
 ## Contributing
 
