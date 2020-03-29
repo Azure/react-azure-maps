@@ -1,18 +1,8 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { renderHook } from '@testing-library/react-hooks'
-import { act } from 'react-dom/test-utils'
 import { Map } from 'azure-maps-control'
-import React from 'react'
 import { AzureMapsContext, AzureMapsProvider } from '../contexts/AzureMapContext'
-import { IAzureMapsContextProps } from '../types'
 
-const mapContextProps = {
-  mapRef: null,
-  isMapReady: false,
-  setMapReady: jest.fn(),
-  removeMapRef: jest.fn(),
-  setMapRef: jest.fn()
-}
 const mapRef = new Map('fake', {})
 
 const useContextConsumer = () => {
