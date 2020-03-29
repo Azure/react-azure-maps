@@ -24,9 +24,26 @@ module.exports = {
       getPopups: jest.fn(() => []),
       remove: jest.fn()
     },
+    markers: {
+      add: jest.fn(),
+      remove: jest.fn()
+    },
     setTraffic: jest.fn(),
     setUserInteraction: jest.fn(),
     setCamera: jest.fn()
+  })),
+
+  HtmlMarker: jest.fn((...args) => ({
+    args,
+    setOptions: jest.fn(),
+    getOptions: jest.fn(() => ({
+      popup: {
+        isOpen: jest.fn(() => true),
+        open: jest.fn(() => false),
+        togglePopup: jest.fn(),
+        close: jest.fn()
+      }
+    }))
   })),
   data: {
     LineString: jest.fn(() => ({})),

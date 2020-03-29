@@ -4,7 +4,6 @@ import React from 'react'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import AzureMapPopup from './AzureMapPopup'
 import { IAzureMapPopup } from '../../types'
-import { useCreatePopup } from './useCreateAzureMapPopup'
 
 const mapContextProps = {
   mapRef: null,

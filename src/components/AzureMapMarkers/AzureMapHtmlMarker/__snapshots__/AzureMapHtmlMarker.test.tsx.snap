@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AzureMaphtmlMarker tests should create html marker without error and add it to map ref 1`] = `<div />`;
