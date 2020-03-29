@@ -5,8 +5,12 @@ import { AzureMapDataSourceContext, IAzureMapFeature } from '../../react-azure-m
 import { render } from '@testing-library/react'
 import AzureMapFeature from './AzureMapFeature'
 import { useFeature } from './useFeature'
+import atlas from 'azure-maps-control'
 
 jest.mock('./useFeature')
+jest.mock('./useCreateAzureMapFeature.ts', () => ({
+  useCreateAzureMapFeature: () => ({})
+}))
 
 const mapRef = new Map('fake', {})
 const dataSourceRef = new source.DataSource()
@@ -37,5 +41,31 @@ describe('AzureMapFeature tests', () => {
     const featureProps: IAzureMapFeature = { type: 'LineString' }
     render(wrapWithAzureMapContexts(featureProps))
     expect(useFeature).toHaveBeenCalled()
+  })
+
+  it('should create feature', () => {
+    const featureProps: IAzureMapFeature = {
+      type: 'LineString',
+      variant: 'feature',
+      id: 'id',
+      properties: { prop: 'prop' }
+    }
+    // @ts-ignore
+    atlas.data.Feature.mockClear()
+    render(wrapWithAzureMapContexts(featureProps))
+    expect(atlas.data.Feature).toHaveBeenCalledWith({}, { prop: 'prop' }, 'id')
+  })
+
+  it('should create shape', () => {
+    const featureProps: IAzureMapFeature = {
+      type: 'LineString',
+      variant: 'shape',
+      id: 'id',
+      properties: { prop: 'prop' }
+    }
+    // @ts-ignore
+    atlas.Shape.mockClear()
+    render(wrapWithAzureMapContexts(featureProps))
+    expect(atlas.Shape).toHaveBeenCalledWith({}, 'id', { prop: 'prop' })
   })
 })
