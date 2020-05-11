@@ -97,7 +97,7 @@
     "@types/uuid": "^7.0.0",
     "azure-maps-control": "2.0.25",
     "guid-typescript": "^1.0.9",
-    "mapbox-gl": "^1.8.1",
+    "mapbox-gl": "^1.10.0",
     "react-test-renderer": "^16.13.0",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-postcss": "^2.1.1"
