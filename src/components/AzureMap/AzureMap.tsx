@@ -59,6 +59,15 @@ const AzureMap = memo(
         if (customControls) {
           useCreateMapCustomControls(mref, customControls)
         }
+        if (trafficOptions) {
+          mref.setTraffic(trafficOptions)
+        }
+        if (userInteraction) {
+          mref.setUserInteraction(userInteraction)
+        }
+        if (cameraOptions) {
+          mref.setCamera(cameraOptions)
+        }
         setMapReady(true)
       })
       for (const eventType in events) {
