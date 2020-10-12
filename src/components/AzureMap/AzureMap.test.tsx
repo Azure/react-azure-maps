@@ -172,6 +172,22 @@ describe('AzureMap Component', () => {
     expect(mapRef.setCamera).toHaveBeenCalledWith({ some: 'some2' })
   })
 
+  it('should setStyle on initial props', () => {
+    const mapRef = new Map('fake', {})
+    render(
+      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { styleOptions: { some: 'some2' } })
+    )
+    expect(mapRef.setStyle).toHaveBeenCalledWith({ some: 'some2' })
+  })
+
+  it('should setServiceOptions on initial props', () => {
+    const mapRef = new Map('fake', {})
+    render(
+      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { serviceOptions: { some: 'some2' } })
+    )
+    expect(mapRef.setServiceOptions).toHaveBeenCalledWith({ some: 'some2' })
+  })
+
   it('should call setMapready on mount of component', () => {
     const mapRef = new Map('fake', {})
     render(wrapWithAzureMapContext({ ...mapContextProps, mapRef }, {}))
