@@ -59,6 +59,8 @@ export type IAzureMap = {
   cameraOptions?: AzureSetCameraOptions
   trafficOptions?: TrafficOptions
   userInteraction?: UserInteractionOptions
+  styleOptions?: StyleOptions
+  serviceOptions?: ServiceOptions
 }
 export type IAzureCustomControls = {
   control: Control
