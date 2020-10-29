@@ -97,6 +97,7 @@
     "@testing-library/react-hooks": "^3.2.1",
     "@types/uuid": "^7.0.0",
     "azure-maps-control": "2.0.31",
+    "azure-maps-drawing-tools": "^0.1.4",
     "guid-typescript": "^1.0.9",
     "mapbox-gl": "^1.10.0",
     "react-test-renderer": "^16.13.0",
