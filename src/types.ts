@@ -34,6 +34,7 @@ import atlas, {
   BubbleLayerOptions,
   LayerOptions
 } from 'azure-maps-control'
+import { drawing, DrawingManagerOptions } from 'azure-maps-drawing-tools'
 
 export type IAzureMapOptions = ServiceOptions &
   StyleOptions &
@@ -298,6 +299,30 @@ export type IAzureMapFeature = {
     | atlas.data.Position[][]
     | atlas.data.Position[][][]
   setProperties?: Options
+}
+
+// DRAWING MODULE:
+export type DrawingManagerType = drawing.DrawingManager
+export type IAzureDrawingManagerEventType =
+  | 'drawingchanged'
+  | 'drawingchanging'
+  | 'drawingcomplete'
+  | 'drawingmodechanged'
+  | 'drawingstarted'
+  | string
+
+export type IAzureDrawingManagerEvent = {
+  [property in IAzureDrawingManagerEventType]?: (e: atlas.Shape | drawing.DrawingMode) => void
+}
+
+export interface IAzureMapDrawingManagerProps {
+  drawingManagerRef: drawing.DrawingManager | null
+}
+
+export interface IAzureDrawingManagerStatefulProviderProps {
+  options: DrawingManagerOptions
+  events?: IAzureDrawingManagerEvent
+  children?: Array<IAzureDataSourceChildren | null> | IAzureDataSourceChildren | null
 }
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
