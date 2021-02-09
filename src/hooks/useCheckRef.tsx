@@ -9,7 +9,7 @@ export function useCheckRef<T, T1>(
     if (dep && on) {
       return callback(dep, on)
     }
-  }, [on])
+  }, [on, dep])
 }
 
 export function useCheckRefMount<T, T1>(
