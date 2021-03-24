@@ -145,49 +145,6 @@ describe('AzureMap Component', () => {
     expect(useCreateMapCustomControls).toHaveBeenCalledWith(expect.any(Object), customControls)
   })
 
-  it('should setTraffic on initial props', () => {
-    const mapRef = new Map('fake', {})
-    render(
-      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { trafficOptions: { some: 'some2' } })
-    )
-    expect(mapRef.setTraffic).toHaveBeenCalledWith({ some: 'some2' })
-  })
-
-  it('should userInteraction on initial props', () => {
-    const mapRef = new Map('fake', {})
-    render(
-      wrapWithAzureMapContext(
-        { ...mapContextProps, mapRef },
-        { userInteraction: { some: 'some2' } }
-      )
-    )
-    expect(mapRef.setUserInteraction).toHaveBeenCalledWith({ some: 'some2' })
-  })
-
-  it('should cameraOptions on initial props', () => {
-    const mapRef = new Map('fake', {})
-    render(
-      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { cameraOptions: { some: 'some2' } })
-    )
-    expect(mapRef.setCamera).toHaveBeenCalledWith({ some: 'some2' })
-  })
-
-  it('should setStyle on initial props', () => {
-    const mapRef = new Map('fake', {})
-    render(
-      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { styleOptions: { some: 'some2' } })
-    )
-    expect(mapRef.setStyle).toHaveBeenCalledWith({ some: 'some2' })
-  })
-
-  it('should setServiceOptions on initial props', () => {
-    const mapRef = new Map('fake', {})
-    render(
-      wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { serviceOptions: { some: 'some2' } })
-    )
-    expect(mapRef.setServiceOptions).toHaveBeenCalledWith({ some: 'some2' })
-  })
-
   it('should call setMapready on mount of component', () => {
     const mapRef = new Map('fake', {})
     render(wrapWithAzureMapContext({ ...mapContextProps, mapRef }, {}))

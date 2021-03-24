@@ -59,8 +59,6 @@ export type IAzureMap = {
   cameraOptions?: AzureSetCameraOptions
   trafficOptions?: TrafficOptions
   userInteraction?: UserInteractionOptions
-  styleOptions?: StyleOptions
-  serviceOptions?: ServiceOptions
 }
 export type IAzureCustomControls = {
   control: Control
@@ -128,7 +126,6 @@ export type IAzureMapLayerContextState = {
 }
 
 export type IAzureDataSourceChildren =
-  | IAzureMapFeature
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
 
@@ -153,10 +150,7 @@ export type IAzureMapEvent = {
 
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
-  children?:
-    | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
-    | IAzureDataSourceChildren
-    | null
+  children?: Array<IAzureDataSourceChildren | null> | IAzureDataSourceChildren | null
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string

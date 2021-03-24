@@ -1,6 +1,6 @@
 {
   "name": "react-azure-maps",
-  "version": "0.1.5",
+  "version": "0.1.0",
   "description": "React Wrapper for Azure Maps",
   "keywords": [
     "react",
@@ -13,6 +13,7 @@
     "maps",
     "react-azure-maps"
   ],
+  "source": "src/react-azure-maps.ts",
   "main": "dist/react-azure-maps.umd.js",
   "module": "dist/react-azure-maps.es5.js",
   "typings": "dist/types/react-azure-maps.d.ts",
@@ -29,77 +30,95 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts*' 'test/**/*.ts*'",
-    "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "watch": "rollup -c rollup.config.ts -w",
+    "prepare": "install-peers",
+    "lint": "eslint --max-warnings 0 \"./src/**/*.{js,jsx,mjs,ts,tsx}\"",
+    "format": "prettier --check \"./src/**/*.{js,jsx,json,ts,tsx,css,scss,sass,mdx}\"",
+    "type-check": "tsc --noEmit",
+    "commitlint": "commitlint",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "build:clean": "rimraf dist",
+    "build:code": "cross-env NODE_ENV=production rollup --config",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "yarn build:types && yarn build:code",
     "test": "jest --coverage --env=jsdom",
     "test:watch": "jest --coverage --watch --env=jsdom",
     "test:prod": "npm run lint && npm run test -- --no-cache",
-    "semantic-release": "semantic-release",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "commitlint": "commitlint",
-    "commitmsg": "commitlint -e $GIT_PARAMS"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
+    "dev:code": "cross-env NODE_ENV=development rollup --config --watch",
+    "preview:react": "npx parcel preview/react-preview.html --out-dir preview-build --open --no-cache",
+    "dev": "concurrently 'yarn:dev:code' 'yarn:preview:react'"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "*.{js,jsx,mjs,ts,tsx}": [
+      "eslint --cache --fix"
+    ],
+    "*.{js,jsx,json,ts,tsx,css,scss,sass,mdx}": [
+      "prettier --write"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-angular": "^8.2.0",
-    "@testing-library/react": "^9.4.1",
-    "@types/jest": "^25.1.3",
-    "@types/node": "^13.7.7",
-    "@types/react": "^16.9.23",
-    "@types/react-dom": "^16.9.5",
-    "colors": "^1.4.0",
-    "coveralls": "^3.0.9",
-    "cross-env": "^7.0.0",
-    "husky": "^3.0.9",
-    "jest": "^25.1.0",
-    "jest-config": "^25.1.0",
-    "jest-dom": "^4.0.0",
-    "lodash.camelcase": "^4.3.0",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.0",
-    "prompt": "^1.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "rimraf": "^3.0.2",
-    "rollup": "^1.32.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.26.0",
-    "semantic-release": "^17.0.2",
-    "ts-jest": "^25.2.1",
-    "ts-node": "^8.6.2",
-    "tslint": "^6.0.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-standard": "^9.0.0",
-    "typedoc": "^0.16.11",
-    "typescript": "^3.8.3",
-    "uuid": "^7.0.1"
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-html": "^0.2.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-replace": "^2.3.4",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/react-hooks": "^5.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.14.0",
+    "husky": "^4.3.0",
+    "install-peers-cli": "^2.2.0",
+    "lint-staged": "^10.5.2",
+    "parcel-bundler": "1.12.3",
+    "prettier": "^2.2.0",
+    "react-scripts": "4.0.1",
+    "rollup": "^2.33.3",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-node-externals": "^2.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^3.1.8",
+    "rollup-plugin-serve": "^1.1.0",
+    "rollup-plugin-size-snapshot": "^0.12.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.2"
   },
   "peerDependencies": {
-    "azure-maps-control": "2.0.31",
+    "azure-maps-control": "2.0.32",
+    "guid-typescript": "^1.0.9",
+    "mapbox-gl": "^1.10.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
-  "dependencies": {
-    "@testing-library/react-hooks": "^3.2.1",
-    "@types/uuid": "^7.0.0",
-    "azure-maps-control": "2.0.31",
-    "guid-typescript": "^1.0.9",
-    "mapbox-gl": "^1.10.0",
-    "react-test-renderer": "^16.13.0",
-    "rollup-plugin-peer-deps-external": "^2.2.2",
-    "rollup-plugin-postcss": "^2.1.1"
-  }
+  "dependencies": {}
 }

@@ -7,7 +7,7 @@ import atlas, {
   ZoomControlOptions
 } from 'azure-maps-control'
 
-const control = atlas.control
+
 
 export const useCreateMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
@@ -25,13 +25,13 @@ export const createControl = (
 ): atlas.ControlBase | undefined => {
   switch (type) {
     case 'CompassControl':
-      return new control.CompassControl(options as CompassControlOptions)
+      return new atlas.control.CompassControl(options as CompassControlOptions)
     case 'PitchControl':
-      return new control.PitchControl(options as PitchControlOptions)
+      return new atlas.control.PitchControl(options as PitchControlOptions)
     case 'StyleControl':
-      return new control.StyleControl(options as StyleControlOptions)
+      return new atlas.control.StyleControl(options as StyleControlOptions)
     case 'ZoomControl':
-      return new control.ZoomControl(options as ZoomControlOptions)
+      return new atlas.control.ZoomControl(options as ZoomControlOptions)
     default:
       console.warn('Check the type and passed props properties or try CustomControl')
   }
