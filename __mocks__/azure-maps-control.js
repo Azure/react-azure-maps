@@ -30,7 +30,9 @@ module.exports = {
     },
     setTraffic: jest.fn(),
     setUserInteraction: jest.fn(),
-    setCamera: jest.fn()
+    setCamera: jest.fn(),
+    setStyle: jest.fn(),
+    setServiceOptions: jest.fn()
   })),
 
   HtmlMarker: jest.fn((...args) => ({

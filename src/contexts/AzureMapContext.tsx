@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useState } from 'react'
+import React, { createContext, ReactElement, useState ,useContext} from 'react'
 import { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../types'
 
@@ -34,4 +34,6 @@ const AzureMapsStatefulProvider = ({ children }: IAzureMapsStatefulProviderProps
   )
 }
 
-export { AzureMapsConsumer, AzureMapsStatefulProvider as AzureMapsProvider }
+const useAzureMaps = () => useContext<IAzureMapsContextProps>(AzureMapsContext)
+
+export { AzureMapsConsumer, AzureMapsStatefulProvider as AzureMapsProvider, useAzureMaps }
