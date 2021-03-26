@@ -27,8 +27,9 @@ Generated documentation from typedoc is available [Documentation](https://wireds
 ## Compatibility with azure-maps-controls
 
 ```
-0.1.3 - 2.0.25
+0.2.0 - 2.0.32
 0.1.4 - 2.0.31
+0.1.3 - 2.0.25
 ```
 
 ## Playground
@@ -71,7 +72,7 @@ import {AuthenticationType} from 'azure-maps-control'
 const option: IAzureMapOptions = {
     authOptions: {
         authType: AuthenticationType.subscriptionKey,
-        subscriptionKey: // Your subscription key
+        subscriptionKey: '' // Your subscription key
     },
 }
 
