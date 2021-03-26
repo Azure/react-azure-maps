@@ -10,8 +10,6 @@ import atlas from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
 import { useCheckRef } from '../hooks/useCheckRef'
 
-const source = atlas.source
-
 const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
   dataSourceRef: null
 })
@@ -33,7 +31,7 @@ const AzureMapDataSourceStatefulProvider = ({
   dataFromUrl,
   collection
 }: IAzureDataSourceStatefulProviderProps) => {
-  const [dataSourceRef] = useState<atlas.source.DataSource>(new source.DataSource(id, options))
+  const [dataSourceRef] = useState<atlas.source.DataSource>(new atlas.source.DataSource(id, options))
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   useCheckRef<MapType, DataSourceType>(mapRef, dataSourceRef, (mref, dref) => {
     for (const eventType in events || {}) {

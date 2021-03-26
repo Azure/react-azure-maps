@@ -153,10 +153,9 @@ export type IAzureMapEvent = {
 
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
-  children?:
-    | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
-    | IAzureDataSourceChildren
-    | null
+  children?: | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
+  | IAzureDataSourceChildren
+  | null
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string

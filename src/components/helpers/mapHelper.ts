@@ -1,14 +1,11 @@
 import atlas from 'azure-maps-control'
-import Position = atlas.data.Position
-import LineString = atlas.data.LineString
-import Pixel = atlas.Pixel
 
-export const generateLinesFromArrayOfPosition = (coordinates: Position[]): LineString => {
-  const line = new LineString(coordinates)
+export const generateLinesFromArrayOfPosition = (coordinates: atlas.data.Position[]): atlas.data.LineString => {
+  const line = new atlas.data.LineString(coordinates)
   return line
 }
 
-export const generatePixelHeading = (origin: Pixel, destination: Pixel) => {
-  const heading = Pixel.getHeading(origin, destination)
+export const generatePixelHeading = (origin: atlas.Pixel, destination: atlas.Pixel) => {
+  const heading = atlas.Pixel.getHeading(origin, destination)
   return heading
 }
