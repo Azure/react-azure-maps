@@ -8,7 +8,7 @@ jobs:
       tag: '12.21'
     steps:
       - checkout
-      - node/with-cache:
+      - node:
           steps:
             - run: npm install
             - run: npm test
