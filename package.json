@@ -14,7 +14,7 @@
     "react-azure-maps"
   ],
   "source": "src/react-azure-maps.ts",
-  "main": "dist/react-azure-maps.umd.js",
+  "main": "dist/react-azure-maps.es5.js",
   "module": "dist/react-azure-maps.es5.js",
   "typings": "dist/types/react-azure-maps.d.ts",
   "files": [
@@ -99,6 +99,8 @@
     "lint-staged": "^10.5.2",
     "parcel-bundler": "1.12.3",
     "prettier": "^2.2.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-scripts": "4.0.1",
     "rollup": "^2.33.3",
     "rollup-plugin-copy": "^3.4.0",
