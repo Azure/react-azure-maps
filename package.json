@@ -1,6 +1,6 @@
 {
   "name": "react-azure-maps",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Wrapper for Azure Maps",
   "keywords": [
     "react",
@@ -14,7 +14,6 @@
     "react-azure-maps"
   ],
   "source": "src/react-azure-maps.ts",
-  "main": "dist/react-azure-maps.es5.js",
   "module": "dist/react-azure-maps.es5.js",
   "typings": "dist/types/react-azure-maps.d.ts",
   "files": [
