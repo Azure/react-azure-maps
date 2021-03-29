@@ -1,6 +1,6 @@
 {
   "name": "react-azure-maps",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Wrapper for Azure Maps",
   "keywords": [
     "react",
@@ -14,7 +14,6 @@
     "react-azure-maps"
   ],
   "source": "src/react-azure-maps.ts",
-  "main": "dist/react-azure-maps.umd.js",
   "module": "dist/react-azure-maps.es5.js",
   "typings": "dist/types/react-azure-maps.d.ts",
   "files": [
@@ -30,7 +29,6 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "prepare": "install-peers",
     "lint": "eslint --max-warnings 0 \"./src/**/*.{js,jsx,mjs,ts,tsx}\"",
     "format": "prettier --check \"./src/**/*.{js,jsx,json,ts,tsx,css,scss,sass,mdx}\"",
     "type-check": "tsc --noEmit",
@@ -97,10 +95,11 @@
     "cross-env": "^7.0.2",
     "eslint": "^7.14.0",
     "husky": "^4.3.0",
-    "install-peers-cli": "^2.2.0",
     "lint-staged": "^10.5.2",
     "parcel-bundler": "1.12.3",
     "prettier": "^2.2.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-scripts": "4.0.1",
     "rollup": "^2.33.3",
     "rollup-plugin-copy": "^3.4.0",
@@ -121,5 +120,9 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "azure-maps-control": "2.0.32",
+    "guid-typescript": "^1.0.9",
+    "mapbox-gl": "^1.10.0"
+  }
 }
