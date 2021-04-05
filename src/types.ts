@@ -32,7 +32,8 @@ import atlas, {
   UserInteractionOptions,
   Control,
   BubbleLayerOptions,
-  LayerOptions
+  LayerOptions,
+  VectorTileSourceOptions
 } from 'azure-maps-control'
 
 export type IAzureMapOptions = ServiceOptions &
@@ -120,7 +121,7 @@ export type IAzureMapPopup = {
 }
 
 export type IAzureMapDataSourceContextState = {
-  dataSourceRef: atlas.source.DataSource | null
+  dataSourceRef: atlas.source.DataSource | atlas.source.VectorTileSource | null
 }
 
 export type IAzureMapLayerContextState = {
@@ -132,8 +133,14 @@ export type IAzureDataSourceChildren =
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
 
+export type IAzureVectorTileSourceChildren = ReactElement<IAzureLayerStatefulProviderProps>
+
 export type IAzureMapDataSourceEvent = {
   [property in IAzureMapDataSourceEventType]: (e: Shape[]) => void
+}
+
+export type IAzureMapVectorTileSourceEvent = {
+  [property in IAzureMapSourceEventType]?: (e: atlas.source.VectorTileSource) => void
 }
 
 export type IAzureMapEvent = {
@@ -166,6 +173,17 @@ export type IAzureDataSourceStatefulProviderProps = {
     | atlas.data.GeometryCollection
     | Shape
     | Array<atlas.data.Feature<atlas.data.Geometry, any> | atlas.data.Geometry | Shape>
+  index?: number
+}
+
+export type IAzureVectorTileSourceStatefulProviderProps = {
+  id: string,
+  children?: | Array<IAzureVectorTileSourceChildren | IAzureVectorTileSourceChildren[] | null>
+  | IAzureVectorTileSourceChildren
+  | null
+  options?: VectorTileSourceOptions,
+  events?: IAzureMapVectorTileSourceEvent
+  // NOTE: not sure yet why this is needed, haven't seen this used in AzureMapsDataSource, though IAzureGeoJSONDataSourceStatefulProviderProps has it
   index?: number
 }
 
@@ -307,7 +325,7 @@ export type IAzureMapLayerProps = IAzureMapLayerContextState
 export type IAzureMapMouseEventRef = HtmlMarker // && other possible iterfaces
 export type IAzureMapsContextProps = IAzureMapContextState
 export type IAzureMapDataSourceProps = IAzureMapDataSourceContextState
-export type DataSourceType = atlas.source.DataSource
+export type DataSourceType = atlas.source.DataSource | atlas.source.VectorTileSource
 export type LayerType = atlas.layer.SymbolLayer | atlas.layer.ImageLayer | atlas.layer.TileLayer
 export type MapType = atlas.Map
 export type GeometryType = atlas.data.Geometry

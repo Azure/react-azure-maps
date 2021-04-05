@@ -1,3 +1,11 @@
+class DataSource {
+  add = jest.fn()
+  clear = jest.fn()
+  remove = jest.fn()
+  importDataFromUrl = jest.fn()
+  setOptions = jest.fn()
+}
+
 module.exports = {
   Map: jest.fn(() => ({
     controls: {
@@ -109,13 +117,11 @@ module.exports = {
     }))
   },
   source: {
-    DataSource: jest.fn(() => ({
-      add: jest.fn(),
-      clear: jest.fn(),
-      remove: jest.fn(),
-      importDataFromUrl: jest.fn(),
-      setOptions: jest.fn()
-    }))
+    DataSource,
+    VectorTileSource: jest.fn((id, options) => ({
+      getId: jest.fn(() => id),
+      getOptions: jest.fn(() => options)
+    })) 
   },
   Shape: jest.fn(() => ({
     setCoordinates: jest.fn(),
