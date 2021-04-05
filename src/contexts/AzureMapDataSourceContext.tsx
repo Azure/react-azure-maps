@@ -1,19 +1,19 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
   DataSourceType,
   IAzureDataSourceStatefulProviderProps,
   IAzureMapDataSourceProps,
   IAzureMapsContextProps,
-  MapType,
-} from "../types";
-import atlas from "azure-maps-control";
-import { AzureMapsContext } from "./AzureMapContext";
-import { useCheckRef } from "../hooks/useCheckRef";
+  MapType
+} from '../types'
+import atlas from 'azure-maps-control'
+import { AzureMapsContext } from './AzureMapContext'
+import { useCheckRef } from '../hooks/useCheckRef'
 
 const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
-  dataSourceRef: null,
-});
-const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceContext;
+  dataSourceRef: null
+})
+const { Provider, Consumer: AzureMapDataSourceConsumer } = AzureMapDataSourceContext
 
 /**
  * @param id
@@ -37,16 +37,16 @@ const AzureMapDataSourceStatefulProvider = ({
     for (const eventType in events || {}) {
       mref.events.add(eventType as any, dref, events[eventType])
     }
-    mref.sources.add(dref);
+    mref.sources.add(dref)
     if (dref instanceof atlas.source.DataSource) {
       if (dataFromUrl) {
-        dref.importDataFromUrl(dataFromUrl);
+        dref.importDataFromUrl(dataFromUrl)
       }
       if (collection) {
-        dref.add(collection);
+        dref.add(collection)
       }
     }
-  });
+  })
 
   useEffect(() => {
     if (dataSourceRef && collection) {
@@ -70,8 +70,8 @@ const AzureMapDataSourceStatefulProvider = ({
     >
       {mapRef && children}
     </Provider>
-  );
-};
+  )
+}
 
 const AzureMapVectorTileSourceStatefulProvider = ({
   id,
@@ -79,10 +79,8 @@ const AzureMapVectorTileSourceStatefulProvider = ({
   options,
   events,
 }: IAzureDataSourceStatefulProviderProps) => {
-  const [dataSourceRef] = useState<atlas.source.VectorTileSource>(
-    new atlas.source.VectorTileSource(id, options)
-  );
-  const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext);
+  const [dataSourceRef] = useState<atlas.source.VectorTileSource>(new atlas.source.VectorTileSource(id, options))
+  const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   useCheckRef<MapType, DataSourceType>(mapRef, dataSourceRef, (mref, dref) => {
     for (const eventType in events || {}) {
       mref.events.add(eventType as any, dref, events[eventType])
