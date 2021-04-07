@@ -73,35 +73,9 @@ const AzureMapDataSourceStatefulProvider = ({
   )
 }
 
-const AzureMapVectorTileSourceStatefulProvider = ({
-  id,
-  children,
-  options,
-  events,
-}: IAzureDataSourceStatefulProviderProps) => {
-  const [dataSourceRef] = useState<atlas.source.VectorTileSource>(new atlas.source.VectorTileSource(id, options))
-  const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
-  useCheckRef<MapType, DataSourceType>(mapRef, dataSourceRef, (mref, dref) => {
-    for (const eventType in events || {}) {
-      mref.events.add(eventType as any, dref, events[eventType])
-    }
-    mref.sources.add(dref)
-  })
-
-  return (
-    <Provider
-      value={{
-        dataSourceRef,
-      }}
-    >
-      {mapRef && children}
-    </Provider>
-  )
-}
-
 export {
   AzureMapDataSourceContext,
   AzureMapDataSourceConsumer,
   AzureMapDataSourceStatefulProvider as AzureMapDataSourceProvider,
-  AzureMapVectorTileSourceStatefulProvider as AzureMapVectorTileSourceProvider
+  Provider as AzureMapDataSourceRawProvider
 }
