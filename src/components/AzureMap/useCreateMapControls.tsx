@@ -13,10 +13,10 @@ import atlas, {
 export const useCreateMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
     const { controlName, options, controlOptions } = control
-      mapRef.controls.add(
-        createControl(controlName, controlOptions) as atlas.ControlBase,
-        options as ControlOptions
-      )
+    mapRef.controls.add(
+      createControl(controlName, controlOptions) as atlas.ControlBase,
+      options as ControlOptions
+    )
   })
 }
 
