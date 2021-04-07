@@ -4,6 +4,7 @@ import atlas, {
   ControlOptions,
   PitchControlOptions,
   StyleControlOptions,
+  TrafficControlOptions,
   ZoomControlOptions
 } from 'azure-maps-control'
 
@@ -12,10 +13,10 @@ import atlas, {
 export const useCreateMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
     const { controlName, options, controlOptions } = control
-    mapRef.controls.add(
-      createControl(controlName, controlOptions) as atlas.ControlBase,
-      options as ControlOptions
-    )
+      mapRef.controls.add(
+        createControl(controlName, controlOptions) as atlas.ControlBase,
+        options as ControlOptions
+      )
   })
 }
 
@@ -32,6 +33,10 @@ export const createControl = (
       return new atlas.control.StyleControl(options as StyleControlOptions)
     case 'ZoomControl':
       return new atlas.control.ZoomControl(options as ZoomControlOptions)
+    case 'TrafficControl':
+      return new atlas.control.TrafficControl(options as TrafficControlOptions)
+    case 'TrafficLegendControl':
+      return new atlas.control.TrafficLegendControl()
     default:
       console.warn('Check the type and passed props properties or try CustomControl')
   }
