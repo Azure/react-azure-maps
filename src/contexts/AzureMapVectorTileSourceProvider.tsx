@@ -1,7 +1,7 @@
 import atlas from 'azure-maps-control'
 import React, { useContext, useState } from 'react'
 import { useCheckRef } from '../hooks/useCheckRef'
-import { DataSourceType, IAzureDataSourceStatefulProviderProps, IAzureMapLayerEventType, IAzureMapsContextProps, IAzureMapSourceEventType, IAzureVectorTileSourceStatefulProviderProps, MapType } from '../types'
+import { DataSourceType, IAzureMapsContextProps, IAzureMapSourceEventType, IAzureVectorTileSourceStatefulProviderProps, MapType } from '../types'
 import { AzureMapDataSourceRawProvider as Provider } from './AzureMapDataSourceContext'
 import { AzureMapsContext } from './AzureMapContext'
 
