@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks'
-import { useCreateImageSprites } from './useCreateSprites'
+import { createImageSprites } from './useCreateSprites'
 import { Map } from 'azure-maps-control'
 
-describe('useCreateImageSprites tests', () => {
+describe('createImageSprites tests', () => {
   it('should create image sprintes with icon field and call proper methods', async () => {
     const mockMap = new Map('#fake-container', {})
     const fakeImageSprite = {
@@ -13,7 +13,7 @@ describe('useCreateImageSprites tests', () => {
       secondaryColor: 'color',
       scale: 1
     }
-    const { result } = renderHook(() => useCreateImageSprites(mockMap, [fakeImageSprite]))
+    const { result } = renderHook(() => createImageSprites(mockMap, [fakeImageSprite]))
     await result.current
     expect(mockMap.imageSprite.add).toHaveBeenCalledWith('id', 'icon')
     expect(mockMap.imageSprite.createFromTemplate).toHaveBeenCalledWith(
@@ -34,7 +34,7 @@ describe('useCreateImageSprites tests', () => {
       secondaryColor: 'color',
       scale: 1
     }
-    const { result } = renderHook(() => useCreateImageSprites(mockMap, [fakeImageSprite]))
+    const { result } = renderHook(() => createImageSprites(mockMap, [fakeImageSprite]))
     await result.current
     expect(mockMap.imageSprite.add).not.toHaveBeenCalled()
     expect(mockMap.imageSprite.createFromTemplate).toHaveBeenCalledWith(
@@ -54,7 +54,7 @@ describe('useCreateImageSprites tests', () => {
       secondaryColor: 'color',
       scale: 1
     }
-    const { result } = renderHook(() => useCreateImageSprites(mockMap, [fakeImageSprite]))
+    const { result } = renderHook(() => createImageSprites(mockMap, [fakeImageSprite]))
     await result.current
     expect(mockMap.imageSprite.add).not.toHaveBeenCalled()
     expect(mockMap.imageSprite.createFromTemplate).toHaveBeenCalledWith(

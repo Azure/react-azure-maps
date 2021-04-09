@@ -9,7 +9,7 @@ import atlas, {
 
 
 
-export const useCreateMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
+export const createMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
     const { controlName, options, controlOptions } = control
     mapRef.controls.add(
@@ -37,7 +37,7 @@ export const createControl = (
   }
 }
 
-export const useCreateMapCustomControls = (
+export const createMapCustomControls = (
   mapRef: MapType,
   customControls: IAzureCustomControls[]
 ) => {

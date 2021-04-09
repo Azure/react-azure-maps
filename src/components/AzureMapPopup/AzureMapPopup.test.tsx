@@ -68,7 +68,7 @@ describe('AzureMapPopup tests', () => {
     expect(popupRef.open).toHaveBeenCalledWith(mapRef)
   })
 
-  it('should ropen popup when isVisible is true and isOpen returns false', () => {
+  it('should close popup when isVisible is false and isOpen returns true', () => {
     popupRef.isOpen = jest.fn(() => true)
     mapRef.popups.getPopups = jest.fn(() => [popupRef])
     render(

@@ -75,7 +75,7 @@ describe('AzureMaphtmlMarker tests', () => {
       expect(markerRef.setOptions).toHaveBeenCalledWith({ option: 'option' })
     })
 
-    it('should call setOptions on markerRef', () => {
+    it('should call setOptions on markerRef when marketContent prop is passed', () => {
       markerRef.setOptions = jest.fn()
       render(wrapWithAzureMapContext({ markerContent: <div /> }))
       expect(markerRef.setOptions).toHaveBeenCalledWith({ htmlContent: '<div></div>' })

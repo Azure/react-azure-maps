@@ -1,6 +1,6 @@
 import { IAzureMapImageSprite, MapType } from '../../types'
 
-export const useCreateImageSprites = async (
+export const createImageSprites = async (
   mapRef: MapType,
   spriteArray: IAzureMapImageSprite[]
 ) => {

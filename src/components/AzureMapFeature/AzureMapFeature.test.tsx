@@ -9,7 +9,7 @@ import atlas from 'azure-maps-control'
 
 jest.mock('./useFeature')
 jest.mock('./useCreateAzureMapFeature.ts', () => ({
-  useCreateAzureMapFeature: () => ({})
+  createAzureMapFeature: () => ({})
 }))
 
 const mapRef = new Map('fake', {})
