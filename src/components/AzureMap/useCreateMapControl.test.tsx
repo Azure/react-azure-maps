@@ -80,6 +80,16 @@ describe('Control hooks', () => {
       expect(createdControl).toEqual({ compassOption: 'option' })
     })
 
+    it('should return TrafficControl if type equal TrafficControl', () => {
+      const createdControl = createControl('TrafficControl', {})
+      expect(createdControl).toEqual({ trafficOption: 'option' })
+    })
+
+    it('should return TrafficLegendControl if type equal TrafficLegendControl', () => {
+      const createdControl = createControl('TrafficLegendControl', {})
+      expect(createdControl).toEqual({ trafficLegendOption: 'option' })
+    })
+
     it('should return undefined if there is no control with type', () => {
       const createdControl = createControl('SomeOtherType', {})
       expect(createdControl).toEqual(undefined)
