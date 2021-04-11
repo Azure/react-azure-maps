@@ -12,29 +12,27 @@ import { AzureMapDataSourceContext } from '../contexts/AzureMapDataSourceContext
 import { useCheckRef } from './useCheckRef'
 import { MapType } from '../types'
 
-const layer = atlas.layer
-
 export const constructLayer = (
   { id, options = {}, type }: Omit<IAzureLayerStatefulProviderProps, 'onCreateCustomLayer'>,
   dataSourceRef: atlas.source.DataSource
 ) => {
   switch (type) {
     case 'SymbolLayer':
-      return new layer.SymbolLayer(dataSourceRef, id, options)
+      return new atlas.layer.SymbolLayer(dataSourceRef, id, options)
     case 'HeatLayer':
-      return new layer.HeatMapLayer(dataSourceRef, id, options)
+      return new atlas.layer.HeatMapLayer(dataSourceRef, id, options)
     case 'ImageLayer':
-      return new layer.ImageLayer(options, id)
+      return new atlas.layer.ImageLayer(options, id)
     case 'LineLayer':
-      return new layer.LineLayer(dataSourceRef, id, options)
+      return new atlas.layer.LineLayer(dataSourceRef, id, options)
     case 'PolygonExtrusionLayer':
-      return new layer.PolygonExtrusionLayer(dataSourceRef, id, options)
+      return new atlas.layer.PolygonExtrusionLayer(dataSourceRef, id, options)
     case 'PolygonLayer':
-      return new layer.PolygonLayer(dataSourceRef, id, options)
+      return new atlas.layer.PolygonLayer(dataSourceRef, id, options)
     case 'TileLayer':
-      return new layer.TileLayer(options, id)
+      return new atlas.layer.TileLayer(options, id)
     case 'BubbleLayer':
-      return new layer.BubbleLayer(dataSourceRef, id, options)
+      return new atlas.layer.BubbleLayer(dataSourceRef, id, options)
     default:
       return null
   }

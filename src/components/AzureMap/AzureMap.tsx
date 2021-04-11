@@ -31,7 +31,6 @@ const AzureMap = memo(
       IAzureMapsContextProps
     >(AzureMapsContext)
     const [mapId] = useState(providedMapId || Guid.create().toString())
-
     useEffect(() => {
       if (mapRef) {
         mapRef.setTraffic(trafficOptions)

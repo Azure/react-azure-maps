@@ -24,6 +24,14 @@ Documentation is available [Documentation](https://react-azure-maps.now.sh)
 
 Generated documentation from typedoc is available [Documentation](https://wiredsolutions.github.io/react-azure-maps/)
 
+## Compatibility with azure-maps-controls
+
+```
+0.2.0 - 2.0.32
+0.1.4 - 2.0.31
+0.1.3 - 2.0.25
+```
+
 ## Playground
 
 `React Azure Maps` have a fully documented [Playground Package](https://github.com/WiredSolutions/react-azure-maps-playground) that implements a lot of features from [Azure Maps Code Samples](https://azuremapscodesamples.azurewebsites.net/). If you implement new usage of the map and want to be contributor just create a PR.
@@ -64,7 +72,7 @@ import {AuthenticationType} from 'azure-maps-control'
 const option: IAzureMapOptions = {
     authOptions: {
         authType: AuthenticationType.subscriptionKey,
-        subscriptionKey: // Your subscription key
+        subscriptionKey: '' // Your subscription key
     },
 }
 

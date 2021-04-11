@@ -28,6 +28,7 @@ const AzureMapDrawingManagerStatefulProvider = ({
   const [drawingManagerRef, setDrawingManagerRef] = useState<drawing.DrawingManager | null>(null)
 
   useCheckRefMount<MapType, boolean>(mapRef, true, mref => {
+    // @ts-ignore
     const drawingManager = new drawing.DrawingManager(mref)
     drawingManager.setOptions(options)
     setDrawingManagerRef(drawingManager)
