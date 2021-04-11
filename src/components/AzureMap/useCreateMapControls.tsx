@@ -50,3 +50,4 @@ export const useCreateMapCustomControls = (
     mapRef.controls.add(control, controlOptions)
   })
 }
+
