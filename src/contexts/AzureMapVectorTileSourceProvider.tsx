@@ -15,14 +15,17 @@ const AzureMapVectorTileSourceStatefulProvider = ({
   id,
   children,
   options,
-  events,
+  events = {},
 }: IAzureVectorTileSourceStatefulProviderProps) => {
   const [dataSourceRef] = useState<atlas.source.VectorTileSource>(new atlas.source.VectorTileSource(id, options))
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   useCheckRef<MapType, DataSourceType>(mapRef, dataSourceRef, (mref, dref) => {
-    Object.entries(events || {}).filter(([_, handler]) => handler !== undefined).forEach(([eventType, handler]) => {
-      mref.events.add(eventType as IAzureMapSourceEventType, dref, handler as (e: atlas.source.Source) => void)
-    })
+    for (const eventType in events) {
+      const handler = events[eventType as IAzureMapSourceEventType] as (e: atlas.source.Source) => void | undefined
+      if(handler) {
+        mref.events.add(eventType as IAzureMapSourceEventType, dref, handler)
+      }
+    }
     mref.sources.add(dref)
   })
 
