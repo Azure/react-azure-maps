@@ -64,7 +64,9 @@ module.exports = {
     CompassControl: jest.fn(() => ({ compassOption: 'option' })),
     PitchControl: jest.fn(() => ({ pitchOption: 'option' })),
     StyleControl: jest.fn(() => ({ styleOption: 'option' })),
-    ZoomControl: jest.fn(() => ({ zoomOption: 'option' }))
+    ZoomControl: jest.fn(() => ({ zoomOption: 'option' })),
+    TrafficControl: jest.fn(() => ({ trafficOption: 'option' })),
+    TrafficLegendControl: jest.fn(() => ({ trafficLegendOption: 'option' }))
   },
   layer: {
     ImageLayer: jest.fn((options, id) => ({ layer: 'ImageLayer', options, id })),
