@@ -199,6 +199,19 @@ export type IAzureLayerStatefulProviderProps = {
   lifecycleEvents?: IAzureMapLifecycleEvent | any
 }
 
+export type IAzureDrawingLayerStatefulProviderProps = {
+  // type of drawing layer to customize
+  type: "lineLayer" | "polygonLayer" | "polygonOutlineLayer" | "pointLayer"
+  options?:
+    | (SymbolLayerOptions &
+        LineLayerOptions &
+        PolygonLayerOptions &
+        LayerOptions)
+    | Options
+  events?: IAzureMapLayerEvent | any
+  lifecycleEvents?: IAzureMapLifecycleEvent | any
+}
+
 export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
 
 export type IAzureMapEventsType =
@@ -306,16 +319,19 @@ export type IAzureMapFeature = {
 
 // DRAWING MODULE:
 export type DrawingManagerType = drawing.DrawingManager
-export type IAzureDrawingManagerEventType =
+export type IAzureDrawingManagerDrawingEventType = 
   | 'drawingchanged'
   | 'drawingchanging'
   | 'drawingcomplete'
-  | 'drawingmodechanged'
   | 'drawingstarted'
-  | string
+
+export type IAzureDrawingManagerModeEventType = 'drawingmodechanged'
+export type IAzureDrawingManagerEventType = IAzureDrawingManagerDrawingEventType | IAzureDrawingManagerModeEventType
 
 export type IAzureDrawingManagerEvent = {
-  [property in IAzureDrawingManagerEventType]?: (e: atlas.Shape | drawing.DrawingMode) => void
+  [property in IAzureDrawingManagerDrawingEventType]?: (e: atlas.Shape) => void
+} & {
+  [property in IAzureDrawingManagerModeEventType]?: (a: drawing.DrawingMode) => void
 }
 
 export interface IAzureMapDrawingManagerProps {
@@ -325,7 +341,12 @@ export interface IAzureMapDrawingManagerProps {
 export interface IAzureDrawingManagerStatefulProviderProps {
   options: DrawingManagerOptions
   events?: IAzureDrawingManagerEvent
-  children?: Array<IAzureDataSourceChildren | null> | IAzureDataSourceChildren | null
+  children?: 
+    | Array<IAzureDataSourceChildren | null> 
+    | Array<ReactElement<IAzureDrawingLayerStatefulProviderProps> | null>
+    | IAzureDataSourceChildren
+    | ReactElement<IAzureDrawingLayerStatefulProviderProps>
+    | null
 }
 
 export type IAzureMapLayerProps = IAzureMapLayerContextState
