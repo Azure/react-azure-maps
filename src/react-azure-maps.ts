@@ -10,8 +10,9 @@ export {
 export {
   AzureMapDataSourceContext,
   AzureMapDataSourceConsumer,
-  AzureMapDataSourceProvider
+  AzureMapDataSourceProvider,
 } from './contexts/AzureMapDataSourceContext'
+export { AzureMapVectorTileSourceProvider } from './contexts/AzureMapVectorTileSourceProvider'
 export {
   AzureMapLayerContext,
   AzureMapLayerConsumer,

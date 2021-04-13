@@ -38,11 +38,13 @@ const AzureMapDataSourceStatefulProvider = ({
       mref.events.add(eventType as any, dref, events[eventType])
     }
     mref.sources.add(dref)
-    if (dataFromUrl) {
-      dref.importDataFromUrl(dataFromUrl)
-    }
-    if (collection) {
-      dref.add(collection)
+    if (dref instanceof atlas.source.DataSource) {
+      if (dataFromUrl) {
+        dref.importDataFromUrl(dataFromUrl)
+      }
+      if (collection) {
+        dref.add(collection)
+      }
     }
   })
 
@@ -74,5 +76,6 @@ const AzureMapDataSourceStatefulProvider = ({
 export {
   AzureMapDataSourceContext,
   AzureMapDataSourceConsumer,
-  AzureMapDataSourceStatefulProvider as AzureMapDataSourceProvider
+  AzureMapDataSourceStatefulProvider as AzureMapDataSourceProvider,
+  Provider as AzureMapDataSourceRawProvider
 }
