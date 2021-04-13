@@ -108,7 +108,7 @@ describe('constructLayer', () => {
     )
     expect(createLayer).toEqual({ layer: 'TileLayer', options: {}, id: 'TileLayerId' })
   })
-  it('should return TileLayer props if type equal to TileLayer', () => {
+  it('should return BubbleLayer props if type equal to BubbleLayer', () => {
     const createLayer = constructLayer(
       {
         id: 'BubbleLayerId',

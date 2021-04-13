@@ -1,7 +1,7 @@
 import { IAzureMapFeature } from '../../types'
 import atlas from 'azure-maps-control'
 
-export const useCreateAzureMapFeature = ({
+export const createAzureMapFeature = ({
   type,
   coordinate,
   coordinates,

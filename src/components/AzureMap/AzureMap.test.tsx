@@ -4,15 +4,15 @@ import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import AzureMap from './AzureMap'
 import { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps } from '../../types'
-import { useCreateImageSprites } from './useCreateSprites'
-import { useCreateMapCustomControls, useCreateMapControls } from './useCreateMapControls'
+import { createImageSprites } from './useCreateSprites'
+import { createMapCustomControls, createMapControls } from './useCreateMapControls'
 
 const LoaderComponent = () => <div>Loader</div>
 
 jest.mock('./useCreateMapControls', () => {
   return {
-    useCreateMapCustomControls: jest.fn(),
-    useCreateMapControls: jest.fn()
+    createMapCustomControls: jest.fn(),
+    createMapControls: jest.fn()
   }
 })
 
@@ -108,7 +108,7 @@ describe('AzureMap Component', () => {
     expect(mapContextProps.removeMapRef).toHaveBeenCalled()
   })
 
-  it('should call useCreateImageSprites if imageSprites is not falsy', () => {
+  it('should call createImageSprites if imageSprites is not falsy', () => {
     const mapRef = new Map('fake', {})
     render(
       wrapWithAzureMapContext(
@@ -116,17 +116,17 @@ describe('AzureMap Component', () => {
         { imageSprites: [{ id: 'some_fake_id' }] }
       )
     )
-    expect(useCreateImageSprites).toHaveBeenCalled()
+    expect(createImageSprites).toHaveBeenCalled()
   })
 
-  it('should call useCreateMapControls if controls is not falsy', () => {
+  it('should call createMapControls if controls is not falsy', () => {
     const mapRef = new Map('fake', {})
     const fakeControls = [{ controlName: 'fake_control_name' }]
     render(wrapWithAzureMapContext({ ...mapContextProps, mapRef }, { controls: fakeControls }))
-    expect(useCreateMapControls).toHaveBeenCalledWith(expect.any(Object), fakeControls)
+    expect(createMapControls).toHaveBeenCalledWith(expect.any(Object), fakeControls)
   })
 
-  it('should call useCreateMapCustomControls if customControls is not falsy', () => {
+  it('should call createMapCustomControls if customControls is not falsy', () => {
     const mapRef = new Map('fake', {})
     const customControls = [
       {
@@ -142,7 +142,7 @@ describe('AzureMap Component', () => {
         }
       )
     )
-    expect(useCreateMapCustomControls).toHaveBeenCalledWith(expect.any(Object), customControls)
+    expect(createMapCustomControls).toHaveBeenCalledWith(expect.any(Object), customControls)
   })
 
   it('should setTraffic on initial props', () => {

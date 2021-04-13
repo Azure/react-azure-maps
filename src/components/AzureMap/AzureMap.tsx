@@ -6,8 +6,8 @@ import { Guid } from 'guid-typescript'
 import 'azure-maps-control/dist/atlas.min.css'
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
-import { useCreateImageSprites } from './useCreateSprites'
-import { useCreateMapControls, useCreateMapCustomControls } from './useCreateMapControls'
+import { createImageSprites } from './useCreateSprites'
+import { createMapControls, createMapCustomControls } from './useCreateMapControls'
 
 const AzureMap = memo(
   ({
@@ -64,13 +64,13 @@ const AzureMap = memo(
     useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
       mref.events.add('ready', () => {
         if (imageSprites) {
-          useCreateImageSprites(mref, imageSprites)
+          createImageSprites(mref, imageSprites)
         }
         if (controls) {
-          useCreateMapControls(mref, controls)
+          createMapControls(mref, controls)
         }
         if (customControls) {
-          useCreateMapCustomControls(mref, customControls)
+          createMapCustomControls(mref, customControls)
         }
         if (trafficOptions) {
           mref.setTraffic(trafficOptions)
