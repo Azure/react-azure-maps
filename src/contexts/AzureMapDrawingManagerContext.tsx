@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import 'azure-maps-drawing-tools/dist/atlas-drawing.min.css'
 
 import atlas from 'azure-maps-control'
-import { drawing } from 'azure-maps-drawing-tools'
+import { drawing, control } from 'azure-maps-drawing-tools'
 import {
   DrawingManagerType,
   IAzureDrawingManagerStatefulProviderProps,
@@ -40,13 +40,22 @@ const AzureMapDrawingManagerStatefulProvider = ({
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   const [drawingManagerRef, setDrawingManagerRef] = useState<drawing.DrawingManager | null>(null)
   const [dataSourceRef, setDataSourceRef] = useState<atlas.source.DataSource | null>(null)
+  const [toolbarOnceReadyRef, setToolbarOnceReadyRef] = useState<control.DrawingToolbar | undefined>(undefined)
 
-  useCheckRef<MapType, DrawingManagerType>(mapRef, drawingManagerRef, (mref, dmref) => {
+  useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
     mref.events.add('ready', () => {
-      const drawingManager = new drawing.DrawingManager(mref, options)
+      // NOTE: if DrawingToolbar gets instantiated before map is 'ready', weird runtime errors follow. 
+      // create toolbar here instead
+      const drawingManager = new drawing.DrawingManager(mref)
+      const toolbar = options.toolbar ? new control.DrawingToolbar(options.toolbar) : undefined
+      drawingManager.setOptions({ 
+        ...options, 
+        toolbar
+      })
+
       setDrawingManagerRef(drawingManager)
       setDataSourceRef(drawingManager.getSource())
-      drawingManager.getLayers()
+      setToolbarOnceReadyRef(toolbar)
 
       // register drawing events
       for (const eventType in events) {
@@ -57,31 +66,33 @@ const AzureMapDrawingManagerStatefulProvider = ({
 
         // NOTE: duplication to have the explicit types instead of any
         if(eventType == 'drawingmodechanged'){
-          (mref.events as _EventManager).add(eventType, dmref, handler as (a: drawing.DrawingMode) => void)
+          (mref.events as _EventManager).add(eventType, drawingManager, handler as (a: drawing.DrawingMode) => void)
         } else {
-          (mref.events as _EventManager).add(eventType as IAzureDrawingManagerDrawingEventType, dmref, handler as (e: Shape) => void)
+          (mref.events as _EventManager).add(eventType as IAzureDrawingManagerDrawingEventType, drawingManager, handler as (e: Shape) => void)
         }
       }
 
       return () => {
         setDrawingManagerRef(null)
         setDataSourceRef(null)
+        setToolbarOnceReadyRef(undefined)
 
         for (const eventType in events) {
           const handler = events[eventType as IAzureDrawingManagerEventType];
           if(handler){
-            (mref.events as _EventManager).remove(eventType, dmref, handler)
+            (mref.events as _EventManager).remove(eventType, drawingManager, handler)
           }
         }
       }
     })
   })
-  
+
   useEffect(() => {
-    if(drawingManagerRef && options){ 
-      drawingManagerRef.setOptions(options)
+    if(drawingManagerRef && options){
+      drawingManagerRef.setOptions({ ...options, toolbar: toolbarOnceReadyRef })
+      toolbarOnceReadyRef?.setOptions(options.toolbar)
     }
-  }, [drawingManagerRef, options])  
+  }, [drawingManagerRef, options, toolbarOnceReadyRef])
 
   return (
     <DrawingManagerProvider

@@ -34,7 +34,7 @@ import atlas, {
   BubbleLayerOptions,
   LayerOptions
 } from 'azure-maps-control'
-import { drawing, DrawingManagerOptions } from 'azure-maps-drawing-tools'
+import { drawing, DrawingManagerOptions, DrawingToolbarOptions } from 'azure-maps-drawing-tools'
 
 export type IAzureMapOptions = ServiceOptions &
   StyleOptions &
@@ -339,7 +339,7 @@ export interface IAzureMapDrawingManagerProps {
 }
 
 export interface IAzureDrawingManagerStatefulProviderProps {
-  options: DrawingManagerOptions
+  options: Omit<DrawingManagerOptions, 'toolbar'> & { 'toolbar': DrawingToolbarOptions }
   events?: IAzureDrawingManagerEvent
   children?: 
     | Array<IAzureDataSourceChildren | null> 

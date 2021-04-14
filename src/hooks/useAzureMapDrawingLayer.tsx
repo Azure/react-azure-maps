@@ -1,13 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useCheckRef } from '../hooks/useCheckRef'
-import { DrawingManagerType, IAzureLayerStatefulProviderProps, IAzureDrawingLayerStatefulProviderProps, IAzureMapDrawingManagerProps, IAzureMapLayerProps, IAzureMapsContextProps, LayerType, MapType } from '../types'
+import { DrawingManagerType, IAzureDrawingLayerStatefulProviderProps, IAzureMapDrawingManagerProps, IAzureMapsContextProps, LayerType, MapType } from '../types'
 import { AzureMapsContext } from '../contexts/AzureMapContext'
 import { AzureMapDrawingManagerContext } from '../contexts/AzureMapDrawingManagerContext'
-
-const AzureMapLayerContext = createContext<IAzureMapLayerProps>({
-  layerRef: null
-})
-const { Provider, Consumer: AzureMapLayerConsumer } = AzureMapLayerContext
 
 export const useAzureMapDrawingLayer = ({
   options,

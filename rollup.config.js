@@ -55,6 +55,6 @@ export default {
       babelHelpers: "runtime",
       include: ["./src/**/*"],
     }),
-    // terser(),
+    terser(),
   ],
 };
