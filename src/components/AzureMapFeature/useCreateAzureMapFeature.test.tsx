@@ -1,6 +1,6 @@
 import atlas from 'azure-maps-control'
 import { IAzureMapFeature } from '../../types'
-import { useCreateAzureMapFeature } from './useCreateAzureMapFeature'
+import { createAzureMapFeature } from './useCreateAzureMapFeature'
 
 const fakeCoordinate: atlas.data.Position = new atlas.data.Position(10, 10)
 const fakeCoordinates: atlas.data.Position[] = [
@@ -20,13 +20,13 @@ const fakeBbox: atlas.data.BoundingBox = new atlas.data.BoundingBox(
 )
 
 describe('AzureMapFeature hooks', () => {
-  describe('useCreateAzureMapFeature tests', () => {
+  describe('createAzureMapFeature tests', () => {
     it('should return Point if type equal Point', () => {
       const pointProps: IAzureMapFeature = {
         type: 'Point',
         coordinate: fakeCoordinate
       }
-      const createPoint = useCreateAzureMapFeature(pointProps)
+      const createPoint = createAzureMapFeature(pointProps)
       expect(createPoint).toEqual({ coords: [10, 10], type: 'Point' })
     })
     it('should return MultiPoint if type equal MultiPoint', () => {
@@ -35,7 +35,7 @@ describe('AzureMapFeature hooks', () => {
         coordinates: fakeCoordinates,
         bbox: fakeBbox
       }
-      const createMultiPoint = useCreateAzureMapFeature(multiPointProps)
+      const createMultiPoint = createAzureMapFeature(multiPointProps)
       expect(createMultiPoint).toEqual({
         bbox: [
           [10, 10],
@@ -54,7 +54,7 @@ describe('AzureMapFeature hooks', () => {
         coordinates: fakeCoordinates,
         bbox: fakeBbox
       }
-      const createLineString = useCreateAzureMapFeature(lineStringProps)
+      const createLineString = createAzureMapFeature(lineStringProps)
       expect(createLineString).toEqual({
         bbox: [
           [10, 10],
@@ -73,7 +73,7 @@ describe('AzureMapFeature hooks', () => {
         multipleCoordinates: fakeMultipleCoordinates,
         bbox: fakeBbox
       }
-      const createMultiLineStringProps = useCreateAzureMapFeature(multiLineStringProps)
+      const createMultiLineStringProps = createAzureMapFeature(multiLineStringProps)
       expect(createMultiLineStringProps).toEqual({
         bbox: [
           [10, 10],
@@ -89,7 +89,7 @@ describe('AzureMapFeature hooks', () => {
         coordinates: fakeCoordinates,
         bbox: fakeBbox
       }
-      const createLineString = useCreateAzureMapFeature(lineStringProps)
+      const createLineString = createAzureMapFeature(lineStringProps)
       expect(createLineString).toEqual({
         bbox: [
           [10, 10],
@@ -108,7 +108,7 @@ describe('AzureMapFeature hooks', () => {
         multipleDimensionCoordinates: fakeMultipleDimensionCoordinates,
         bbox: fakeBbox
       }
-      const createMultiPolygon = useCreateAzureMapFeature(multiPolygonProps)
+      const createMultiPolygon = createAzureMapFeature(multiPolygonProps)
       expect(createMultiPolygon).toEqual({
         bbox: [
           [10, 10],

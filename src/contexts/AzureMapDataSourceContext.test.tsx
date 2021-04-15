@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { renderHook } from '@testing-library/react-hooks'
-import { Map } from 'azure-maps-control'
+import atlas, { Map } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../contexts/AzureMapContext'
 import {
@@ -65,15 +65,18 @@ describe('AzureMapDataSourceProvider tests', () => {
     const { result } = renderHook(() => useContextConsumer(), {
       wrapper: wrapWithDataSourceContext({ id: 'id', dataFromUrl: 'dataFromUrl' })
     })
-    expect(result.current.dataSourceRef?.importDataFromUrl).toHaveBeenCalledWith('dataFromUrl')
+    expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
+    expect((result.current.dataSourceRef as atlas.source.DataSource).importDataFromUrl).toHaveBeenCalledWith('dataFromUrl')
   })
 
   it('should call add collection if collection was not falsy', () => {
     const { result } = renderHook(() => useContextConsumer(), {
       wrapper: wrapWithDataSourceContext({ id: 'id', collection: [] })
     })
-    expect(result.current.dataSourceRef?.add).toHaveBeenCalledWith([])
-    expect(result.current.dataSourceRef?.clear).toHaveBeenCalledWith()
+    expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
+    const dataSourceRef = result.current.dataSourceRef as atlas.source.DataSource
+    expect(dataSourceRef.add).toHaveBeenCalledWith([])
+    expect(dataSourceRef.clear).toHaveBeenCalledWith()
   })
 
   it('should call add collection and clear method if collection was changed', () => {
@@ -81,14 +84,17 @@ describe('AzureMapDataSourceProvider tests', () => {
       wrapper: wrapWithDataSourceContext({ id: 'id', collection: [] })
     })
     rerender({})
-    expect(result.current.dataSourceRef?.add).toHaveBeenCalledTimes(2)
-    expect(result.current.dataSourceRef?.clear).toHaveBeenCalledTimes(1)
+    expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
+    const dataSourceRef = result.current.dataSourceRef as atlas.source.DataSource
+    expect(dataSourceRef.add).toHaveBeenCalledTimes(2)
+    expect(dataSourceRef.clear).toHaveBeenCalledTimes(1)
   })
 
   it('should call setOptions and clear method if options was changed', () => {
     const { result, rerender } = renderHook(() => useContextConsumer(), {
       wrapper: wrapWithDataSourceContext({ id: 'id', options: { option: 'option' } })
     })
-    expect(result.current.dataSourceRef?.setOptions).toHaveBeenLastCalledWith({ option: 'option' })
+    expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
+    expect((result.current.dataSourceRef as atlas.source.DataSource).setOptions).toHaveBeenLastCalledWith({ option: 'option' })
   })
 })

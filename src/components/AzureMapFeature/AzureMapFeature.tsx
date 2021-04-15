@@ -3,7 +3,7 @@ import atlas from 'azure-maps-control'
 
 import { FeatureType, IAzureMapDataSourceProps, IAzureMapFeature, ShapeType } from '../../types'
 import { AzureMapDataSourceContext } from '../../contexts/AzureMapDataSourceContext'
-import { useCreateAzureMapFeature } from './useCreateAzureMapFeature'
+import { createAzureMapFeature } from './useCreateAzureMapFeature'
 import { useFeature } from './useFeature'
 
 const AzureMapFeature = memo((props: IAzureMapFeature) => {
@@ -15,7 +15,7 @@ const AzureMapFeature = memo((props: IAzureMapFeature) => {
   useFeature(props, dataSourceRef, shapeRef, featureRef)
 
   useEffect(() => {
-    const featureSource: atlas.data.Geometry | undefined = useCreateAzureMapFeature(props)
+    const featureSource: atlas.data.Geometry | undefined = createAzureMapFeature(props)
 
     if ((!featureRef || !shapeRef) && featureSource) {
       switch (variant) {

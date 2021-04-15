@@ -1,3 +1,11 @@
+class DataSource {
+  add = jest.fn()
+  clear = jest.fn()
+  remove = jest.fn()
+  importDataFromUrl = jest.fn()
+  setOptions = jest.fn()
+}
+
 module.exports = {
   Map: jest.fn(() => ({
     controls: {
@@ -66,7 +74,9 @@ module.exports = {
     CompassControl: jest.fn(() => ({ compassOption: 'option' })),
     PitchControl: jest.fn(() => ({ pitchOption: 'option' })),
     StyleControl: jest.fn(() => ({ styleOption: 'option' })),
-    ZoomControl: jest.fn(() => ({ zoomOption: 'option' }))
+    ZoomControl: jest.fn(() => ({ zoomOption: 'option' })),
+    TrafficControl: jest.fn(() => ({ trafficOption: 'option' })),
+    TrafficLegendControl: jest.fn(() => ({ trafficLegendOption: 'option' }))
   },
   layer: {
     ImageLayer: jest.fn((options, id) => ({ layer: 'ImageLayer', options, id })),
@@ -111,13 +121,11 @@ module.exports = {
     }))
   },
   source: {
-    DataSource: jest.fn(() => ({
-      add: jest.fn(),
-      clear: jest.fn(),
-      remove: jest.fn(),
-      importDataFromUrl: jest.fn(),
-      setOptions: jest.fn()
-    }))
+    DataSource,
+    VectorTileSource: jest.fn((id, options) => ({
+      getId: jest.fn(() => id),
+      getOptions: jest.fn(() => options)
+    })) 
   },
   Shape: jest.fn(() => ({
     setCoordinates: jest.fn(),

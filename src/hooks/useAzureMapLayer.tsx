@@ -14,7 +14,7 @@ import { MapType } from '../types'
 
 export const constructLayer = (
   { id, options = {}, type }: Omit<IAzureLayerStatefulProviderProps, 'onCreateCustomLayer'>,
-  dataSourceRef: atlas.source.DataSource
+  dataSourceRef: DataSourceType
 ) => {
   switch (type) {
     case 'SymbolLayer':

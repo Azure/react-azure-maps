@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks'
 import {
   createControl,
-  useCreateMapControls,
-  useCreateMapCustomControls
+  createMapControls,
+  createMapCustomControls
 } from './useCreateMapControls'
 import { Map } from 'azure-maps-control'
 import { IAzureMapControls, IAzureCustomControls } from '../../types'
@@ -34,7 +34,7 @@ describe('Control hooks', () => {
     it('should create two map controls and call proper method', () => {
       const mockMap = new Map('#fake-container', {})
       mockMap.controls.add = jest.fn()
-      renderHook(() => useCreateMapControls(mockMap, fakeDefaultControls))
+      renderHook(() => createMapControls(mockMap, fakeDefaultControls))
       expect(mockMap.controls.add).toHaveBeenCalledWith(
         { compassOption: 'option' },
         fakeDefaultControls[0].options
@@ -46,11 +46,11 @@ describe('Control hooks', () => {
     })
   })
 
-  describe('useCreateMapCustomControls tests', () => {
+  describe('createMapCustomControls tests', () => {
     it('should create custom map controls and call proper method', () => {
       const mockMap = new Map('#fake-container', {})
       mockMap.controls.add = jest.fn()
-      renderHook(() => useCreateMapCustomControls(mockMap, fakeCustomControlls))
+      renderHook(() => createMapCustomControls(mockMap, fakeCustomControlls))
       expect(mockMap.controls.add).toHaveBeenCalledTimes(1)
       expect(mockMap.controls.add).toHaveBeenCalledWith(
         fakeCustomControlls[0].control,
@@ -78,6 +78,16 @@ describe('Control hooks', () => {
     it('should return CompassControl if type equal CompassControl', () => {
       const createdControl = createControl('CompassControl', {})
       expect(createdControl).toEqual({ compassOption: 'option' })
+    })
+
+    it('should return TrafficControl if type equal TrafficControl', () => {
+      const createdControl = createControl('TrafficControl', {})
+      expect(createdControl).toEqual({ trafficOption: 'option' })
+    })
+
+    it('should return TrafficLegendControl if type equal TrafficLegendControl', () => {
+      const createdControl = createControl('TrafficLegendControl', {})
+      expect(createdControl).toEqual({ trafficLegendOption: 'option' })
     })
 
     it('should return undefined if there is no control with type', () => {
