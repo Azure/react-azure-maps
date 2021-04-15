@@ -56,7 +56,7 @@ const AzureMapDrawingManagerStatefulProvider = ({
       setDrawingManagerRef(drawingManager)
       setDataSourceRef(drawingManager.getSource())
       setToolbarOnceReadyRef(toolbar)
-
+      
       // register drawing events
       for (const eventType in events) {
         const handler = events[eventType as IAzureDrawingManagerEventType]
@@ -90,7 +90,9 @@ const AzureMapDrawingManagerStatefulProvider = ({
   useEffect(() => {
     if(drawingManagerRef && options){
       drawingManagerRef.setOptions({ ...options, toolbar: toolbarOnceReadyRef })
-      toolbarOnceReadyRef?.setOptions(options.toolbar)
+    }
+    if(toolbarOnceReadyRef && options && options.toolbar){
+      toolbarOnceReadyRef.setOptions(options.toolbar)
     }
   }, [drawingManagerRef, options, toolbarOnceReadyRef])
 

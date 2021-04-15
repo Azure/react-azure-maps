@@ -339,7 +339,7 @@ export interface IAzureMapDrawingManagerProps {
 }
 
 export interface IAzureDrawingManagerStatefulProviderProps {
-  options: Omit<DrawingManagerOptions, 'toolbar'> & { 'toolbar': DrawingToolbarOptions }
+  options: Omit<DrawingManagerOptions, 'toolbar'> & { 'toolbar'?: DrawingToolbarOptions }
   events?: IAzureDrawingManagerEvent
   children?: 
     | Array<IAzureDataSourceChildren | null> 
