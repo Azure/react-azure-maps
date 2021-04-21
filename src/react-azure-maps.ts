@@ -17,6 +17,11 @@ export {
   AzureMapLayerConsumer,
   AzureMapLayerProvider
 } from './contexts/AzureMapLayerContext'
+export {
+  AzureMapIndoorManagerContext,
+  AzureMapIndoorManagerConsumer,
+  AzureMapIndoorManagerProvider
+} from './contexts/AzureMapIndoorManagerContext'
 export { default as AzureMapPopup } from './components/AzureMapPopup/AzureMapPopup'
 export { default as useCreatePopup } from './components/AzureMapPopup/useCreateAzureMapPopup'
 

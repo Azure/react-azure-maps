@@ -35,6 +35,8 @@ import atlas, {
   LayerOptions
 } from 'azure-maps-control'
 
+import { indoor, control } from 'azure-maps-indoor'
+
 export type IAzureMapOptions = ServiceOptions &
   StyleOptions &
   UserInteractionOptions &
@@ -44,6 +46,7 @@ export type IAzureMapChildren =
   | ReactElement<IAzureMapHtmlMarker>
   | ReactElement<IAzureMapPopup>
   | ReactElement<IAzureMapDataSourceProps>
+  | ReactElement<IAzureMapIndoorManagerStatefulProviderProps>
 
 export type IAzureMap = {
   children?: Array<IAzureMapChildren> | IAzureMapChildren
@@ -196,6 +199,21 @@ export type IAzureLayerStatefulProviderProps = {
   events?: IAzureMapLayerEvent | any
   onCreateCustomLayer?: (dataSourceRef: DataSourceType, mapRef: MapType | null) => atlas.layer.Layer
   lifecycleEvents?: IAzureMapLifecycleEvent | any
+}
+
+export type IAzureMapIndoorManagerEvent = {
+  facilitychanged?: (e: indoor.IFacilityChangeEvent) => void,
+  levelchanged?: (e: indoor.ILevelChangeEvent) => void
+}
+
+export type IAzureMapIndoorManagerEventType = keyof IAzureMapIndoorManagerEvent
+
+export type IAzureMapIndoorManagerStatefulProviderProps = {
+  options: Omit<indoor.IndoorManagerOptions, 'levelControl'> & { 'levelControl'?: control.LevelControlOptions },
+  children?: ReactElement,
+  dynamicStyling?: boolean,
+  facility?: { facilityId: string, levelOrdinal: number },
+  events?: IAzureMapIndoorManagerEvent 
 }
 
 export type IAzureMapLayerLifecycleEvents = 'layeradded' | 'layerremoved'
