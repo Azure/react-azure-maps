@@ -14,7 +14,7 @@
     "react-azure-maps"
   ],
   "source": "src/react-azure-maps.ts",
-  "module": "dist/react-azure-maps.es5.js",
+  "module": "dist/react-azure-maps.es6.js",
   "typings": "dist/types/react-azure-maps.d.ts",
   "files": [
     "dist"
