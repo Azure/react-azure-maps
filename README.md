@@ -1,6 +1,8 @@
-# WiredSolutions React-Azure-Maps
+# React-Azure-Maps
 
-[![npm](https://img.shields.io/npm/v/react-azure-maps.svg) ![npm](https://img.shields.io/npm/dm/react-azure-maps.svg)](https://www.npmjs.com/package/react-azure-maps) [![license](https://img.shields.io/npm/l/react-azure-maps.svg)](https://github.com/WiredSolutions/react-azure-maps/blob/master/LICENSE)
+This project is community-driven initiative originally created by amazing [@psrednicki](https://github.com/psrednicki), [@msasinowski](https://github.com/msasinowski) and [@tbajda](https://github.com/tbajda) and is now maintained by the Azure Maps team.
+
+[![npm](https://img.shields.io/npm/v/react-azure-maps.svg) ![npm](https://img.shields.io/npm/dm/react-azure-maps.svg)](https://www.npmjs.com/package/react-azure-maps) [![license](https://img.shields.io/npm/l/react-azure-maps.svg)](https://github.com/Azure/react-azure-maps/blob/master/LICENSE)
 
 `React Azure Maps` is a react wrapper for [Azure Maps](https://azure.microsoft.com/pl-pl/services/azure-maps/). The whole library is written in typescript and uses React 16.8+
 
@@ -22,7 +24,7 @@ yarn add react-azure-maps
 
 Documentation is available [Documentation](https://react-azure-maps.now.sh)
 
-Generated documentation from typedoc is available [Documentation](https://wiredsolutions.github.io/react-azure-maps/)
+Generated documentation from typedoc is available [Documentation](https://azure.github.io/react-azure-maps/)
 
 ## Compatibility with azure-maps-controls
 
@@ -34,7 +36,7 @@ Generated documentation from typedoc is available [Documentation](https://wireds
 
 ## Playground
 
-`React Azure Maps` have a fully documented [Playground Package](https://github.com/WiredSolutions/react-azure-maps-playground) that implements a lot of features from [Azure Maps Code Samples](https://azuremapscodesamples.azurewebsites.net/). If you implement new usage of the map and want to be contributor just create a PR.
+`React Azure Maps` have a fully documented [Playground Package](https://github.com/Azure/react-azure-maps-playground) that implements a lot of features from [Azure Maps Code Samples](https://azuremapscodesamples.azurewebsites.net/). If you implement new usage of the map and want to be contributor just create a PR.
 
 ## Library Implementation Details
 
@@ -87,9 +89,9 @@ const DefaultMap: React.FC = () => (
 export default DefaultMap
 ```
 
-## Local development with [Playground Package](https://github.com/WiredSolutions/react-azure-maps-playground)
+## Local development with [Playground Package](https://github.com/Azure/react-azure-maps-playground)
 
-If you want to do some local development using [Playground Package](https://github.com/WiredSolutions/react-azure-maps-playground) with local link to the package, you need to make the following steps:
+If you want to do some local development using [Playground Package](https://github.com/Azure/react-azure-maps-playground) with local link to the package, you need to make the following steps:
 
 ```bash
 - run yarn watch in `react-azure-maps` package
