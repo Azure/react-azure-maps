@@ -1,6 +1,6 @@
 {
   "name": "react-azure-maps",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "React Wrapper for Azure Maps",
   "keywords": [
     "react",
@@ -19,10 +19,10 @@
   "files": [
     "dist"
   ],
-  "author": "WiredSolutions",
+  "author": "WiredSolutions and Microsoft",
   "repository": {
     "type": "git",
-    "url": "https://github.com/WiredSolutions/react-azure-maps"
+    "url": "https://github.com/Azure/react-azure-maps"
   },
   "license": "MIT",
   "engines": {
