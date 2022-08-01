@@ -1,4 +1,4 @@
-import { ComponentClass, CSSProperties, ReactElement, StatelessComponent } from 'react'
+import { ComponentClass, CSSProperties, ReactElement, ReactNode, FunctionComponent } from 'react'
 import atlas, {
   AnimationOptions,
   CameraBoundsOptions,
@@ -51,7 +51,7 @@ export type IAzureMap = {
   providedMapId?: string
   containerClassName?: string
   styles?: CSSProperties
-  LoaderComponent?: ComponentClass<any> | StatelessComponent<any>
+  LoaderComponent?: ComponentClass<any> | FunctionComponent<any>
   options?: IAzureMapOptions
   imageSprites?: IAzureMapImageSprite[]
   controls?: IAzureMapControls[]
@@ -129,7 +129,7 @@ export type IAzureMapLayerContextState = {
 }
 
 export type IAzureDataSourceChildren =
-  | IAzureMapFeature
+  | (IAzureMapFeature & ReactNode)
   | ReactElement<IAzureMapFeature>
   | ReactElement<IAzureLayerStatefulProviderProps>
 
@@ -160,9 +160,10 @@ export type IAzureMapEvent = {
 
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
-  children?: | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
-  | IAzureDataSourceChildren
-  | null
+  children?:
+    | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
+    | IAzureDataSourceChildren
+    | null
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string
@@ -177,11 +178,12 @@ export type IAzureDataSourceStatefulProviderProps = {
 }
 
 export type IAzureVectorTileSourceStatefulProviderProps = {
-  id: string,
-  children?: | Array<IAzureVectorTileSourceChildren | IAzureVectorTileSourceChildren[] | null>
-  | IAzureVectorTileSourceChildren
-  | null
-  options?: VectorTileSourceOptions,
+  id: string
+  children?:
+    | Array<IAzureVectorTileSourceChildren | IAzureVectorTileSourceChildren[] | null>
+    | IAzureVectorTileSourceChildren
+    | null
+  options?: VectorTileSourceOptions
   events?: IAzureMapVectorTileSourceEvent
   // NOTE: not sure yet why this is needed, haven't seen this used in AzureMapsDataSource, though IAzureGeoJSONDataSourceStatefulProviderProps has it
   index?: number

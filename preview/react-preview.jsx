@@ -1,22 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { AzureMap, AzureMapsProvider } from '../dist/react-azure-maps.es5';
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { AzureMap, AzureMapsProvider } from '../dist/react-azure-maps.es5'
 
 const option = {
   authOptions: {
-    authType: "subscriptionKey",
-    subscriptionKey: "",
-  },
-};
+    authType: 'subscriptionKey',
+    subscriptionKey: ''
+  }
+}
 
-const DefaultMap= () => (
+const DefaultMap = () => (
   <AzureMapsProvider>
     <div style={{ height: '300px' }}>
       <AzureMap options={option} />
     </div>
   </AzureMapsProvider>
-);
+)
 
-export default DefaultMap;
+export default DefaultMap
 
-ReactDOM.render(<DefaultMap />, document.getElementById("root"));
+createRoot(document.getElementById('root')).render(<DefaultMap />)

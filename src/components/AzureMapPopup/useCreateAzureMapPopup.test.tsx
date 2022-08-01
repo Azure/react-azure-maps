@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import { Map } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'

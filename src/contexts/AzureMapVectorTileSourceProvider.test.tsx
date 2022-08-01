@@ -1,7 +1,7 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import React, { useContext } from 'react'
 import { Map } from 'azure-maps-control'
-import { IAzureVectorTileSourceStatefulProviderProps } from "../types"
+import { IAzureVectorTileSourceStatefulProviderProps } from '../types'
 import { AzureMapsContext } from './AzureMapContext'
 import { AzureMapVectorTileSourceProvider } from './AzureMapVectorTileSourceProvider'
 import { AzureMapDataSourceContext } from '../contexts/AzureMapDataSourceContext'
@@ -32,7 +32,9 @@ const wrapWithVectorTileSourceContext = (props: IAzureVectorTileSourceStatefulPr
         mapRef
       }}
     >
-      <AzureMapVectorTileSourceProvider {...{ ...props }}>{children}</AzureMapVectorTileSourceProvider>
+      <AzureMapVectorTileSourceProvider {...{ ...props }}>
+        {children}
+      </AzureMapVectorTileSourceProvider>
     </AzureMapsContext.Provider>
   )
 }
@@ -58,7 +60,10 @@ describe('AzureMapVectorTileSourceProvider tests', () => {
   it('should add event to data source', () => {
     mapRef.events.add = jest.fn()
     renderHook(() => useContextConsumer(), {
-      wrapper: wrapWithVectorTileSourceContext({ id: 'id', events: { sourceadded: (source) => {} } })
+      wrapper: wrapWithVectorTileSourceContext({
+        id: 'id',
+        events: { sourceadded: (source) => {} }
+      })
     })
     expect(mapRef.events.add).toHaveBeenCalledWith(
       'sourceadded',

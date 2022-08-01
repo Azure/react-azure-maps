@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import atlas, { Map } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../contexts/AzureMapContext'
@@ -66,7 +66,9 @@ describe('AzureMapDataSourceProvider tests', () => {
       wrapper: wrapWithDataSourceContext({ id: 'id', dataFromUrl: 'dataFromUrl' })
     })
     expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
-    expect((result.current.dataSourceRef as atlas.source.DataSource).importDataFromUrl).toHaveBeenCalledWith('dataFromUrl')
+    expect(
+      (result.current.dataSourceRef as atlas.source.DataSource).importDataFromUrl
+    ).toHaveBeenCalledWith('dataFromUrl')
   })
 
   it('should call add collection if collection was not falsy', () => {
@@ -95,6 +97,8 @@ describe('AzureMapDataSourceProvider tests', () => {
       wrapper: wrapWithDataSourceContext({ id: 'id', options: { option: 'option' } })
     })
     expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
-    expect((result.current.dataSourceRef as atlas.source.DataSource).setOptions).toHaveBeenLastCalledWith({ option: 'option' })
+    expect(
+      (result.current.dataSourceRef as atlas.source.DataSource).setOptions
+    ).toHaveBeenLastCalledWith({ option: 'option' })
   })
 })
