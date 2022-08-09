@@ -1,6 +1,6 @@
 import atlas, { source, layer } from 'azure-maps-control'
 import { ReactNode } from 'react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import { useAzureMapLayer } from './useAzureMapLayer'
 import { Map } from 'azure-maps-control'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import { createImageSprites } from './useCreateSprites'
 import { Map } from 'azure-maps-control'
 
@@ -25,7 +25,7 @@ describe('createImageSprites tests', () => {
     )
   })
 
-  it('should create image sprintes with no icon field and not call imageSprite.add ', async () => {
+  it('should create image sprintes with no icon field and not call imageSprite.add', async () => {
     const mockMap = new Map('#fake-container', {})
     const fakeImageSprite = {
       id: 'id',

@@ -1,7 +1,7 @@
 import atlas, { data, source } from 'azure-maps-control'
 import { useFeature } from './useFeature'
 import { IAzureMapFeature } from '../../types'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 
 const fakePosition = new data.Point(new data.Position(0, 0))
 

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { Map } from 'azure-maps-control'
 import { AzureMapsContext, AzureMapsProvider } from '../contexts/AzureMapContext'
 
@@ -20,8 +21,10 @@ describe('AzureMapDataSourceProvider tests', () => {
     const { result } = renderHook(() => useContextConsumer(), {
       wrapper: wrapDataWithAzureMapsContext
     })
-    result.current.setMapRef(mapRef)
-    result.current.setMapReady(true)
+    act(() => {
+      result.current.setMapRef(mapRef)
+      result.current.setMapReady(true)
+    })
     expect(result.current.mapRef).toEqual(mapRef)
   })
 

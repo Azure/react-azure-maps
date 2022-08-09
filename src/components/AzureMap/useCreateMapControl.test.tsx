@@ -1,9 +1,5 @@
-import { renderHook } from '@testing-library/react-hooks'
-import {
-  createControl,
-  createMapControls,
-  createMapCustomControls
-} from './useCreateMapControls'
+import { renderHook } from '@testing-library/react'
+import { createControl, createMapControls, createMapCustomControls } from './useCreateMapControls'
 import { Map } from 'azure-maps-control'
 import { IAzureMapControls, IAzureCustomControls } from '../../types'
 
