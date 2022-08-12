@@ -14,7 +14,8 @@ module.exports = {
     events: {
       add: jest.fn((eventName, callback = () => {}) => {
         callback()
-      })
+      }),
+      remove: jest.fn((eventName) => {})
     },
     imageSprite: {
       add: jest.fn(),
@@ -123,7 +124,7 @@ module.exports = {
     VectorTileSource: jest.fn((id, options) => ({
       getId: jest.fn(() => id),
       getOptions: jest.fn(() => options)
-    })) 
+    }))
   },
   Shape: jest.fn(() => ({
     setCoordinates: jest.fn(),
@@ -132,7 +133,7 @@ module.exports = {
   data: {
     Position: jest.fn((...args) => args),
     BoundingBox: jest.fn((...args) => args),
-    Point: jest.fn(coords => ({ coords, type: 'Point' })),
+    Point: jest.fn((coords) => ({ coords, type: 'Point' })),
     MultiPoint: jest.fn((coords, bbox) => ({ coords, bbox, type: 'MultiPoint' })),
     LineString: jest.fn((coords, bbox) => ({ coords, bbox, type: 'LineString' })),
     MultiLineString: jest.fn((multipleCoordinates, bbox) => ({

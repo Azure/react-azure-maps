@@ -93,12 +93,29 @@ describe('AzureMapDataSourceProvider tests', () => {
   })
 
   it('should call setOptions and clear method if options was changed', () => {
-    const { result, rerender } = renderHook(() => useContextConsumer(), {
+    const { result } = renderHook(() => useContextConsumer(), {
       wrapper: wrapWithDataSourceContext({ id: 'id', options: { option: 'option' } })
     })
     expect(result.current.dataSourceRef).toBeInstanceOf(atlas.source.DataSource)
     expect(
       (result.current.dataSourceRef as atlas.source.DataSource).setOptions
     ).toHaveBeenLastCalledWith({ option: 'option' })
+  })
+
+  it('should remove data source from the map ref on unmount', () => {
+    mapRef.events.remove = jest.fn()
+    const events = { render: () => {} }
+    const { unmount, result } = renderHook(() => useContextConsumer(), {
+      wrapper: wrapWithDataSourceContext({ id: 'id', options: { option: 'option' }, events })
+    })
+
+    unmount()
+
+    expect(mapRef.sources.remove).toHaveBeenCalledWith(result.current.dataSourceRef)
+    expect(mapRef.events.remove).toHaveBeenCalledWith(
+      'render',
+      result.current.dataSourceRef,
+      events.render
+    )
   })
 })

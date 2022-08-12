@@ -31,7 +31,9 @@ const AzureMapDataSourceStatefulProvider = ({
   dataFromUrl,
   collection
 }: IAzureDataSourceStatefulProviderProps) => {
-  const [dataSourceRef] = useState<atlas.source.DataSource>(new atlas.source.DataSource(id, options))
+  const [dataSourceRef] = useState<atlas.source.DataSource>(
+    new atlas.source.DataSource(id, options)
+  )
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   useCheckRef<MapType, DataSourceType>(mapRef, dataSourceRef, (mref, dref) => {
     for (const eventType in events || {}) {
@@ -45,6 +47,12 @@ const AzureMapDataSourceStatefulProvider = ({
       if (collection) {
         dref.add(collection)
       }
+    }
+    return () => {
+      for (const eventType in events || {}) {
+        mref.events.remove(eventType as any, dref, events[eventType])
+      }
+      mref.sources.remove(dref)
     }
   })
 
