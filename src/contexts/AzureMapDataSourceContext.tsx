@@ -52,6 +52,16 @@ const AzureMapDataSourceStatefulProvider = ({
       for (const eventType in events || {}) {
         mref.events.remove(eventType as any, dref, events[eventType])
       }
+
+      mref.layers.getLayers().filter(l => {
+        return (l as atlas.layer.SymbolLayer).getSource
+      }).forEach(l => {
+        const source = (l as atlas.layer.SymbolLayer).getSource();
+        const id = (typeof source === 'string') ? source : source.getId();
+        if (id === dref.getId()) {
+          mref.layers.remove(l.getId() ? l.getId() : l);
+        }
+      });
       mref.sources.remove(dref)
     }
   })
