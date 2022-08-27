@@ -17,6 +17,8 @@ const mapContextProps = {
   setMapRef: jest.fn()
 }
 const mapRef = new Map('fake', {})
+mapRef.layers.getLayers = jest.fn().mockImplementation(() => [])
+mapRef.layers.getLayerById = jest.fn()
 
 const useContextConsumer = () => {
   const dataSourceContext = useContext(AzureMapDataSourceContext)

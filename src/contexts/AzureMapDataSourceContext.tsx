@@ -53,15 +53,20 @@ const AzureMapDataSourceStatefulProvider = ({
         mref.events.remove(eventType as any, dref, events[eventType])
       }
 
-      mref.layers.getLayers().filter(l => {
-        return (l as atlas.layer.SymbolLayer).getSource
-      }).forEach(l => {
-        const source = (l as atlas.layer.SymbolLayer).getSource();
-        const id = (typeof source === 'string') ? source : source.getId();
-        if (id === dref.getId()) {
-          mref.layers.remove(l.getId() ? l.getId() : l);
-        }
-      });
+      const getLayersDependingOnDatasource = (dst: DataSourceType) => {
+        return mref.layers.getLayers().filter((l) => {
+          if ((l as atlas.layer.SymbolLayer).getSource) {
+            const sourceLayer = (l as atlas.layer.SymbolLayer).getSource()
+            const dsId = typeof sourceLayer === 'string' ? sourceLayer : sourceLayer.getId()
+            return dsId === dst.getId()
+          }
+          return false
+        })
+      }
+
+      getLayersDependingOnDatasource(dref).forEach((l) => {
+        mref.layers.remove(l.getId() ? l.getId() : l)
+      })
       mref.sources.remove(dref)
     }
   })

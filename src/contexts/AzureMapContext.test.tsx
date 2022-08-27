@@ -5,6 +5,7 @@ import { Map } from 'azure-maps-control'
 import { AzureMapsContext, AzureMapsProvider } from '../contexts/AzureMapContext'
 
 const mapRef = new Map('fake', {})
+mapRef.layers.getLayers = jest.fn().mockImplementation(() => [])
 
 const useContextConsumer = () => {
   const mapContext = useContext(AzureMapsContext)
