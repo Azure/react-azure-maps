@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { renderHook } from '@testing-library/react'
-import atlas, { Map } from 'azure-maps-control'
+import atlas, { layer, Map } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../contexts/AzureMapContext'
 import {
@@ -17,8 +17,6 @@ const mapContextProps = {
   setMapRef: jest.fn()
 }
 const mapRef = new Map('fake', {})
-mapRef.layers.getLayers = jest.fn().mockImplementation(() => [])
-mapRef.layers.getLayerById = jest.fn()
 
 const useContextConsumer = () => {
   const dataSourceContext = useContext(AzureMapDataSourceContext)
@@ -119,5 +117,25 @@ describe('AzureMapDataSourceProvider tests', () => {
       result.current.dataSourceRef,
       events.render
     )
+  })
+
+  it('should remove all layers that are using the same datasource from the map ref on unmount', () => {
+    const dsToBeRemoved = new atlas.source.DataSource('ds_to_be_removed')
+    const dsToKeep = new atlas.source.DataSource('ds_to_keep')
+
+    const symbolLayer = new layer.SymbolLayer(dsToBeRemoved, 'layer_to_be_removed')
+    const bubbleLayer = new layer.BubbleLayer(dsToKeep, 'layer_to_keep')
+
+    symbolLayer.getSource = jest.fn(() => dsToBeRemoved)
+
+    mapRef.layers.getLayers = jest.fn(() => [symbolLayer, bubbleLayer])
+
+    const { unmount } = renderHook(() => useContextConsumer(), {
+      wrapper: wrapWithDataSourceContext({ id: dsToBeRemoved.getId() })
+    })
+
+    unmount()
+    expect(mapRef.layers.remove).toHaveBeenCalledTimes(1)
+    expect(mapRef.layers.remove).toHaveBeenNthCalledWith(1, 'layer_to_be_removed')
   })
 })

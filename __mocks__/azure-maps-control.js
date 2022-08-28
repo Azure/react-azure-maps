@@ -1,9 +1,18 @@
 class DataSource {
+  id
+  options
+
+  constructor(id, options) {
+    this.id = id
+    this.options = options
+  }
+
   add = jest.fn()
   clear = jest.fn()
   remove = jest.fn()
   importDataFromUrl = jest.fn()
-  setOptions = jest.fn()
+  setOptions = jest.fn((options) => (this.options = options))
+  getId = () => this.id
 }
 
 module.exports = {
@@ -12,8 +21,12 @@ module.exports = {
       add: jest.fn()
     },
     events: {
-      add: jest.fn((eventName, callback = () => {}) => {
-        callback()
+      add: jest.fn((_eventName, _targetOrCallback, callback = () => {}) => {
+        if (typeof _targetOrCallback === 'function') {
+          _targetOrCallback()
+        } else {
+          callback()
+        }
       }),
       remove: jest.fn((eventName) => {})
     },
@@ -27,7 +40,9 @@ module.exports = {
     },
     layers: {
       add: jest.fn(),
-      remove: jest.fn()
+      remove: jest.fn(),
+      getLayers: jest.fn(() => []),
+      getLayerById: jest.fn()
     },
     popups: {
       getPopups: jest.fn(() => []),
