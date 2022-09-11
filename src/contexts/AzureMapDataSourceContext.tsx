@@ -9,6 +9,7 @@ import {
 import atlas from 'azure-maps-control'
 import { AzureMapsContext } from './AzureMapContext'
 import { useCheckRef } from '../hooks/useCheckRef'
+import { getLayersDependingOnDatasource } from '../components/helpers/mapHelper'
 
 const AzureMapDataSourceContext = createContext<IAzureMapDataSourceProps>({
   dataSourceRef: null
@@ -53,18 +54,7 @@ const AzureMapDataSourceStatefulProvider = ({
         mref.events.remove(eventType as any, dref, events[eventType])
       }
 
-      const getLayersDependingOnDatasource = (dst: DataSourceType) => {
-        return mref.layers.getLayers().filter((l) => {
-          if ((l as atlas.layer.SymbolLayer).getSource) {
-            const sourceLayer = (l as atlas.layer.SymbolLayer).getSource()
-            const dsId = typeof sourceLayer === 'string' ? sourceLayer : sourceLayer.getId()
-            return dsId === dst.getId()
-          }
-          return false
-        })
-      }
-
-      getLayersDependingOnDatasource(dref).forEach((l) => {
+      getLayersDependingOnDatasource(mref, dref).forEach((l) => {
         mref.layers.remove(l.getId() ? l.getId() : l)
       })
       mref.sources.remove(dref)
