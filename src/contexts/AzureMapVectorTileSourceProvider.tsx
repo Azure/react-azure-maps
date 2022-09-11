@@ -10,6 +10,7 @@ import {
 } from '../types'
 import { AzureMapDataSourceRawProvider as Provider } from './AzureMapDataSourceContext'
 import { AzureMapsContext } from './AzureMapContext'
+import { getLayersDependingOnDatasource } from '../components/helpers/mapHelper'
 
 /**
  * @param id datasource identifier
@@ -48,18 +49,7 @@ const AzureMapVectorTileSourceStatefulProvider = ({
         }
       }
 
-      const getLayersDependingOnDatasource = (dst: DataSourceType) => {
-        return mref.layers.getLayers().filter((l) => {
-          if ((l as atlas.layer.SymbolLayer).getSource) {
-            const sourceLayer = (l as atlas.layer.SymbolLayer).getSource()
-            const dsId = typeof sourceLayer === 'string' ? sourceLayer : sourceLayer.getId()
-            return dsId === dst.getId()
-          }
-          return false
-        })
-      }
-
-      getLayersDependingOnDatasource(dref).forEach((l) => {
+      getLayersDependingOnDatasource(mref, dref).forEach((l) => {
         mref.layers.remove(l.getId() ? l.getId() : l)
       })
       mref.sources.remove(dref)
