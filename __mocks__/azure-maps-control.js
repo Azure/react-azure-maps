@@ -1,9 +1,18 @@
 class DataSource {
+  id
+  options
+
+  constructor(id, options) {
+    this.id = id
+    this.options = options
+  }
+
   add = jest.fn()
   clear = jest.fn()
   remove = jest.fn()
   importDataFromUrl = jest.fn()
-  setOptions = jest.fn()
+  setOptions = jest.fn((options) => (this.options = options))
+  getId = () => this.id
 }
 
 module.exports = {
@@ -12,9 +21,14 @@ module.exports = {
       add: jest.fn()
     },
     events: {
-      add: jest.fn((eventName, callback = () => {}) => {
-        callback()
-      })
+      add: jest.fn((_eventName, _targetOrCallback, callback = () => {}) => {
+        if (typeof _targetOrCallback === 'function') {
+          _targetOrCallback()
+        } else {
+          callback()
+        }
+      }),
+      remove: jest.fn((eventName) => {})
     },
     imageSprite: {
       add: jest.fn(),
@@ -26,7 +40,9 @@ module.exports = {
     },
     layers: {
       add: jest.fn(),
-      remove: jest.fn()
+      remove: jest.fn(),
+      getLayers: jest.fn(() => []),
+      getLayerById: jest.fn()
     },
     popups: {
       getPopups: jest.fn(() => []),
@@ -123,7 +139,7 @@ module.exports = {
     VectorTileSource: jest.fn((id, options) => ({
       getId: jest.fn(() => id),
       getOptions: jest.fn(() => options)
-    })) 
+    }))
   },
   Shape: jest.fn(() => ({
     setCoordinates: jest.fn(),
@@ -132,7 +148,7 @@ module.exports = {
   data: {
     Position: jest.fn((...args) => args),
     BoundingBox: jest.fn((...args) => args),
-    Point: jest.fn(coords => ({ coords, type: 'Point' })),
+    Point: jest.fn((coords) => ({ coords, type: 'Point' })),
     MultiPoint: jest.fn((coords, bbox) => ({ coords, bbox, type: 'MultiPoint' })),
     LineString: jest.fn((coords, bbox) => ({ coords, bbox, type: 'LineString' })),
     MultiLineString: jest.fn((multipleCoordinates, bbox) => ({

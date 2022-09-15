@@ -1,4 +1,4 @@
-import atlas, { source, layer } from 'azure-maps-control'
+import { source, layer } from 'azure-maps-control'
 import { ReactNode } from 'react'
 import { renderHook } from '@testing-library/react'
 import { useAzureMapLayer } from './useAzureMapLayer'
@@ -6,7 +6,7 @@ import { Map } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../contexts/AzureMapContext'
 import { AzureMapDataSourceContext } from '../contexts/AzureMapDataSourceContext'
-import { IAzureLayerStatefulProviderProps, LayerType } from '../types'
+import { IAzureLayerStatefulProviderProps } from '../types'
 
 const mapContextProps = {
   mapRef: null,
@@ -16,6 +16,7 @@ const mapContextProps = {
   setMapRef: jest.fn()
 }
 const mapRef = new Map('fake', {})
+mapRef.layers.getLayerById = jest.fn().mockImplementation(() => null)
 
 const wrapWithAzureMapContext = ({ children }: { children?: ReactNode | null }) => {
   const datasourceRef = {} as source.DataSource
@@ -109,6 +110,8 @@ describe('useAzureMapLayer tests', () => {
   })
 
   it('shouldRemove layer from map on unmoun', () => {
+    const symbolLayer = {} as layer.SymbolLayer
+    mapRef.layers.getLayerById = jest.fn().mockImplementation(() => symbolLayer)
     mapRef.layers.remove = jest.fn()
     const { unmount } = renderHook(
       () =>

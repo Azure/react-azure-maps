@@ -1,9 +1,16 @@
 import atlas from 'azure-maps-control'
 import React, { useContext, useState } from 'react'
 import { useCheckRef } from '../hooks/useCheckRef'
-import { DataSourceType, IAzureMapsContextProps, IAzureMapSourceEventType, IAzureVectorTileSourceStatefulProviderProps, MapType } from '../types'
+import {
+  DataSourceType,
+  IAzureMapsContextProps,
+  IAzureMapSourceEventType,
+  IAzureVectorTileSourceStatefulProviderProps,
+  MapType
+} from '../types'
 import { AzureMapDataSourceRawProvider as Provider } from './AzureMapDataSourceContext'
 import { AzureMapsContext } from './AzureMapContext'
+import { getLayersDependingOnDatasource } from '../components/helpers/mapHelper'
 
 /**
  * @param id datasource identifier
@@ -15,24 +22,44 @@ const AzureMapVectorTileSourceStatefulProvider = ({
   id,
   children,
   options,
-  events = {},
+  events = {}
 }: IAzureVectorTileSourceStatefulProviderProps) => {
-  const [dataSourceRef] = useState<atlas.source.VectorTileSource>(new atlas.source.VectorTileSource(id, options))
+  const [dataSourceRef] = useState<atlas.source.VectorTileSource>(
+    new atlas.source.VectorTileSource(id, options)
+  )
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
   useCheckRef<MapType, DataSourceType>(mapRef, dataSourceRef, (mref, dref) => {
     for (const eventType in events) {
-      const handler = events[eventType as IAzureMapSourceEventType] as (e: atlas.source.Source) => void | undefined
-      if(handler) {
+      const handler = events[eventType as IAzureMapSourceEventType] as (
+        e: atlas.source.Source
+      ) => void | undefined
+      if (handler) {
         mref.events.add(eventType as IAzureMapSourceEventType, dref, handler)
       }
     }
     mref.sources.add(dref)
+
+    return () => {
+      for (const eventType in events || {}) {
+        const handler = events[eventType as IAzureMapSourceEventType] as (
+          e: atlas.source.Source
+        ) => void | undefined
+        if (handler) {
+          mref.events.remove(eventType as IAzureMapSourceEventType, dref, handler)
+        }
+      }
+
+      getLayersDependingOnDatasource(mref, dref).forEach((l) => {
+        mref.layers.remove(l.getId() ? l.getId() : l)
+      })
+      mref.sources.remove(dref)
+    }
   })
 
   return (
     <Provider
       value={{
-        dataSourceRef,
+        dataSourceRef
       }}
     >
       {mapRef && children}
