@@ -1,6 +1,6 @@
 {
   "name": "react-azure-maps",
-  "version": "0.4.4",
+  "version": "1.0.0-beta.0",
   "description": "React Wrapper for Azure Maps",
   "keywords": [
     "react",
@@ -115,13 +115,11 @@
   "peerDependencies": {
     "azure-maps-control": "2.0.32",
     "guid-typescript": "^1.0.9",
-    "mapbox-gl": "^1.10.0",
     "react": "^17.0.2 || ^18.0.0",
     "react-dom": "^17.0.2 || ^18.0.0"
   },
   "dependencies": {
     "azure-maps-control": "2.0.32",
-    "guid-typescript": "^1.0.9",
-    "mapbox-gl": "^1.10.0"
+    "guid-typescript": "^1.0.9"
   }
 }
