@@ -20,6 +20,12 @@ or
 yarn add react-azure-maps
 ```
 
+## Styling
+Embed the following css to your application. The stylesheet is required for the marker, popup and control components in `react-azure-maps` to work properly.
+```javascript
+import 'azure-maps-control/dist/atlas.min.css'
+```
+
 ## Documentation
 
 Documentation is available [Documentation](https://react-azure-maps.now.sh)
