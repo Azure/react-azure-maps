@@ -27,13 +27,9 @@ const AzureMap = memo(
     styleOptions,
     serviceOptions
   }: IAzureMap) => {
-    const {
-      setMapRef,
-      removeMapRef,
-      mapRef,
-      setMapReady,
-      isMapReady
-    } = useContext<IAzureMapsContextProps>(AzureMapsContext)
+    const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady} = useContext<
+      IAzureMapsContextProps
+    >(AzureMapsContext)
     const [mapId] = useState(providedMapId || Guid.create().toString())
     useEffect(() => {
       if (mapRef) {
@@ -65,7 +61,7 @@ const AzureMap = memo(
       }
     }, [serviceOptions])
 
-    useCheckRef<MapType, MapType>(mapRef, mapRef, (mref) => {
+    useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
       mref.events.add('ready', () => {
         if (imageSprites) {
           createImageSprites(mref, imageSprites)
