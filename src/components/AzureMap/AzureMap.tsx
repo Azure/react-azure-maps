@@ -27,7 +27,7 @@ const AzureMap = memo(
     styleOptions,
     serviceOptions
   }: IAzureMap) => {
-    const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady} = useContext<
+    const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
       IAzureMapsContextProps
     >(AzureMapsContext)
     const [mapId] = useState(providedMapId || Guid.create().toString())
