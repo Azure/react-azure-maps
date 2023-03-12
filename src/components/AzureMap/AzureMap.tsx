@@ -4,7 +4,7 @@ import { IAzureMap, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
 import 'azure-maps-control/dist/atlas.min.css'
-import 'mapbox-gl/src/css/mapbox-gl.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
 import { createImageSprites } from './useCreateSprites'
 import { createMapControls, createMapCustomControls } from './useCreateMapControls'
@@ -27,9 +27,13 @@ const AzureMap = memo(
     styleOptions,
     serviceOptions
   }: IAzureMap) => {
-    const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
-      IAzureMapsContextProps
-    >(AzureMapsContext)
+    const {
+      setMapRef,
+      removeMapRef,
+      mapRef,
+      setMapReady,
+      isMapReady
+    } = useContext<IAzureMapsContextProps>(AzureMapsContext)
     const [mapId] = useState(providedMapId || Guid.create().toString())
     useEffect(() => {
       if (mapRef) {
@@ -61,7 +65,7 @@ const AzureMap = memo(
       }
     }, [serviceOptions])
 
-    useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
+    useCheckRef<MapType, MapType>(mapRef, mapRef, (mref) => {
       mref.events.add('ready', () => {
         if (imageSprites) {
           createImageSprites(mref, imageSprites)
