@@ -68,8 +68,7 @@ The library implements a lot of ready to use components like `AzureMapFeature, A
 
 ```javascript
 import React from 'react'
-import {AzureMap, AzureMapsProvider, IAzureMapOptions} from 'react-azure-maps'
-import {AuthenticationType} from 'azure-maps-control'
+import {AzureMap, AzureMapsProvider, IAzureMapOptions, AuthenticationType} from 'react-azure-maps'
 
 const option: IAzureMapOptions = {
     authOptions: {
