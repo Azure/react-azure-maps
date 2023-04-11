@@ -161,28 +161,28 @@ export type IAzureMapEvent = {
 export type IAzureDataSourceStatefulProviderProps = {
   id: string
   children?:
-    | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
-    | IAzureDataSourceChildren
-    | null
+  | Array<IAzureDataSourceChildren | IAzureDataSourceChildren[] | null>
+  | IAzureDataSourceChildren
+  | null
   options?: DataSourceOptions
   events?: IAzureMapDataSourceEvent | any
   dataFromUrl?: string
   collection?:
-    | atlas.data.FeatureCollection
-    | atlas.data.Feature<atlas.data.Geometry, any>
-    | atlas.data.Geometry
-    | atlas.data.GeometryCollection
-    | Shape
-    | Array<atlas.data.Feature<atlas.data.Geometry, any> | atlas.data.Geometry | Shape>
+  | atlas.data.FeatureCollection
+  | atlas.data.Feature<atlas.data.Geometry, any>
+  | atlas.data.Geometry
+  | atlas.data.GeometryCollection
+  | Shape
+  | Array<atlas.data.Feature<atlas.data.Geometry, any> | atlas.data.Geometry | Shape>
   index?: number
 }
 
 export type IAzureVectorTileSourceStatefulProviderProps = {
   id: string
   children?:
-    | Array<IAzureVectorTileSourceChildren | IAzureVectorTileSourceChildren[] | null>
-    | IAzureVectorTileSourceChildren
-    | null
+  | Array<IAzureVectorTileSourceChildren | IAzureVectorTileSourceChildren[] | null>
+  | IAzureVectorTileSourceChildren
+  | null
   options?: VectorTileSourceOptions
   events?: IAzureMapVectorTileSourceEvent
   // NOTE: not sure yet why this is needed, haven't seen this used in AzureMapsDataSource, though IAzureGeoJSONDataSourceStatefulProviderProps has it
@@ -202,16 +202,16 @@ export type IAzureMapLifecycleEvent = {
 export type IAzureLayerStatefulProviderProps = {
   id?: string
   options?:
-    | (SymbolLayerOptions &
-        HeatMapLayerOptions &
-        ImageLayerOptions &
-        LineLayerOptions &
-        PolygonExtrusionLayerOptions &
-        PolygonLayerOptions &
-        TileLayerOptions &
-        BubbleLayerOptions &
-        LayerOptions)
-    | Options
+  | (SymbolLayerOptions &
+    HeatMapLayerOptions &
+    ImageLayerOptions &
+    LineLayerOptions &
+    PolygonExtrusionLayerOptions &
+    PolygonLayerOptions &
+    TileLayerOptions &
+    BubbleLayerOptions &
+    LayerOptions)
+  | Options
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
   onCreateCustomLayer?: (dataSourceRef: DataSourceType, mapRef: MapType | null) => atlas.layer.Layer
@@ -316,10 +316,10 @@ export type IAzureMapFeature = {
   properties?: Options
   // Shape functions:
   setCoords?:
-    | atlas.data.Position
-    | atlas.data.Position[]
-    | atlas.data.Position[][]
-    | atlas.data.Position[][][]
+  | atlas.data.Position
+  | atlas.data.Position[]
+  | atlas.data.Position[][]
+  | atlas.data.Position[][][]
   setProperties?: Options
 }
 
@@ -340,3 +340,4 @@ export type AzureDataLineString = atlas.data.LineString
 export type AzureDataPosition = atlas.data.Position
 export type ControlOptions = atlas.ControlOptions
 export type AzureSetCameraOptions = ((CameraOptions | CameraBoundsOptions) & AnimationOptions) | any
+export { AuthenticationType } from 'azure-maps-control'
