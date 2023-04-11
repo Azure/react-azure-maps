@@ -1,10 +1,10 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { AzureMap, AzureMapsProvider } from '../dist/react-azure-maps.es5'
+import { AzureMap, AzureMapsProvider, AuthenticationType } from '../dist/react-azure-maps.es5'
 
 const option = {
   authOptions: {
-    authType: 'subscriptionKey',
+    authType: AuthenticationType.subscriptionKey,
     subscriptionKey: ''
   }
 }
