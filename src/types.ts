@@ -340,3 +340,4 @@ export type AzureDataLineString = atlas.data.LineString
 export type AzureDataPosition = atlas.data.Position
 export type ControlOptions = atlas.ControlOptions
 export type AzureSetCameraOptions = ((CameraOptions | CameraBoundsOptions) & AnimationOptions) | any
+export { AuthenticationType } from 'azure-maps-control'

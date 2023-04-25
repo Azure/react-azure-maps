@@ -13,9 +13,14 @@
     "maps",
     "react-azure-maps"
   ],
-  "source": "src/react-azure-maps.ts",
   "module": "dist/react-azure-maps.es5.js",
-  "typings": "dist/types/react-azure-maps.d.ts",
+  "types": "dist/types/react-azure-maps.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/react-azure-maps.es5.js",
+      "types": "./dist/types/react-azure-maps.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
