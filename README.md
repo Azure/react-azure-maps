@@ -35,6 +35,7 @@ Generated documentation from typedoc is available [Documentation](https://azure.
 ## Compatibility with azure-maps-controls
 
 ```
+1.0.0 - 3.0.0
 0.2.0 - 2.0.32
 0.1.4 - 2.0.31
 0.1.3 - 2.0.25
