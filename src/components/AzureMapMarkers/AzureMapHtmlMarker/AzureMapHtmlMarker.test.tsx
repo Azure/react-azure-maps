@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import { Map, Popup } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../../../contexts/AzureMapContext'
-import AzureMaphtmlMarker from './AzureMapHtmlMarker'
+import AzureMapHtmlMarker from './AzureMapHtmlMarker'
 import { IAzureMapHtmlMarker } from '../../../types'
 import atlas from 'azure-maps-control'
 
@@ -23,7 +23,7 @@ const wrapWithAzureMapContext = (props: IAzureMapHtmlMarker) => {
         mapRef
       }}
     >
-      <AzureMaphtmlMarker {...{ ...props }} />
+      <AzureMapHtmlMarker {...{ ...props }} />
     </AzureMapsContext.Provider>
   )
 }
@@ -81,13 +81,13 @@ describe('AzureMaphtmlMarker tests', () => {
       expect(markerRef.setOptions).toHaveBeenCalledWith({ htmlContent: '<div></div>' })
     })
 
-    it('should close marker popup', () => {
+    it('should open marker popup', () => {
       render(wrapWithAzureMapContext({ isPopupVisible: true, markerContent: <div /> }))
       // Currently we only check if getOptions get called @TODO
       expect(markerRef.getOptions).toHaveBeenCalled()
     })
 
-    it('should open marker popup', () => {
+    it('should close marker popup', () => {
       render(wrapWithAzureMapContext({ isPopupVisible: false, markerContent: <div /> }))
       // Currently we only check if getOptions get called @TODO
       expect(markerRef.getOptions).toHaveBeenCalled()
