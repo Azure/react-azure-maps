@@ -67,6 +67,7 @@ module.exports = {
         isOpen: jest.fn(() => true),
         open: jest.fn(() => false),
         togglePopup: jest.fn(),
+        setOptions: jest.fn(),
         close: jest.fn()
       }
     }))

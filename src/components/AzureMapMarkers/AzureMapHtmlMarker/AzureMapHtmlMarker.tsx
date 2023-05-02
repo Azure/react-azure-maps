@@ -16,7 +16,7 @@ const AzureMapHtmlMarker = memo(
     )
     const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
 
-    useCheckRefMount<MapType, boolean>(mapRef, true, mref => {
+    useCheckRefMount<MapType, boolean>(mapRef, true, (mref) => {
       mref.markers.add(markerRef)
       events &&
         events.forEach(({ eventName, callback }) => {
@@ -38,13 +38,14 @@ const AzureMapHtmlMarker = memo(
 
     useEffect(() => {
       if (markerRef && markerRef.getOptions().popup && mapRef) {
-        const isMarkerPopupOpen = markerRef.getOptions().popup?.isOpen()
-        if (isMarkerPopupOpen && isPopupVisible) {
-          markerRef.getOptions().popup?.close()
-        } else if (isMarkerPopupOpen !== undefined) {
-          markerRef.getOptions().popup?.open()
-        } else if ((isPopupVisible && isMarkerPopupOpen) || isPopupVisible) {
-          markerRef.togglePopup()
+        const popupRef = markerRef.getOptions().popup
+        if (isPopupVisible) {
+          popupRef?.setOptions({
+            position: markerRef.getOptions().position
+          })
+          popupRef?.open(mapRef)
+        } else {
+          popupRef?.close()
         }
       }
     }, [isPopupVisible, options, mapRef])
