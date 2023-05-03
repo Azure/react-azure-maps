@@ -3,16 +3,16 @@
 
 
 "@azure/msal-browser@^2.32.1":
-  version "2.36.0"
-  resolved "https://registry.npmjs.org/@azure/msal-browser/-/msal-browser-2.36.0.tgz#a95af979da1dd8572b6b3cb9fc86d51713d8ad91"
-  integrity sha512-OrVDZ9ftO7ExqZVHripAt+doKg6G14YbP2LoSygiWQoSqoO4CejoXLRLqANc/HGg18N0p/oaRETw4IHZvwsxZw==
+  version "2.37.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-2.37.0.tgz#32d7af74eef53f2692f8a9d6bd6818c78faf4c1b"
+  integrity sha512-YNGD/W/tw/5wDWlXOfmrVILaxVsorVLxYU2ovmL1PDvxkdudbQRyGk/76l4emqgDAl/kPQeqyivxjOU6w1YfvQ==
   dependencies:
-    "@azure/msal-common" "^12.1.0"
+    "@azure/msal-common" "13.0.0"
 
-"@azure/msal-common@^12.1.0":
-  version "12.1.0"
-  resolved "https://registry.npmjs.org/@azure/msal-common/-/msal-common-12.1.0.tgz#e253a4912a359193c52c570a1e2585cfd0213bff"
-  integrity sha512-9RUiv0evSHvYtvF7r9ksShw9FgCeT6Rf6JB/SOMbMzI0VySZDUBSE+0b9e7DgL2Ph8wSARIh3m8c5pCK9TRY3w==
+"@azure/msal-common@13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-13.0.0.tgz#9c39184903b5d0fd6e643ccc12193fae220e912b"
+  integrity sha512-GqCOg5H5bouvLij9NFXFkh+asRRxsPBRwnTDsfK7o0KcxYHJbuidKw8/VXpycahGXNxgtuhqtK/n5he+5NhyEA==
 
 "@babel/code-frame@7.10.4":
   version "7.10.4"
@@ -3103,10 +3103,10 @@ axobject-query@^2.2.0:
   resolved "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
   integrity sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==
 
-azure-maps-control@^3.0.0-preview.6:
-  version "3.0.0-preview.6"
-  resolved "https://registry.yarnpkg.com/azure-maps-control/-/azure-maps-control-3.0.0-preview.6.tgz#e10591cfe7845f195b8884df210e96ca80b8d34c"
-  integrity sha512-+iQhVzdalQrXqFcUi3sSP2qD/Hj1ilg29/V1ajGqN3QzGjwgUr9yCNcr4VHdbXGnYJ2+thHk/TUlmXV8F09u0Q==
+azure-maps-control@^3.0.0-preview.7:
+  version "3.0.0-preview.7"
+  resolved "https://registry.yarnpkg.com/azure-maps-control/-/azure-maps-control-3.0.0-preview.7.tgz#7e96a5adb8f537a19a214c5e3ace433ddae62c89"
+  integrity sha512-PedAjZ8rUQcMXktT1ylnq+Rx+mIsRXVcxmcP9204sjPzH09tl8JC+EDPwt0y2XQ5y1jKussjv8aoteA/bLNrzw==
   dependencies:
     "@azure/msal-browser" "^2.32.1"
 
