@@ -122,6 +122,18 @@ authOptions: {
 }
 ```
 
+```javascript
+// SAS Token
+authOptions: {
+    authType: AuthenticationType.sas,
+    getToken: (resolve, reject) => {
+        // URL to your authentication service that retrieves a SAS Token.
+        var tokenServiceUrl = "https://example.com/api/GetSASToken";
+        fetch(tokenServiceUrl).then(r => r.text()).then(token => resolve(token));
+    }
+}
+```
+
 ## Local development with [Playground Package](https://github.com/Azure/react-azure-maps-playground)
 
 If you want to do some local development using [Playground Package](https://github.com/Azure/react-azure-maps-playground) with local link to the package, you need to make the following steps:
