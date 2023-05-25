@@ -95,6 +95,33 @@ const DefaultMap: React.FC = () => (
 export default DefaultMap
 ```
 
+## Authentication
+
+The subscription key is intended for development environments only and must not be utilized in a production application. Azure Maps provides various authentication options for applications to use. See [here](https://learn.microsoft.com/en-us/azure/azure-maps/how-to-manage-authentication) for more details.
+
+```javascript
+// AAD
+authOptions: {
+    authType: AuthenticationType.aad,
+    clientId: '...',
+    aadAppId: '...',
+    aadTenant: '...'
+}
+```
+
+```javascript
+// Anonymous
+authOptions: {
+    authType: AuthenticationType.anonymous,
+    clientId: '...',
+    getToken: (resolve, reject) => {
+        // URL to your authentication service that retrieves an Azure Active Directory Token.
+        var tokenServiceUrl = "https://example.com/api/GetAzureMapsToken";
+        fetch(tokenServiceUrl).then(r => r.text()).then(token => resolve(token));
+    }
+}
+```
+
 ## Local development with [Playground Package](https://github.com/Azure/react-azure-maps-playground)
 
 If you want to do some local development using [Playground Package](https://github.com/Azure/react-azure-maps-playground) with local link to the package, you need to make the following steps:
