@@ -1,5 +1,5 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
-import atlas from 'azure-maps-control'
+import React, { memo, useContext, useEffect, useState, useRef } from 'react'
+import atlas, { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
@@ -27,10 +27,15 @@ const AzureMap = memo(
     styleOptions,
     serviceOptions
   }: IAzureMap) => {
-    const { setMapRef, removeMapRef, mapRef, setMapReady, isMapReady } = useContext<
-      IAzureMapsContextProps
-    >(AzureMapsContext)
+    const {
+      setMapRef,
+      removeMapRef,
+      mapRef,
+      setMapReady,
+      isMapReady
+    } = useContext<IAzureMapsContextProps>(AzureMapsContext)
     const [mapId] = useState(providedMapId || Guid.create().toString())
+    const mapRefSource = useRef<Map | null>(null)
     useEffect(() => {
       if (mapRef) {
         mapRef.setTraffic(trafficOptions)
@@ -61,7 +66,7 @@ const AzureMap = memo(
       }
     }, [serviceOptions])
 
-    useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
+    useCheckRef<MapType, MapType>(mapRef, mapRef, (mref) => {
       mref.events.add('ready', () => {
         if (imageSprites) {
           createImageSprites(mref, imageSprites)
@@ -95,7 +100,10 @@ const AzureMap = memo(
     })
 
     useEffect(() => {
-      setMapRef(new atlas.Map(mapId, options))
+      if (mapRefSource.current === null) {
+        mapRefSource.current = new atlas.Map(mapId, options)
+      }
+      setMapRef(mapRefSource.current)
       return () => {
         removeMapRef()
       }
