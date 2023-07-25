@@ -13,11 +13,11 @@
     "maps",
     "react-azure-maps"
   ],
-  "module": "dist/react-azure-maps.es5.js",
+  "main": "dist/react-azure-maps.es5.js",
   "types": "dist/types/react-azure-maps.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/react-azure-maps.es5.js",
+      "require": "./dist/react-azure-maps.es5.js",
       "types": "./dist/types/react-azure-maps.d.ts"
     }
   },
