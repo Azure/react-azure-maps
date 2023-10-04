@@ -20,6 +20,12 @@ or
 yarn add react-azure-maps
 ```
 
+## Styling
+Embed the following css to your application. The stylesheet is required for the marker, popup and control components in `react-azure-maps` to work properly.
+```javascript
+import 'azure-maps-control/dist/atlas.min.css'
+```
+
 ## Documentation
 
 Documentation is available [Documentation](https://react-azure-maps.now.sh)
@@ -29,6 +35,7 @@ Generated documentation from typedoc is available [Documentation](https://azure.
 ## Compatibility with azure-maps-controls
 
 ```
+1.0.0 - 3.0.0
 0.2.0 - 2.0.32
 0.1.4 - 2.0.31
 0.1.3 - 2.0.25
@@ -110,6 +117,18 @@ authOptions: {
     getToken: (resolve, reject) => {
         // URL to your authentication service that retrieves an Azure Active Directory Token.
         var tokenServiceUrl = "https://example.com/api/GetAzureMapsToken";
+        fetch(tokenServiceUrl).then(r => r.text()).then(token => resolve(token));
+    }
+}
+```
+
+```javascript
+// SAS Token
+authOptions: {
+    authType: AuthenticationType.sas,
+    getToken: (resolve, reject) => {
+        // URL to your authentication service that retrieves a SAS Token.
+        var tokenServiceUrl = "https://example.com/api/GetSASToken";
         fetch(tokenServiceUrl).then(r => r.text()).then(token => resolve(token));
     }
 }
