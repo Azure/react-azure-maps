@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { AzureMap, AzureMapsProvider, AuthenticationType } from '../dist/react-azure-maps.es5'
+import 'azure-maps-control/dist/atlas.min.css'
 
 const option = {
   authOptions: {
