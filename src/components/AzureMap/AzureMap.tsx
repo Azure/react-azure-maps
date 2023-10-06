@@ -99,11 +99,11 @@ const AzureMap = memo(
 
     useEffect(() => {
       if (mapRefSource.current === null) {
-        if (!options.sessionId) {
+        mapRefSource.current = new atlas.Map(mapId, {
+          ...(options || {}),
           // Assign default session ID with a prefix
-          atlas.setSessionId(`react-azure-maps:${Guid.create().toString()}`)
-        }
-        mapRefSource.current = new atlas.Map(mapId, options)
+          sessionId: options?.sessionId || `react-azure-maps:${Guid.create().toString()}`
+        })
       }
       setMapRef(mapRefSource.current)
       return () => {
