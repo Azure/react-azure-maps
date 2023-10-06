@@ -3,8 +3,6 @@ import atlas, { Map } from 'azure-maps-control'
 import { IAzureMap, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { Guid } from 'guid-typescript'
-import 'azure-maps-control/dist/atlas.min.css'
-import 'mapbox-gl/dist/mapbox-gl.css'
 import { useCheckRef } from '../../hooks/useCheckRef'
 import { createImageSprites } from './useCreateSprites'
 import { createMapControls, createMapCustomControls } from './useCreateMapControls'
@@ -101,6 +99,10 @@ const AzureMap = memo(
 
     useEffect(() => {
       if (mapRefSource.current === null) {
+        if (!options.sessionId) {
+          // Assign default session ID with a prefix
+          atlas.setSessionId(`react-azure-maps:${Guid.create().toString()}`)
+        }
         mapRefSource.current = new atlas.Map(mapId, options)
       }
       setMapRef(mapRefSource.current)

@@ -8,13 +8,11 @@ import atlas, {
   ZoomControlOptions
 } from 'azure-maps-control'
 
-
-
 export const createMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
   controls.forEach((control: IAzureMapControls) => {
     const { controlName, options, controlOptions } = control
     mapRef.controls.add(
-      createControl(controlName, controlOptions) as atlas.ControlBase,
+      createControl(controlName, controlOptions) as atlas.control.ControlBase,
       options as ControlOptions
     )
   })
@@ -23,7 +21,7 @@ export const createMapControls = (mapRef: MapType, controls: IAzureMapControls[]
 export const createControl = (
   type: string,
   options?: ControlOptions
-): atlas.ControlBase | undefined => {
+): atlas.control.ControlBase | undefined => {
   switch (type) {
     case 'CompassControl':
       return new atlas.control.CompassControl(options as CompassControlOptions)
@@ -50,4 +48,3 @@ export const createMapCustomControls = (
     mapRef.controls.add(control, controlOptions)
   })
 }
-
