@@ -43,7 +43,7 @@ Generated documentation from typedoc is available [Documentation](https://azure.
 
 ## Playground
 
-`React Azure Maps` have a fully documented [Playground Package](https://github.com/Azure/react-azure-maps-playground) that implements a lot of features from [Azure Maps Code Samples](https://azuremapscodesamples.azurewebsites.net/). If you implement new usage of the map and want to be contributor just create a PR.
+`React Azure Maps` have a fully documented [Playground Package](https://github.com/Azure/react-azure-maps-playground) that implements a lot of features from [Azure Maps Code Samples](https://samples.azuremaps.com/). If you implement new usage of the map and want to be contributor just create a PR.
 
 ## Library Implementation Details
 
