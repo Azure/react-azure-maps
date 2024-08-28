@@ -42,13 +42,13 @@
     "build:clean": "rimraf dist",
     "build:code": "cross-env NODE_ENV=production rollup --config",
     "build:types": "tsc --emitDeclarationOnly",
-    "build": "yarn build:types && yarn build:code",
+    "build": "npm run build:types && npm run build:code",
     "test": "jest --coverage --env=jsdom",
     "test:watch": "jest --coverage --watch --env=jsdom",
     "test:prod": "npm run lint && npm run test -- --no-cache",
     "dev:code": "cross-env NODE_ENV=development rollup --config --watch",
     "preview:react": "npx parcel preview/react-preview.html --out-dir preview-build --open --no-cache",
-    "dev": "concurrently 'yarn:dev:code' 'yarn:preview:react'"
+    "dev": "concurrently 'npm:dev:code' 'npm:preview:react'"
   },
   "husky": {
     "hooks": {
@@ -98,6 +98,7 @@
     "babel-preset-env": "^1.7.0",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
+    "deasync": "^0.1.30",
     "eslint": "^7.14.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.2",
