@@ -91,7 +91,9 @@ module.exports = {
     StyleControl: jest.fn(() => ({ styleOption: 'option' })),
     ZoomControl: jest.fn(() => ({ zoomOption: 'option' })),
     TrafficControl: jest.fn(() => ({ trafficOption: 'option' })),
-    TrafficLegendControl: jest.fn(() => ({ trafficLegendOption: 'option' }))
+    TrafficLegendControl: jest.fn(() => ({ trafficLegendOption: 'option' })),
+    ScaleControl: jest.fn(() => ({ scaleOption: 'option' })),
+    FullscreenControl: jest.fn(() => ({ fullscreenOption: 'option' }))
   },
   layer: {
     ImageLayer: jest.fn((options, id) => ({ layer: 'ImageLayer', options, id })),

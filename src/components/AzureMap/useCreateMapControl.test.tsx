@@ -86,6 +86,16 @@ describe('Control hooks', () => {
       expect(createdControl).toEqual({ trafficLegendOption: 'option' })
     })
 
+    it('should return ScaleBarControl if type equal ScaleBarControl', () => {
+      const createdControl = createControl('ScaleControl', {})
+      expect(createdControl).toEqual({ scaleOption: 'option' })
+    })
+
+    it('should return FullScreenControl if type equal FullScreenControl', () => {
+      const createdControl = createControl('FullscreenControl', {})
+      expect(createdControl).toEqual({ fullscreenOption: 'option' })
+    })
+
     it('should return undefined if there is no control with type', () => {
       const createdControl = createControl('SomeOtherType', {})
       expect(createdControl).toEqual(undefined)
