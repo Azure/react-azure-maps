@@ -5,7 +5,9 @@ import atlas, {
   PitchControlOptions,
   StyleControlOptions,
   TrafficControlOptions,
-  ZoomControlOptions
+  ZoomControlOptions,
+  ScaleControlOptions,
+  FullscreenControlOptions
 } from 'azure-maps-control'
 
 export const createMapControls = (mapRef: MapType, controls: IAzureMapControls[]) => {
@@ -35,6 +37,10 @@ export const createControl = (
       return new atlas.control.TrafficControl(options as TrafficControlOptions)
     case 'TrafficLegendControl':
       return new atlas.control.TrafficLegendControl()
+    case 'ScaleControl':
+      return new atlas.control.ScaleControl(options as ScaleControlOptions)
+    case 'FullscreenControl':
+      return new atlas.control.FullscreenControl(options as FullscreenControlOptions)
     default:
       console.warn('Check the type and passed props properties or try CustomControl')
   }
