@@ -199,19 +199,27 @@ export type IAzureMapLifecycleEvent = {
   [property in IAzureMapLayerLifecycleEvents]: (e: atlas.layer.Layer) => void
 }
 
+export interface IAzureLayerStatefulProviderOptions
+  extends SymbolLayerOptions,
+    HeatMapLayerOptions,
+    ImageLayerOptions,
+    LineLayerOptions,
+    PolygonExtrusionLayerOptions,
+    PolygonLayerOptions,
+    TileLayerOptions,
+    BubbleLayerOptions,
+    LayerOptions {
+  opacity: HeatMapLayerOptions['opacity'] &
+    ImageLayerOptions['opacity'] &
+    TileLayerOptions['opacity']
+  color: HeatMapLayerOptions['color'] & BubbleLayerOptions['color']
+  radius: HeatMapLayerOptions['radius'] & BubbleLayerOptions['radius']
+  fillOpacity: PolygonExtrusionLayerOptions['fillOpacity'] & PolygonLayerOptions['fillOpacity']
+}
+
 export type IAzureLayerStatefulProviderProps = {
   id?: string
-  options?:
-    | (SymbolLayerOptions &
-        HeatMapLayerOptions &
-        ImageLayerOptions &
-        LineLayerOptions &
-        PolygonExtrusionLayerOptions &
-        PolygonLayerOptions &
-        TileLayerOptions &
-        BubbleLayerOptions &
-        LayerOptions)
-    | Options
+  options?: IAzureLayerStatefulProviderOptions | Options
   type: IAzureMapLayerType
   events?: IAzureMapLayerEvent | any
   onCreateCustomLayer?: (dataSourceRef: DataSourceType, mapRef: MapType | null) => atlas.layer.Layer
