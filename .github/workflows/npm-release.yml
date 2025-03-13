@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: npm ci --legacy-peer-deps
+      - run: npm ci
       - run: npm run build --if-present --isNpmBuild
       - run: npm publish --access=public --tag=beta
         env:
