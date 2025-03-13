@@ -43,7 +43,7 @@
     "build:code": "cross-env NODE_ENV=production rollup --config",
     "build:types": "tsc --emitDeclarationOnly",
     "build": "npm run build:types && npm run build:code",
-    "test": "jest --coverage --env=jsdom",
+    "test": "npx jest --coverage --env=jsdom",
     "test:watch": "jest --coverage --watch --env=jsdom",
     "test:prod": "npm run lint && npm run test -- --no-cache",
     "dev:code": "cross-env NODE_ENV=development rollup --config --watch",
@@ -89,11 +89,11 @@
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-replace": "^2.3.4",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^13.3.0",
+    "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
     "azure-maps-control": "^3.5.0",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^5.3.0",
@@ -104,9 +104,9 @@
     "lint-staged": "^10.5.2",
     "parcel-bundler": "1.12.3",
     "prettier": "^2.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "4.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1",
     "rollup": "^2.33.3",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -121,8 +121,8 @@
   },
   "peerDependencies": {
     "azure-maps-control": "^3.5.0",
-    "react": "^17.0.2 || ^18.0.0",
-    "react-dom": "^17.0.2 || ^18.0.0"
+    "react": "^17.0.2 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.2 || ^18.0.0 || ^19.0.0"
   },
   "dependencies": {
     "guid-typescript": "^1.0.9"
