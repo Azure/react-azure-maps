@@ -2,8 +2,9 @@ import { useState, useEffect, useContext } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import atlas from 'azure-maps-control'
 
-import { IAzureMapPopup, IAzureMapsContextProps } from '../../types'
+import { IAzureMapPopup, IAzureMapsContextProps, MapType } from '../../types'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
+import { useCheckRef } from '../../hooks/useCheckRef'
 export const useCreatePopup = ({
   options,
   popupContent,
@@ -14,6 +15,10 @@ export const useCreatePopup = ({
   )
   const { mapRef } = useContext<IAzureMapsContextProps>(AzureMapsContext)
 
+  useCheckRef<MapType, MapType>(mapRef, mapRef, mref => {
+    mref.events.addOnce('ready', () => mref.popups.add(popupRef))
+  })
+  
   useEffect(() => {
     popupRef.setOptions({
       ...options,
