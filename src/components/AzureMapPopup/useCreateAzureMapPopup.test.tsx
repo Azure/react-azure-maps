@@ -1,25 +1,31 @@
 import { ReactNode } from 'react'
 import { renderHook } from '@testing-library/react'
-import { Map } from 'azure-maps-control'
 import React from 'react'
 import { AzureMapsContext } from '../../contexts/AzureMapContext'
 import { useCreatePopup } from './useCreateAzureMapPopup'
+import { MapType } from '../../types'
 
 const mapContextProps = {
-  mapRef: null,
   isMapReady: false,
   setMapReady: jest.fn(),
   removeMapRef: jest.fn(),
   setMapRef: jest.fn()
 }
-const mapRef = new Map('fake', {})
+const mapRef = {
+  events: {
+    addOnce: jest.fn()
+  },
+  popups: {
+    add: jest.fn()
+  }
+}
 
 const wrapWithAzureMapContext = ({ children }: { children?: ReactNode | null }) => {
   return (
     <AzureMapsContext.Provider
       value={{
         ...mapContextProps,
-        mapRef
+        mapRef: mapRef as unknown as MapType,
       }}
     >
       {children}
